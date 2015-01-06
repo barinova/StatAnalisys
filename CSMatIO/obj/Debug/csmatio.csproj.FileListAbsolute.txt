@@ -1,0 +1,14 @@
+C:\Users\admin\Documents\Visual Studio 2013\Projects\CSMatIO\src\bin\Debug\csmatio.dll
+C:\Users\admin\Documents\Visual Studio 2013\Projects\CSMatIO\src\bin\Debug\csmatio.pdb
+C:\Users\admin\Documents\Visual Studio 2013\Projects\CSMatIO\src\bin\Debug\csmatio.xml
+C:\Users\admin\Documents\Visual Studio 2013\Projects\CSMatIO\src\bin\Debug\zlib.net.dll
+C:\Users\admin\Documents\Visual Studio 2013\Projects\CSMatIO\src\obj\Debug\csmatio.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2013\Projects\CSMatIO\src\obj\Debug\csmatio.dll
+C:\Users\admin\Documents\Visual Studio 2013\Projects\CSMatIO\src\obj\Debug\csmatio.pdb
+C:\Users\admin\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\bin\Debug\csmatio.dll
+C:\Users\admin\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\bin\Debug\csmatio.pdb
+C:\Users\admin\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\bin\Debug\csmatio.xml
+C:\Users\admin\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\bin\Debug\zlib.net.dll
+C:\Users\admin\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\obj\Debug\csmatio.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\obj\Debug\csmatio.dll
+C:\Users\admin\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\obj\Debug\csmatio.pdb
