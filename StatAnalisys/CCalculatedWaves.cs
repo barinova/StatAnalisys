@@ -38,6 +38,15 @@ namespace StatAnalisys
     class CCalculatedWaves
     {
         List<CSingleWave> waves = new  List<CSingleWave>();
+
+        public CSingleWave this[int index]
+        { 
+            get
+            {
+                return waves.ElementAt(index);
+            }
+        }
+
         public void calculateDatas(double[] arrT, double[][] arrS)
         {
             for (int i = 0; i < arrS.Count(); i++)
@@ -53,51 +62,49 @@ namespace StatAnalisys
 
     class CSingleWave
     {
-
         List<waveData> listCalculatedDatas = new List<waveData>();
         heights listHeightsZDC;
         heights listHeightsZUC;
         List<probability> listProbabilitiesZDC = new List<probability>();
         List<probability> listProbabilitiesZUC = new List<probability>();
-        List<waveData> calculatingWaves;
-        
-        List<double> listHeihtsZDC = new List<double>();
-        List<double> listHeihtsZUC = new List<double>();
-        List<double> listCrestAZDC = new List<double>();
-        List<double> listCrestAZUC = new List<double>();
-        List<double> listThroughAZDC = new List<double>();
-        List<double> listThroughAZUC = new List<double>();
+        public List<waveData> calculatingWaves = new List<waveData>();
 
+        public List<double> listHeihtsZDC = new List<double>();
+        public List<double> listHeihtsZUC = new List<double>();
+        public List<double> listCrestAZDC = new List<double>();
+        public List<double> listCrestAZUC = new List<double>();
+        public List<double> listThroughAZDC = new List<double>();
+        public List<double> listThroughAZUC = new List<double>();
 
-        List<waveData> calculatedDatas
+        public List<waveData> calculatedDatas
         {
             get
             {
                 return listCalculatedDatas;
             }
         }
-        heights heightsZDC
+        public heights heightsZDC
         {
             get
             {
                 return listHeightsZDC;
             }
         }
-        heights heightsZUC
+        public heights heightsZUC
         {
             get
             {
                 return listHeightsZUC;
             }
         }
-        List<probability> probabilitiesZDC
+        public List<probability> probabilitiesZDC
         {
             get
             {
                 return listProbabilitiesZDC;
             }
         }
-        List<probability> probabilitiesZUC
+        public List<probability> probabilitiesZUC
         {
             get
             {
@@ -288,10 +295,10 @@ namespace StatAnalisys
 
                     newWave = getSingleWave(i, type, arrT, arrS);
                     
-                    if(newWave.totalHeight != null)
+                    if(newWave.totalHeight == null)
                     {
                         setHeights(listHeihtsZDC, listHeihtsZUC);
-                        continue;
+                        return true;
                     }
                     calculatingWaves.Add(newWave);
                 }

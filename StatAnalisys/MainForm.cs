@@ -22,6 +22,7 @@ namespace StatAnalisys
         public MainForm()
         {
             InitializeComponent();
+            chartGeneralGraphic.Series[0]["PixelPointWidth"] = "1";
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -62,8 +63,14 @@ namespace StatAnalisys
                         }
                     }
 
+
+                    this.Cursor = Cursors.WaitCursor;
+
                     updateComboBoxNumberWaveValues(arrayS.Count());
                     calculateWavesDatas();
+
+                    this.Cursor = Cursors.Default;
+                    zoomInGraphic();
                 }
                 catch (System.IO.IOException)
                 {
@@ -75,6 +82,11 @@ namespace StatAnalisys
             }
         }
 
+        private void zoomInGraphic()
+        {
+
+            chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.Zoom(-3, 3);
+        }
         private void comboBoxNumWave_SelectedIndexChanged(object sender, EventArgs e)
         {
             int indexWave = comboBoxNumWave.SelectedIndex;
@@ -91,6 +103,46 @@ namespace StatAnalisys
                     chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i], heights[i]);
                 }
             }
+        }
+        private void chartGeneralGraphic_MouseWheel(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                double xMin = chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
+                double xMax = chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
+                double yMin = chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.ViewMinimum;
+                double yMax = chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.ViewMaximum;
+
+                double posXStart = chartGeneralGraphic.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin);
+                double posXFinish = chartGeneralGraphic.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin);
+                double posYStart = chartGeneralGraphic.ChartAreas[0].AxisY.PixelPositionToValue(e.Location.Y) - (yMax - yMin);
+                double posYFinish = chartGeneralGraphic.ChartAreas[0].AxisY.PixelPositionToValue(e.Location.Y) + (yMax - yMin);
+                
+                if (e.Delta < 0)
+                {
+                    chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart * 4, posXFinish * 4);
+                    chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.Zoom(posYStart * 4, posYFinish * 4);
+                }
+
+                if (e.Delta > 0)
+                {
+                    chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart / 4, posXFinish / 4);
+                    chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.Zoom(posYStart / 4, posYFinish / 4);
+                }
+
+            }
+            catch { }
+        }
+        private void chartGeneralGraphic_MouseLeave(object sender, EventArgs e)
+        {
+            if (chartGeneralGraphic.Focused)
+                chartGeneralGraphic.Parent.Focus();
+        }
+
+        private void chartGeneralGraphic_MouseEnter(object sender, EventArgs e)
+        {
+            if (!chartGeneralGraphic.Focused)
+                chartGeneralGraphic.Focus();
         }
 
         //update possible number of wave
@@ -115,8 +167,66 @@ namespace StatAnalisys
 
             if (indexWave > -1)
             {
-                
+                CSingleWave wave = arrayWaves[indexWave];
+                renderingTroughsAndRidges(wave);
+                panelGraphic.Enabled = true;
             }
         }
+
+        private void renderingTroughsAndRidges(CSingleWave wave)
+        {
+            List<waveData> listWavesDatas = wave.calculatingWaves;
+
+            if (listWavesDatas != null)
+            {
+                waveData param;
+                chartGeneralGraphic.Series[1].Font = new Font("Arial", 7);
+                chartGeneralGraphic.Series[1].Color = System.Drawing.Color.Green;
+
+                for (int i = 0; i < listWavesDatas.Count() - 1; i++)
+                {
+                    param = listWavesDatas.ElementAt(i);
+                    int indS;
+                    if (param.ridge < param.trough)
+                    {
+                        indS = chartGeneralGraphic.Series[1].Points.AddXY(param.ridge, param.amplMax);
+                        chartGeneralGraphic.Series[1].Points[indS].Label = Math.Round(param.amplMax, 3).ToString();
+                    }
+                    else
+                    {
+                        indS = chartGeneralGraphic.Series[1].Points.AddXY(param.trough, param.amplMin);
+                        chartGeneralGraphic.Series[1].Points[indS].Label = Math.Round(param.amplMin, 3).ToString();
+                    }
+
+                }
+            }
+        }
+
+        private void buttonZoomReset_Click(object sender, EventArgs e)
+        {
+            chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.ZoomReset();
+            chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.ZoomReset();
+        }
+
+        private void buttonOpenGraphic_Click(object sender, EventArgs e)
+        {
+            int index = comboBoxNumWave.SelectedIndex;
+
+            if (index > -1)
+            {
+                // 0 - heights diagram
+                if (index == 0)
+                {
+                    CSingleWave wave = arrayWaves[index];
+                    CHeightsDiagram diagHeights = new CHeightsDiagram();
+                    diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
+                        wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
+                    diagHeights.Show();
+                }
+            }
+        }
+
+
+
     }
 }
