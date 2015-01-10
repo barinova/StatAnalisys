@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StatAnalisys
 {
-    enum typeCrossing { ZDC, ZUC};
+    public enum typeCrossing { ZDC, ZUC};
     struct waveData
     {
         public typeCrossing type;
@@ -20,7 +20,7 @@ namespace StatAnalisys
         public double trough;
         public double ridge;
     }
-    struct probability
+    public struct probability
     {
         public double H;
         public double experP;
@@ -38,7 +38,6 @@ namespace StatAnalisys
     class CCalculatedWaves
     {
         List<CSingleWave> waves = new  List<CSingleWave>();
-
         public CSingleWave this[int index]
         { 
             get
@@ -65,8 +64,8 @@ namespace StatAnalisys
         List<waveData> listCalculatedDatas = new List<waveData>();
         heights listHeightsZDC;
         heights listHeightsZUC;
-        List<probability> listProbabilitiesZDC = new List<probability>();
-        List<probability> listProbabilitiesZUC = new List<probability>();
+        public List<probability> listProbabilitiesZDC = new List<probability>();
+        public List<probability> listProbabilitiesZUC = new List<probability>();
         public List<waveData> calculatingWaves = new List<waveData>();
 
         public List<double> listHeihtsZDC = new List<double>();
@@ -234,10 +233,10 @@ namespace StatAnalisys
             double heightSignificant = 0;
             size = 2 * (listHeights.Count()/3);
             double tmp = listHeights.Count() - size;
-            if (listHeights.Count() > 1)
+            /*if (listHeights.Count() > 1)
             {
                 quickSort(listHeights, 0, listHeights.Count() - 1);
-            }
+            }*/
 
             for(int i = size; i < listHeights.Count(); i++)
             {
@@ -295,15 +294,82 @@ namespace StatAnalisys
 
                     newWave = getSingleWave(i, type, arrT, arrS);
                     
-                    if(newWave.totalHeight == null)
+                    if(newWave.totalHeight == 0.0)
                     {
                         setHeights(listHeihtsZDC, listHeihtsZUC);
+                        calculateProbabilities();
                         return true;
                     }
                     calculatingWaves.Add(newWave);
                 }
             }
+
+            calculateProbabilities();
             return true;
         }
+
+        void calculateProbabilities()
+        {
+            setListProbabilities(listHeihtsZDC, listCrestAZDC, listThroughAZDC, typeCrossing.ZDC);
+            setListProbabilities(listHeihtsZUC, listCrestAZUC, listThroughAZUC, typeCrossing.ZUC);
+        }
+        private void setListProbabilities(List<double> listH, List<double> listCA,
+                                         List<double> listTA, typeCrossing type)
+        {
+            probability obj;
+            double waveFrequency, signH, N;
+            heights h;
+
+            List<double> listHeights = new List<double>(listH);
+            List<double> listCrestA = new List<double>(listCA);
+            List<double> listThroughA = new List<double>(listTA);
+
+            N = listHeights.Count();
+            if (type == typeCrossing.ZDC)
+            {
+                h = listHeightsZDC;
+            }
+            else
+            {
+                h = listHeightsZUC;
+            }
+
+            if (N > 1)
+            {
+                quickSort(listHeights, 0, (int)N - 1);
+            }
+
+            if (listCrestA.Count() > 1)
+            {
+                quickSort(listCrestA, 0, listCrestA.Count() - 1);
+            }
+            
+            if (listThroughA.Count() > 1)
+            {
+                quickSort(listThroughA, 0, listThroughA.Count() - 1);
+            }
+
+            for(int i = 0; i < N; i++)
+            {
+                signH = Math.Pow(h.significantHeight,2);
+                waveFrequency = (N-i)/N;
+                obj.H = listHeights[i];
+                obj.experP = waveFrequency;
+                //obj.teorP = exp(-obj.H * obj.H/(8*h.at(type).sigma * h.at(type).sigma));
+                obj.crestP = Math.Exp(- 2 * Math.Pow(2 * listCrestA[i]/h.significantHeight, 2));
+                obj.troughP = Math.Exp(-2 * Math.Pow(2 * listThroughA[i] / h.significantHeight, 2));
+                obj.teorP = Math.Exp(-obj.H * obj.H / (8 * h.sigma * h.sigma));
+
+                if (type == typeCrossing.ZDC)
+                {
+                    listProbabilitiesZDC.Add(obj);
+                }
+                else
+                {
+                    listProbabilitiesZUC.Add(obj);
+                }
+            }
+        }
+
     }
 }

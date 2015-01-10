@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Windows.Forms.DataVisualization.Charting;
 namespace StatAnalisys
 {
     public partial class CHeightsDiagram : Form
@@ -19,10 +19,14 @@ namespace StatAnalisys
             chartZUCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZDCHeights.Series[0].Color = Color.Red;
             chartZUCHeights.Series[0].Color = Color.Red;
-            chartZDCHeights.Series[1].Color = Color.Pink;
-            chartZUCHeights.Series[1].Color = Color.Pink;
+            chartZDCHeights.Series[1].Color = Color.Orange;
+            chartZUCHeights.Series[1].Color = Color.Orange; 
+            chartZDCHeights.Series[2].Color = Color.Lime;
+            chartZUCHeights.Series[2].Color = Color.Lime;
             chartZDCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
-            chartZUCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
+            chartZUCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true; 
+            chartZDCHeights.Series[0].Font = new Font("Arial", 7);
+            chartZUCHeights.Series[0].Font = new Font("Arial", 7);
         }
 
         public void renderHeights(double listHeightsZDCThird, double listHeightsZDCSign, double listHeightsZUCThird,
@@ -47,8 +51,53 @@ namespace StatAnalisys
             textBoxHeightsThirdZUC.Text = listHeightsZUCThird.ToString();
             textBoxHeightsSighZUC.Text = listHeightsZUCSign.ToString();
 
-            chartZDCHeights.Series[1].Points.Add(listHeightsZDCSign);
-            chartZUCHeights.Series[1].Points.Add(listHeightsZUCSign);
+            drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Orange);
+            drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.Lime);
+            drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Orange);
+            drawStripLine(chartZUCHeights, listHeightsZUCThird, Color.Lime);
+            //chartZUCHeights.Series[1].Points.Add(listHeightsZUCSign);
+        }
+        private void drawStripLine(Chart chart, double y, Color color)
+        {
+            StripLine stripLine = new StripLine();
+            stripLine.IntervalOffset = y;
+            stripLine.BackColor = color;
+            stripLine.StripWidth = 0.01;
+            chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
+        }
+        private void chartGeneralGraphic_MouseWheel(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                Chart chart = (Chart)sender;
+                MainForm.zoom(e, chart.ChartAreas[0], 2);
+            }
+            catch { }
+
+        }
+
+        private void chartZDCHeights_MouseLeave(object sender, EventArgs e)
+        {
+            if (chartZDCHeights.Focused)
+                chartZDCHeights.Parent.Focus();
+        }
+
+        private void chartZDCHeights_MouseEnter(object sender, EventArgs e)
+        {
+            if (!chartZDCHeights.Focused)
+                chartZDCHeights.Focus();
+        }
+
+        void chartZUCHeights_MouseLeave(object sender, EventArgs e)
+        {
+            if (chartZUCHeights.Focused)
+                chartZUCHeights.Parent.Focus();
+        }
+
+        private void chartZUCHeights_MouseEnter(object sender, EventArgs e)
+        {
+            if (!chartZUCHeights.Focused)
+                chartZUCHeights.Focus();
         }
     }
 }

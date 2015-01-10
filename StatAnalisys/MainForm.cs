@@ -22,12 +22,11 @@ namespace StatAnalisys
         public MainForm()
         {
             InitializeComponent();
-            chartGeneralGraphic.Series[0]["PixelPointWidth"] = "1";
+            chartGeneralGraphic.Series[1]["PixelPointWidth"] = "1";
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,6 +44,7 @@ namespace StatAnalisys
                 txtOutput.Text = txtOutput.Text + "Attempting to read the file '" + fileName + "'...";
                 try
                 {
+                    this.Cursor = Cursors.WaitCursor;
                     MatFileReader mfr = new MatFileReader(fileName);
                     txtOutput.Text += "Done!\nMAT-file contains the following:\n";
                     txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
@@ -63,17 +63,14 @@ namespace StatAnalisys
                         }
                     }
 
-
-                    this.Cursor = Cursors.WaitCursor;
-
                     updateComboBoxNumberWaveValues(arrayS.Count());
                     calculateWavesDatas();
 
                     this.Cursor = Cursors.Default;
-                    zoomInGraphic();
                 }
                 catch (System.IO.IOException)
                 {
+                    this.Cursor = Cursors.Default;
                     txtOutput.Text = txtOutput.Text + "Invalid MAT-file!\n";
                     MessageBox.Show("Invalid binary MAT-file! Please select a valid binary MAT-file.",
                         "Invalid MAT-file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -82,11 +79,6 @@ namespace StatAnalisys
             }
         }
 
-        private void zoomInGraphic()
-        {
-
-            chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.Zoom(-3, 3);
-        }
         private void comboBoxNumWave_SelectedIndexChanged(object sender, EventArgs e)
         {
             int indexWave = comboBoxNumWave.SelectedIndex;
@@ -104,32 +96,35 @@ namespace StatAnalisys
                 }
             }
         }
+        public static void zoom(MouseEventArgs e, System.Windows.Forms.DataVisualization.Charting.ChartArea area, int delta)
+        {
+            double xMin = area.AxisX.ScaleView.ViewMinimum;
+            double xMax = area.AxisX.ScaleView.ViewMaximum;
+            double yMin = area.AxisY.ScaleView.ViewMinimum;
+            double yMax = area.AxisY.ScaleView.ViewMaximum;
+
+            double posXStart = area.AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin);
+            double posXFinish = area.AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin);
+            double posYStart = area.AxisY.PixelPositionToValue(e.Location.Y) - (yMax - yMin);
+            double posYFinish = area.AxisY.PixelPositionToValue(e.Location.Y) + (yMax - yMin);
+
+            if (e.Delta < 0)
+            {
+                area.AxisX.ScaleView.Zoom(posXStart * delta, posXFinish * delta);
+                area.AxisY.ScaleView.Zoom(posYStart * delta, posYFinish * delta);
+            }
+
+            if (e.Delta > 0)
+            {
+                area.AxisX.ScaleView.Zoom(posXStart / delta, posXFinish / delta);
+                area.AxisY.ScaleView.Zoom(posYStart / delta, posYFinish / delta);
+            }
+        }
         private void chartGeneralGraphic_MouseWheel(object sender, MouseEventArgs e)
         {
             try
             {
-                double xMin = chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
-                double xMax = chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
-                double yMin = chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.ViewMinimum;
-                double yMax = chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.ViewMaximum;
-
-                double posXStart = chartGeneralGraphic.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin);
-                double posXFinish = chartGeneralGraphic.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin);
-                double posYStart = chartGeneralGraphic.ChartAreas[0].AxisY.PixelPositionToValue(e.Location.Y) - (yMax - yMin);
-                double posYFinish = chartGeneralGraphic.ChartAreas[0].AxisY.PixelPositionToValue(e.Location.Y) + (yMax - yMin);
-                
-                if (e.Delta < 0)
-                {
-                    chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart * 4, posXFinish * 4);
-                    chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.Zoom(posYStart * 4, posYFinish * 4);
-                }
-
-                if (e.Delta > 0)
-                {
-                    chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart / 4, posXFinish / 4);
-                    chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.Zoom(posYStart / 4, posYFinish / 4);
-                }
-
+                zoom(e, chartGeneralGraphic.ChartAreas[0], 2);
             }
             catch { }
         }
@@ -210,18 +205,30 @@ namespace StatAnalisys
 
         private void buttonOpenGraphic_Click(object sender, EventArgs e)
         {
-            int index = comboBoxNumWave.SelectedIndex;
+            int index = comboBoxGraphic.SelectedIndex;
 
             if (index > -1)
             {
+                CSingleWave wave = arrayWaves[index];
                 // 0 - heights diagram
-                if (index == 0)
+                switch (index)
                 {
-                    CSingleWave wave = arrayWaves[index];
-                    CHeightsDiagram diagHeights = new CHeightsDiagram();
-                    diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
-                        wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
-                    diagHeights.Show();
+                    case 0:
+                        {
+                            CHeightsDiagram diagHeights = new CHeightsDiagram();
+                            diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
+                                wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
+                            diagHeights.Show();
+                            break;
+                        }
+                    case 1:
+                        {
+                            CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
+                            diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC);
+                            diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC);
+                            diagProbabilities.Show();
+                            break;
+                        }
                 }
             }
         }

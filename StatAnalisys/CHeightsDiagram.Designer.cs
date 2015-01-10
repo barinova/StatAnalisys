@@ -80,9 +80,12 @@
             this.chartZDCHeights.Series.Add(series1);
             this.chartZDCHeights.Series.Add(series2);
             this.chartZDCHeights.Series.Add(series3);
-            this.chartZDCHeights.Size = new System.Drawing.Size(700, 200);
+            this.chartZDCHeights.Size = new System.Drawing.Size(1076, 245);
             this.chartZDCHeights.TabIndex = 0;
             this.chartZDCHeights.Text = "chartHeightsZDC";
+            this.chartZDCHeights.MouseEnter += new System.EventHandler(this.chartZDCHeights_MouseEnter);
+            this.chartZDCHeights.MouseLeave += new System.EventHandler(this.chartZDCHeights_MouseLeave);
+            this.chartZDCHeights.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chartGeneralGraphic_MouseWheel);
             // 
             // chartZUCHeights
             // 
@@ -90,7 +93,7 @@
             this.chartZUCHeights.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartZUCHeights.Legends.Add(legend2);
-            this.chartZUCHeights.Location = new System.Drawing.Point(12, 298);
+            this.chartZUCHeights.Location = new System.Drawing.Point(12, 326);
             this.chartZUCHeights.Name = "chartZUCHeights";
             series4.ChartArea = "ChartArea1";
             series4.Legend = "Legend1";
@@ -106,9 +109,12 @@
             this.chartZUCHeights.Series.Add(series4);
             this.chartZUCHeights.Series.Add(series5);
             this.chartZUCHeights.Series.Add(series6);
-            this.chartZUCHeights.Size = new System.Drawing.Size(700, 200);
+            this.chartZUCHeights.Size = new System.Drawing.Size(1076, 248);
             this.chartZUCHeights.TabIndex = 1;
             this.chartZUCHeights.Text = "hartZUCHeights";
+            this.chartZUCHeights.MouseEnter += new System.EventHandler(this.chartZUCHeights_MouseEnter);
+            this.chartZUCHeights.MouseLeave += new System.EventHandler(this.chartZUCHeights_MouseLeave);
+            this.chartZUCHeights.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chartGeneralGraphic_MouseWheel);
             // 
             // label1
             // 
@@ -122,7 +128,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 282);
+            this.label2.Location = new System.Drawing.Point(12, 310);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 13);
             this.label2.TabIndex = 3;
@@ -134,7 +140,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.textBoxHeightsSighZDC);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(720, 44);
+            this.panel1.Location = new System.Drawing.Point(1094, 44);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(150, 110);
             this.panel1.TabIndex = 4;
@@ -177,7 +183,7 @@
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.textBoxHeightsSighZUC);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(720, 298);
+            this.panel2.Location = new System.Drawing.Point(1094, 326);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(150, 110);
             this.panel2.TabIndex = 5;
@@ -218,13 +224,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(875, 579);
+            this.ClientSize = new System.Drawing.Size(1288, 590);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chartZUCHeights);
             this.Controls.Add(this.chartZDCHeights);
+            this.MinimizeBox = false;
             this.Name = "CHeightsDiagram";
             this.Text = "CSingleWaveDatas";
             ((System.ComponentModel.ISupportInitialize)(this.chartZDCHeights)).EndInit();
