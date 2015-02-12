@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem1 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -62,6 +63,9 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.chartZDCHeights.ChartAreas.Add(chartArea1);
+            legendItem1.ImageStyle = System.Windows.Forms.DataVisualization.Charting.LegendImageStyle.Line;
+            legend1.CustomItems.Add(legendItem1);
+            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
             legend1.Name = "Legend1";
             this.chartZDCHeights.Legends.Add(legend1);
             this.chartZDCHeights.Location = new System.Drawing.Point(12, 44);
@@ -77,6 +81,9 @@
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series3.Legend = "Legend1";
             series3.Name = "Height one third";
+            chartArea1.AxisX.LabelStyle.Format = "0.000";
+            chartArea1.AxisY.Title = "H";
+            chartArea1.AxisY.LabelStyle.Format = "0.000";
             this.chartZDCHeights.Series.Add(series1);
             this.chartZDCHeights.Series.Add(series2);
             this.chartZDCHeights.Series.Add(series3);
@@ -106,6 +113,9 @@
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series6.Legend = "Legend1";
             series6.Name = "Height one third";
+            chartArea2.AxisX.LabelStyle.Format = "0.000";
+            chartArea2.AxisY.Title = "H";
+            chartArea2.AxisY.LabelStyle.Format = "0.000";
             this.chartZUCHeights.Series.Add(series4);
             this.chartZUCHeights.Series.Add(series5);
             this.chartZUCHeights.Series.Add(series6);

@@ -110,7 +110,6 @@ namespace StatAnalisys
                 return listProbabilitiesZUC;
             }
         }
-
         void quickSort(List<double> a, int l, int r)
         {
             double temp;

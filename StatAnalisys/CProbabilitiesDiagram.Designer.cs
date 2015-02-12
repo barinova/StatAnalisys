@@ -126,6 +126,10 @@
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series4.Legend = "Legend1";
             series4.Name = "Crest Probabilities";
+            chartArea1.AxisX.LabelStyle.Format = "0.000";
+            chartArea1.AxisX.Title = "Wave number";
+            chartArea1.AxisY.LabelStyle.Format = "0.000";
+            chartArea1.AxisY.Title = "P";
             series4.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.chartZDCLog.Series.Add(series1);
             this.chartZDCLog.Series.Add(series2);
@@ -159,6 +163,10 @@
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series8.Legend = "Legend1";
             series8.Name = "Crest Probabilities";
+            chartArea2.AxisX.LabelStyle.Format = "0.000";
+            chartArea2.AxisX.Title = "Wave number";
+            chartArea2.AxisY.LabelStyle.Format = "0.000";
+            chartArea2.AxisY.Title = "P (Lg)";
             series8.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.chartZDC.Series.Add(series5);
             this.chartZDC.Series.Add(series6);
@@ -174,7 +182,7 @@
             this.chartZUCLog.ChartAreas.Add(chartArea3);
             legend3.Name = "Legend1";
             this.chartZUCLog.Legends.Add(legend3);
-            this.chartZUCLog.Location = new System.Drawing.Point(6, 268);
+            this.chartZUCLog.Location = new System.Drawing.Point(0, 268);
             this.chartZUCLog.Name = "chartZUCLog";
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -192,6 +200,10 @@
             series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series12.Legend = "Legend1";
             series12.Name = "Crest Probabilities";
+            chartArea3.AxisX.LabelStyle.Format = "0.000";
+            chartArea3.AxisX.Title = "Wave number";
+            chartArea3.AxisY.LabelStyle.Format = "0.000";
+            chartArea3.AxisY.Title = "P";
             series12.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.chartZUCLog.Series.Add(series9);
             this.chartZUCLog.Series.Add(series10);
@@ -207,7 +219,7 @@
             this.chartZUC.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
             this.chartZUC.Legends.Add(legend4);
-            this.chartZUC.Location = new System.Drawing.Point(6, 33);
+            this.chartZUC.Location = new System.Drawing.Point(0, 32);
             this.chartZUC.Name = "chartZUC";
             series13.ChartArea = "ChartArea1";
             series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -225,6 +237,10 @@
             series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series16.Legend = "Legend1";
             series16.Name = "Crest Probabilities";
+            chartArea4.AxisX.LabelStyle.Format = "0.000";
+            chartArea4.AxisX.Title = "Wave number";
+            chartArea4.AxisY.LabelStyle.Format = "0.000";
+            chartArea4.AxisY.Title = "P (Lg)";
             series16.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.chartZUC.Series.Add(series13);
             this.chartZUC.Series.Add(series14);
