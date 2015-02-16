@@ -28,9 +28,22 @@ namespace StatAnalisys
         {
             InitializeComponent();
             chartGeneralGraphic.Series[1]["PixelPointWidth"] = "1";
+            chartZommedWave.Series[1]["PixelPointWidth"] = "1";
+            chartZommedWave.ChartAreas[0].AxisY.TitleFont = new Font("Sans Serif", 10, FontStyle.Bold);
+            chartZommedWave.ChartAreas[0].AxisY.Title = "H";
+            chartZommedWave.ChartAreas[0].AxisX.TitleFont = new Font("Sans Serif", 10, FontStyle.Bold);
+            chartZommedWave.ChartAreas[0].AxisX.Title = "T";
+            chartZommedWave.Series[2].MarkerStyle = MarkerStyle.Star5;
+            chartZommedWave.Series[3].MarkerStyle = MarkerStyle.Star5;
+            chartZommedWave.Series[2].Color = Color.Orange;
+            chartZommedWave.Series[3].Color = Color.Orange;
+            chartZommedWave.Series[2].Font = new Font("Arial", 8);
+            chartZommedWave.Series[3].Font = new Font("Arial", 8);
             chartGeneralGraphic.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartGeneralGraphic.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
             chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
+            chartWavesPeriods.ChartAreas[0].CursorX.IsUserEnabled = true;
+            chartWavesPeriods.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -94,8 +107,10 @@ namespace StatAnalisys
                 }
 
                 wave = arrayWaves[indexWave];
+                renderChartOfWavesPeriods();
             }
         }
+
         public static void zoom(MouseEventArgs e, System.Windows.Forms.DataVisualization.Charting.ChartArea area, int delta)
         {
             double xMin = area.AxisX.ScaleView.ViewMinimum;
@@ -166,13 +181,37 @@ namespace StatAnalisys
                         }
 
                         chartGeneralGraphic.Series[2].Points.Clear();
-                        hightliteWave(x1, x2, x3, x4, x5, y1, y2, y3, y4, y5);
-                        fillParametresTextBoxes(selectedWave.amplMax, selectedWave.amplMin, 0, selectedWave.type);
+                        hightliteWaveOnChart(x1, x2, x3, x4, x5, y1, y2, y3, y4, y5, chartGeneralGraphic.Series[2]);
+                        fillParametresTextBoxes(selectedWave.amplMax, selectedWave.amplMin, x5 - x1, selectedWave.type);
+                        renderSelectedWaveChart(x1, x2, x3, x4, x5, y1, y2, y3, y4, y5, selectedWave);
                     }
                 }
             }
 
         }
+
+        void renderSelectedWaveChart(double x1, double x2, double x3, double x4, double x5, double y1, double y2, double y3,
+            double y4, double y5, waveData selectedWave)
+        {
+            foreach (Series s in chartZommedWave.Series)
+            {
+                s.Points.Clear();
+            }
+
+            hightliteWaveOnChart(x1, x2, x3, x4, x5, y1, y2, y3, y4, y5, chartZommedWave.Series[0]);
+
+            chartZommedWave.Series[1].Points.AddXY(x2, y2);
+            chartZommedWave.Series[1].Points.AddXY(x4, y4);
+
+            chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y2);
+            chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y4);
+            chartZommedWave.Series[2].Points[y2 > y4 ? 0 : 1].Label = Math.Round(selectedWave.totalHeight, 3).ToString();
+
+            chartZommedWave.Series[3].Points.AddXY(x1 - 0.5, y2 < y4 ? y2 : y4);
+            chartZommedWave.Series[3].Points.AddXY(x5 - 0.5, y2 < y4 ? y2 : y4);
+            chartZommedWave.Series[3].Points[1].Label = Math.Round(x5 - x1, 3).ToString();
+        }
+
 
         private void chartGeneralGraphic_MouseLeave(object sender, EventArgs e)
         {
@@ -195,22 +234,38 @@ namespace StatAnalisys
             }
         }
 
-        private void hightliteWave(double x1, double x2, double x3, double x4, double x5, double y1, double y2, double y3, double y4, double y5)
+        private void hightliteWaveOnChart(double x1, double x2, double x3, double x4, double x5, double y1, double y2, double y3, 
+            double y4, double y5, Series series)
         {
-            chartGeneralGraphic.Series[2].Color = Color.Red;
-            chartGeneralGraphic.Series[2].Points.AddXY(x1, y1);
-            chartGeneralGraphic.Series[2].Points.AddXY(x2, y2);
-            chartGeneralGraphic.Series[2].Points.AddXY(x3, y3);
-            chartGeneralGraphic.Series[2].Points.AddXY(x4, y4);
-            chartGeneralGraphic.Series[2].Points.AddXY(x5, y5);
+            series.Color = Color.Red;
+            series.Points.AddXY(x1, y1);
+            series.Points.AddXY(x2, y2);
+            series.Points.AddXY(x3, y3);
+            series.Points.AddXY(x4, y4);
+            series.Points.AddXY(x5, y5);
         }
 
-        private void fillParametresTextBoxes(double amplPlus, double amplMinus, double period, typeCrossing type)
+        private void fillParametresTextBoxes(double amplPlus, double amplMinus, double t, typeCrossing type)
         {
             textBoxAmplitudePlus.Text = amplPlus.ToString();
             textBoxAmplitudeMinus.Text = amplMinus.ToString();
-            textBoxPeriod.Text = period.ToString();
+            textBoxT.Text = t.ToString();
             textBoxType.Text = type.ToString();
+        }
+
+        private void renderChartOfWavesPeriods()
+        {
+            int period = wave.period;
+            int t = period;
+            int i = 0;
+
+            foreach (double p in wave.listSighificiantPeriods)
+            {
+                chartWavesPeriods.Series[0].Points.AddXY(t, p);
+                chartWavesPeriods.Series[0].Points[i].Label = Math.Round(p, 3).ToString();
+                t += period;
+                i++;
+            }
         }
 
         private void chartClipboard(Chart chart, double startX, double startY, double endX, double endY)

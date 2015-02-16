@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace StatAnalisys
 {
     public enum typeCrossing { ZDC, ZUC};
@@ -61,11 +62,13 @@ namespace StatAnalisys
 
     class CSingleWave
     {
+        public const int T = 20;
         List<waveData> listCalculatedDatas = new List<waveData>();
         heights listHeightsZDC;
         heights listHeightsZUC;
         public List<probability> listProbabilitiesZDC = new List<probability>();
         public List<probability> listProbabilitiesZUC = new List<probability>();
+        public List<double> listSighificiantPeriods = new List<double>();
         public List<waveData> calculatingWaves = new List<waveData>();
 
         public List<double> listHeihtsZDC = new List<double>();
@@ -108,6 +111,22 @@ namespace StatAnalisys
             get
             {
                 return listProbabilitiesZUC;
+            }
+        }
+
+        public List<double> sighificiantPeriods
+        {
+            get
+            {
+                return listSighificiantPeriods;
+            }
+        }
+
+        public int period
+        {
+            get
+            {
+                return T;
             }
         }
         void quickSort(List<double> a, int l, int r)
@@ -297,6 +316,7 @@ namespace StatAnalisys
                     {
                         setHeights(listHeihtsZDC, listHeihtsZUC);
                         calculateProbabilities();
+                        calculateSighificiantPeriods();
                         return true;
                     }
                     calculatingWaves.Add(newWave);
@@ -304,9 +324,32 @@ namespace StatAnalisys
             }
 
             calculateProbabilities();
+            calculateSighificiantPeriods();
             return true;
         }
 
+        void calculateSighificiantPeriods()
+        {
+            int i = 0;
+            int time = T;
+            double sumT = 0.0;
+
+            foreach (waveData w in calculatingWaves)
+            {
+                if (w.nullPoint[2] < time)
+                {
+                    sumT += w.nullPoint[2] - w.nullPoint[0];
+                    i += 1;
+                }
+                else
+                {
+                    sighificiantPeriods.Add(sumT / i);
+                    i = 0;
+                    sumT = 0;
+                    time += T;
+                }
+            }
+        }
         void calculateProbabilities()
         {
             setListProbabilities(listHeihtsZDC, listCrestAZDC, listThroughAZDC, typeCrossing.ZDC);

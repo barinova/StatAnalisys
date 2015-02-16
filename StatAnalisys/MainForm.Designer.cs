@@ -24,9 +24,19 @@ namespace StatAnalisys
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.txtOutput = new System.Windows.Forms.RichTextBox();
             this.chartGeneralGraphic = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -34,8 +44,8 @@ namespace StatAnalisys
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBoxType = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxPeriod = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxT = new System.Windows.Forms.TextBox();
+            this.labelT = new System.Windows.Forms.Label();
             this.textBoxAmplitudeMinus = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -48,12 +58,17 @@ namespace StatAnalisys
             this.comboBoxGraphic = new System.Windows.Forms.ComboBox();
             this.buttonCalculate = new System.Windows.Forms.Button();
             this.comboBoxNumWave = new System.Windows.Forms.ComboBox();
-            this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chartZommedWave = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label5 = new System.Windows.Forms.Label();
+            this.chartWavesPeriods = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelGraphic.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartWavesPeriods)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -62,7 +77,7 @@ namespace StatAnalisys
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1270, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -78,9 +93,16 @@ namespace StatAnalisys
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveImagesToolStripMenuItem
+            // 
+            this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveImagesToolStripMenuItem.Text = "Save Images";
+            this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
             // openFileDialog
             // 
@@ -128,7 +150,7 @@ namespace StatAnalisys
             this.chartGeneralGraphic.Series.Add(series1);
             this.chartGeneralGraphic.Series.Add(series2);
             this.chartGeneralGraphic.Series.Add(series3);
-            this.chartGeneralGraphic.Size = new System.Drawing.Size(1082, 373);
+            this.chartGeneralGraphic.Size = new System.Drawing.Size(1039, 318);
             this.chartGeneralGraphic.TabIndex = 1;
             this.chartGeneralGraphic.Text = "Wave";
             this.chartGeneralGraphic.SelectionRangeChanging += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.chartGeneralGraphic_SelectionChanging);
@@ -143,7 +165,7 @@ namespace StatAnalisys
             this.panel1.Controls.Add(this.panelGraphic);
             this.panel1.Controls.Add(this.buttonCalculate);
             this.panel1.Controls.Add(this.comboBoxNumWave);
-            this.panel1.Location = new System.Drawing.Point(1090, 48);
+            this.panel1.Location = new System.Drawing.Point(1067, 48);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(201, 590);
             this.panel1.TabIndex = 2;
@@ -152,8 +174,8 @@ namespace StatAnalisys
             // 
             this.panel2.Controls.Add(this.textBoxType);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.textBoxPeriod);
-            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.textBoxT);
+            this.panel2.Controls.Add(this.labelT);
             this.panel2.Controls.Add(this.textBoxAmplitudeMinus);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label2);
@@ -181,21 +203,21 @@ namespace StatAnalisys
             this.label4.TabIndex = 14;
             this.label4.Text = "Type";
             // 
-            // textBoxPeriod
+            // textBoxT
             // 
-            this.textBoxPeriod.Location = new System.Drawing.Point(38, 112);
-            this.textBoxPeriod.Name = "textBoxPeriod";
-            this.textBoxPeriod.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPeriod.TabIndex = 13;
+            this.textBoxT.Location = new System.Drawing.Point(38, 112);
+            this.textBoxT.Name = "textBoxT";
+            this.textBoxT.Size = new System.Drawing.Size(100, 20);
+            this.textBoxT.TabIndex = 13;
             // 
-            // label3
+            // labelT
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 96);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Period";
+            this.labelT.AutoSize = true;
+            this.labelT.Location = new System.Drawing.Point(14, 96);
+            this.labelT.Name = "labelT";
+            this.labelT.Size = new System.Drawing.Size(14, 13);
+            this.labelT.TabIndex = 12;
+            this.labelT.Text = "T";
             // 
             // textBoxAmplitudeMinus
             // 
@@ -310,18 +332,82 @@ namespace StatAnalisys
             this.comboBoxNumWave.TabIndex = 0;
             this.comboBoxNumWave.SelectedIndexChanged += new System.EventHandler(this.comboBoxNumWave_SelectedIndexChanged);
             // 
-            // saveImagesToolStripMenuItem
+            // chartZommedWave
             // 
-            this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
-            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveImagesToolStripMenuItem.Text = "Save Images";
-            this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
+            chartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea2.Name = "ChartAreaSelectedWave";
+            this.chartZommedWave.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartZommedWave.Legends.Add(legend2);
+            this.chartZommedWave.Location = new System.Drawing.Point(12, 398);
+            this.chartZommedWave.Name = "chartZommedWave";
+            series4.ChartArea = "ChartAreaSelectedWave";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Legend = "Legend1";
+            series4.Name = "Current selected wave";
+            series5.ChartArea = "ChartAreaSelectedWave";
+            series5.Legend = "Legend1";
+            series5.Name = "Amplitudes";
+            series6.ChartArea = "ChartAreaSelectedWave";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series6.Legend = "Legend1";
+            series6.Name = "T";
+            series7.ChartArea = "ChartAreaSelectedWave";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series7.Legend = "Legend1";
+            series7.Name = "H";
+            this.chartZommedWave.Series.Add(series4);
+            this.chartZommedWave.Series.Add(series5);
+            this.chartZommedWave.Series.Add(series6);
+            this.chartZommedWave.Series.Add(series7);
+            this.chartZommedWave.Size = new System.Drawing.Size(467, 230);
+            this.chartZommedWave.TabIndex = 3;
+            this.chartZommedWave.Text = "chartZommedWave";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 382);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Selected wave";
+            // 
+            // chartWavesPeriods
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chartWavesPeriods.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartWavesPeriods.Legends.Add(legend3);
+            this.chartWavesPeriods.Location = new System.Drawing.Point(499, 398);
+            this.chartWavesPeriods.Name = "chartWavesPeriods";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series8.Legend = "Legend1";
+            series8.Name = "T";
+            this.chartWavesPeriods.Series.Add(series8);
+            this.chartWavesPeriods.Size = new System.Drawing.Size(552, 230);
+            this.chartWavesPeriods.TabIndex = 5;
+            this.chartWavesPeriods.Text = "chart1";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(496, 382);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(119, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Chart of Waves Periods";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 640);
+            this.ClientSize = new System.Drawing.Size(1270, 640);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.chartWavesPeriods);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.chartZommedWave);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.chartGeneralGraphic);
             this.Controls.Add(this.menuStrip1);
@@ -336,6 +422,8 @@ namespace StatAnalisys
             this.panel2.PerformLayout();
             this.panelGraphic.ResumeLayout(false);
             this.panelGraphic.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartWavesPeriods)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,8 +447,8 @@ namespace StatAnalisys
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textBoxType;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxPeriod;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxT;
+        private System.Windows.Forms.Label labelT;
         private System.Windows.Forms.TextBox textBoxAmplitudeMinus;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -368,6 +456,10 @@ namespace StatAnalisys
         private System.Windows.Forms.TextBox textBoxAmplitudePlus;
         private System.Windows.Forms.Label labelCurrentWave;
         private System.Windows.Forms.ToolStripMenuItem saveImagesToolStripMenuItem;
+        private Chart chartZommedWave;
+        private System.Windows.Forms.Label label5;
+        private Chart chartWavesPeriods;
+        private System.Windows.Forms.Label label3;
     }
 }
 
