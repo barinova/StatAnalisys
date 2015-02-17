@@ -49,6 +49,11 @@ namespace StatAnalisys
                 chartLog.Series[3].Points.AddXY(prob.H, Math.Log10(prob.crestP));
             }
         }
+
+        private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Images.saveImage(new Chart[] { chartZDC, chartZDCLog, chartZUC, chartZUCLog });
+        }
     }
 
 }

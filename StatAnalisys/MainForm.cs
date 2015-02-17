@@ -12,9 +12,11 @@ using csmatio.io;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Input;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace StatAnalisys
 {
+    
     public partial class MainForm : Form
     {
 
@@ -22,8 +24,8 @@ namespace StatAnalisys
         CSingleWave wave;
         double[] arrayT;
         double[][] arrayS;
-        double imprecision = 0.5; //precision for current selected wave
-        double selectedX = 0;
+        double selectedX = 0; 
+        
         public MainForm()
         {
             InitializeComponent();
@@ -44,6 +46,24 @@ namespace StatAnalisys
             chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+            changeEnabledSettingsComponents(false);
+        }
+
+        void changeEnabledSettingsComponents(bool value)
+        {
+            checkBoxHeightsDiagram.Enabled = value;
+            checkBoxProbabilitiesDiagram.Enabled = value;
+            saveImagesToolStripMenuItem.Enabled = value;
+        }
+
+        void clearGraphics()
+        {
+            foreach ( Series s in chartZommedWave.Series)
+            {
+                s.Points.Clear();
+            }
+            chartGeneralGraphic.Series[0].Points.Clear();
+            chartWavesPeriods.Series[0].Points.Clear();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -96,8 +116,8 @@ namespace StatAnalisys
 
             if (indexWave > -1)
             {
-                chartGeneralGraphic.Series[0].Points.Clear();
-
+                changeEnabledSettingsComponents(true);
+                clearGraphics();
                 double [] heights = arrayS[indexWave];
 
                 for (int i = 1; i < arrayT.Count(); i++)
@@ -107,7 +127,9 @@ namespace StatAnalisys
                 }
 
                 wave = arrayWaves[indexWave];
+
                 renderChartOfWavesPeriods();
+                labelIntervalsPeriod.Text += "( Interval = " + wave.interval + ")";
             }
         }
 
@@ -255,15 +277,15 @@ namespace StatAnalisys
 
         private void renderChartOfWavesPeriods()
         {
-            int period = wave.period;
-            int t = period;
+            int interval = wave.interval;
+            int t = interval;
             int i = 0;
 
             foreach (double p in wave.listSighificiantPeriods)
             {
                 chartWavesPeriods.Series[0].Points.AddXY(t, p);
                 chartWavesPeriods.Series[0].Points[i].Label = Math.Round(p, 3).ToString();
-                t += period;
+                t += interval;
                 i++;
             }
         }
@@ -343,40 +365,36 @@ namespace StatAnalisys
             chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.ZoomReset();
         }
 
-        private void buttonOpenGraphic_Click(object sender, EventArgs e)
+        private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int index = comboBoxGraphic.SelectedIndex;
+            //string[] str = { "general graphic", "Heights graphic", "Probabilities graphic"};
+            //bool[] saveImages = CheckboxDialog.ShowDialog("Save Images", str);
+            Images.saveImage(new Chart[] {chartGeneralGraphic,  chartWavesPeriods});
+        }
 
-            if (index > -1)
+        
+        private void checkBoxHeightsDiagram_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxHeightsDiagram.Checked)
             {
-                CSingleWave wave = arrayWaves[index];
-                // 0 - heights diagram, 1 - probabilities
-                switch (index)
-                {
-                    case 0:
-                        {
-                            CHeightsDiagram diagHeights = new CHeightsDiagram();
-                            diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
-                                wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
-                            diagHeights.Show();
-                            break;
-                        }
-                    case 1:
-                        {
-                            CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
-                            diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC);
-                            diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC);
-                            diagProbabilities.Show();
-                            break;
-                        }
-                }
+                CHeightsDiagram diagHeights = new CHeightsDiagram();
+                diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
+                    wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
+                diagHeights.Show();
+                checkBoxHeightsDiagram.Checked = false;
             }
         }
 
-        private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void checkBoxProbabilitiesDiagram_CheckedChanged(object sender, EventArgs e)
         {
-            string[] str = { "general graphic", "Heights graphic", "Probabilities graphic"};
-            bool[] saveImages = CheckboxDialog.ShowDialog("Save Images", str);
+            if (checkBoxProbabilitiesDiagram.Checked)
+            {
+                CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
+                diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC);
+                diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC);
+                diagProbabilities.Show();
+                checkBoxProbabilitiesDiagram.Checked = false;
+            }
         }
     }
     public static class CheckboxDialog
@@ -385,7 +403,8 @@ namespace StatAnalisys
         {
             Form prompt = new Form();
             FlowLayoutPanel panel = new FlowLayoutPanel();
-
+            
+            panel.AutoSize = true;
             /*foreach (string c in caption)
             {
                 CheckBox cb = new CheckBox();
@@ -393,13 +412,17 @@ namespace StatAnalisys
                 panel.Controls.Add(cb);
                 panel.SetFlowBreak(cb, true);
             }*/
+            panel.AutoSize = true;
 
             CheckBox cbGraphic = new CheckBox();
             cbGraphic.Text = caption[0];
+            panel.SetFlowBreak(cbGraphic, true);
             CheckBox cbHeights = new CheckBox();
             cbHeights.Text = caption[1];
+            panel.SetFlowBreak(cbHeights, true);
             CheckBox cbProb = new CheckBox();
             cbProb.Text = caption[2];
+            panel.SetFlowBreak(cbProb, true);
 
             panel.Controls.Add(cbGraphic);
             panel.Controls.Add(cbHeights);
@@ -407,15 +430,117 @@ namespace StatAnalisys
 
             Button ok = new Button() { Text = "Yes" };
             ok.Click += (sender, e) => { prompt.Close();};
-
             Button no = new Button() { Text = "No" };
-            no.Click += (sender, e) => { prompt.Close(); };
+            no.Click += (sender, e) => { 
+                cbGraphic.Checked = false;
+                cbHeights.Checked = false;
+                cbProb.Checked = false;
+                prompt.Close();};
             
             panel.Controls.Add(ok);
             panel.Controls.Add(no);
             prompt.Controls.Add(panel);
             prompt.ShowDialog();
             return new bool[] { cbGraphic.Checked, cbHeights.Checked, cbProb.Checked};
+        }
+    }
+
+    public class Images
+    {
+        public static void saveImage(Panel[] panel)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PNG file|*.png";
+            saveFileDialog.Title = "Save Charts As Image File";
+            DialogResult result = saveFileDialog.ShowDialog();
+            saveFileDialog.RestoreDirectory = true;
+
+            if (result == DialogResult.OK)
+            {
+                if (saveFileDialog.FileName != "")
+                {
+                    try
+                    {
+                        if (saveFileDialog.CheckPathExists)
+                        {
+                            foreach (Panel p in panel)
+                            { 
+                                String name = saveFileDialog.FileName.Insert(saveFileDialog.FileName.Count() - 4, p.Name);
+                                
+                                int width = p.Size.Width;
+                                int height = p.Size.Height;
+
+                                Bitmap bm = new Bitmap(width, height);
+                                p.DrawToBitmap(bm, new Rectangle(0, 0, width, height));
+
+                                bm.Save(name, ImageFormat.Bmp);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Given Path does not exist");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+
+        }
+        public static void saveImage(Chart[] charts)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PNG file|*.png";
+            saveFileDialog.Title = "Save Charts As Image File";
+            DialogResult result = saveFileDialog.ShowDialog();
+            saveFileDialog.RestoreDirectory = true;
+
+            if (result == DialogResult.OK)
+            {
+                if (saveFileDialog.FileName != "")
+                {
+                    try
+                    {
+                        if (saveFileDialog.CheckPathExists)
+                        {
+                            foreach (Chart chart in charts)
+                            {
+                                String name = saveFileDialog.FileName.Insert(saveFileDialog.FileName.Count() - 4, chart.Text);
+                                EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+                                myEncoderParameters.Param[0] = new EncoderParameter(myEncoder, 40L);
+                                System.IO.MemoryStream mS = new System.IO.MemoryStream();
+
+                                // call the SaveTo method using the Stream and any ImageFormat
+                                //chart.SaveImage(mS, System.Drawing.Imaging.ImageFormat.Bmp);
+                                // it is possible to retrieve the image later using Image.FromStream
+                                //System.Drawing.Image myImage = System.Drawing.Image.FromStream(mS);
+
+                                // or, just save the chart using a specified file path.
+                                chart.SaveImage(mS, ChartImageFormat.Png);
+                                Image imgImage = Image.FromStream(mS);
+                                imgImage.Save(name);
+                                /*using (var fileStream = File.Create(name))
+                                {
+                                    mS.Seek(0, SeekOrigin.Begin);
+                                    mS.CopyTo(fileStream);
+                                }*/
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Given Path does not exist");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
     }
 }

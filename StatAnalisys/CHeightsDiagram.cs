@@ -45,12 +45,12 @@ namespace StatAnalisys
                 chartZUCHeights.Series[0].Points[indX].Label = Math.Round(h, 3).ToString();
             }
 
-            textBoxHeightsThirdZDC.Text = listHeightsZDCThird.ToString();
+           /* textBoxHeightsThirdZDC.Text = listHeightsZDCThird.ToString();
             textBoxHeightsSighZDC.Text = listHeightsZDCSign.ToString();
 
             textBoxHeightsThirdZUC.Text = listHeightsZUCThird.ToString();
             textBoxHeightsSighZUC.Text = listHeightsZUCSign.ToString();
-
+            */
             drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Orange);
             drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.Lime);
             drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Orange);
@@ -98,6 +98,11 @@ namespace StatAnalisys
         {
             if (!chartZUCHeights.Focused)
                 chartZUCHeights.Focus();
+        }
+
+        private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Images.saveImage(new Chart[] { chartZUCHeights, chartZDCHeights});
         }
     }
 }

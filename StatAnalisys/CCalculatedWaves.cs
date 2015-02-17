@@ -122,7 +122,7 @@ namespace StatAnalisys
             }
         }
 
-        public int period
+        public int interval
         {
             get
             {

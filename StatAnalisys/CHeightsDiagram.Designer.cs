@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.LineAnnotation lineAnnotation1 = new System.Windows.Forms.DataVisualization.Charting.LineAnnotation();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem1 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
@@ -53,14 +54,27 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxHeightsSighZUC = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ZUCHeights = new System.Windows.Forms.Panel();
+            this.ZDCHeights = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.chartZDCHeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartZUCHeights)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.ZUCHeights.SuspendLayout();
+            this.ZDCHeights.SuspendLayout();
             this.SuspendLayout();
             // 
             // chartZDCHeights
             // 
+            lineAnnotation1.Name = "LineAnnotationZUC";
+            this.chartZDCHeights.Annotations.Add(lineAnnotation1);
+            chartArea1.AxisX.LabelStyle.Format = "0.000";
+            chartArea1.AxisY.LabelStyle.Format = "0.000";
+            chartArea1.AxisY.Title = "H";
             chartArea1.Name = "ChartArea1";
             this.chartZDCHeights.ChartAreas.Add(chartArea1);
             legendItem1.ImageStyle = System.Windows.Forms.DataVisualization.Charting.LegendImageStyle.Line;
@@ -68,7 +82,7 @@
             legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
             legend1.Name = "Legend1";
             this.chartZDCHeights.Legends.Add(legend1);
-            this.chartZDCHeights.Location = new System.Drawing.Point(12, 44);
+            this.chartZDCHeights.Location = new System.Drawing.Point(3, 3);
             this.chartZDCHeights.Name = "chartZDCHeights";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
@@ -81,13 +95,10 @@
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series3.Legend = "Legend1";
             series3.Name = "Height one third";
-            chartArea1.AxisX.LabelStyle.Format = "0.000";
-            chartArea1.AxisY.Title = "H";
-            chartArea1.AxisY.LabelStyle.Format = "0.000";
             this.chartZDCHeights.Series.Add(series1);
             this.chartZDCHeights.Series.Add(series2);
             this.chartZDCHeights.Series.Add(series3);
-            this.chartZDCHeights.Size = new System.Drawing.Size(1076, 245);
+            this.chartZDCHeights.Size = new System.Drawing.Size(1223, 252);
             this.chartZDCHeights.TabIndex = 0;
             this.chartZDCHeights.Text = "chartHeightsZDC";
             this.chartZDCHeights.MouseEnter += new System.EventHandler(this.chartZDCHeights_MouseEnter);
@@ -96,11 +107,14 @@
             // 
             // chartZUCHeights
             // 
+            chartArea2.AxisX.LabelStyle.Format = "0.000";
+            chartArea2.AxisY.LabelStyle.Format = "0.000";
+            chartArea2.AxisY.Title = "H";
             chartArea2.Name = "ChartArea1";
             this.chartZUCHeights.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartZUCHeights.Legends.Add(legend2);
-            this.chartZUCHeights.Location = new System.Drawing.Point(12, 326);
+            this.chartZUCHeights.Location = new System.Drawing.Point(3, 1);
             this.chartZUCHeights.Name = "chartZUCHeights";
             series4.ChartArea = "ChartArea1";
             series4.Legend = "Legend1";
@@ -113,13 +127,10 @@
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series6.Legend = "Legend1";
             series6.Name = "Height one third";
-            chartArea2.AxisX.LabelStyle.Format = "0.000";
-            chartArea2.AxisY.Title = "H";
-            chartArea2.AxisY.LabelStyle.Format = "0.000";
             this.chartZUCHeights.Series.Add(series4);
             this.chartZUCHeights.Series.Add(series5);
             this.chartZUCHeights.Series.Add(series6);
-            this.chartZUCHeights.Size = new System.Drawing.Size(1076, 248);
+            this.chartZUCHeights.Size = new System.Drawing.Size(1226, 248);
             this.chartZUCHeights.TabIndex = 1;
             this.chartZUCHeights.Text = "hartZUCHeights";
             this.chartZUCHeights.MouseEnter += new System.EventHandler(this.chartZUCHeights_MouseEnter);
@@ -150,7 +161,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.textBoxHeightsSighZDC);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(1094, 44);
+            this.panel1.Location = new System.Drawing.Point(1041, 111);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(150, 110);
             this.panel1.TabIndex = 4;
@@ -193,7 +204,7 @@
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.textBoxHeightsSighZUC);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(1094, 326);
+            this.panel2.Location = new System.Drawing.Point(1054, 107);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(150, 110);
             this.panel2.TabIndex = 5;
@@ -230,17 +241,59 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "significant height";
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1276, 25);
+            this.toolStrip1.TabIndex = 6;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveImagesToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 25);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveImagesToolStripMenuItem
+            // 
+            this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveImagesToolStripMenuItem.Text = "Save Images";
+            this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
+            // 
+            // ZUCHeights
+            // 
+            this.ZUCHeights.Controls.Add(this.panel1);
+            this.ZUCHeights.Controls.Add(this.chartZDCHeights);
+            this.ZUCHeights.Location = new System.Drawing.Point(15, 44);
+            this.ZUCHeights.Name = "ZUCHeights";
+            this.ZUCHeights.Size = new System.Drawing.Size(1229, 258);
+            this.ZUCHeights.TabIndex = 7;
+            // 
+            // ZDCHeights
+            // 
+            this.ZDCHeights.Controls.Add(this.panel2);
+            this.ZDCHeights.Controls.Add(this.chartZUCHeights);
+            this.ZDCHeights.Location = new System.Drawing.Point(15, 326);
+            this.ZDCHeights.Name = "ZDCHeights";
+            this.ZDCHeights.Size = new System.Drawing.Size(1229, 252);
+            this.ZDCHeights.TabIndex = 8;
+            // 
             // CHeightsDiagram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1288, 590);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1276, 590);
+            this.Controls.Add(this.ZDCHeights);
+            this.Controls.Add(this.ZUCHeights);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.chartZUCHeights);
-            this.Controls.Add(this.chartZDCHeights);
             this.MinimizeBox = false;
             this.Name = "CHeightsDiagram";
             this.Text = "CSingleWaveDatas";
@@ -250,6 +303,10 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.ZUCHeights.ResumeLayout(false);
+            this.ZDCHeights.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,5 +328,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxHeightsSighZUC;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveImagesToolStripMenuItem;
+        private System.Windows.Forms.Panel ZUCHeights;
+        private System.Windows.Forms.Panel ZDCHeights;
     }
 }
