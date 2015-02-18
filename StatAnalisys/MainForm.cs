@@ -129,7 +129,7 @@ namespace StatAnalisys
                 wave = arrayWaves[indexWave];
 
                 renderChartOfWavesPeriods();
-                labelIntervalsPeriod.Text += "( Interval = " + wave.interval + ")";
+                labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
             }
         }
 
@@ -447,48 +447,6 @@ namespace StatAnalisys
 
     public class Images
     {
-        public static void saveImage(Panel[] panel)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PNG file|*.png";
-            saveFileDialog.Title = "Save Charts As Image File";
-            DialogResult result = saveFileDialog.ShowDialog();
-            saveFileDialog.RestoreDirectory = true;
-
-            if (result == DialogResult.OK)
-            {
-                if (saveFileDialog.FileName != "")
-                {
-                    try
-                    {
-                        if (saveFileDialog.CheckPathExists)
-                        {
-                            foreach (Panel p in panel)
-                            { 
-                                String name = saveFileDialog.FileName.Insert(saveFileDialog.FileName.Count() - 4, p.Name);
-                                
-                                int width = p.Size.Width;
-                                int height = p.Size.Height;
-
-                                Bitmap bm = new Bitmap(width, height);
-                                p.DrawToBitmap(bm, new Rectangle(0, 0, width, height));
-
-                                bm.Save(name, ImageFormat.Bmp);
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Given Path does not exist");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-            }
-
-        }
         public static void saveImage(Chart[] charts)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();

@@ -51,11 +51,18 @@ namespace StatAnalisys
             textBoxHeightsThirdZUC.Text = listHeightsZUCThird.ToString();
             textBoxHeightsSighZUC.Text = listHeightsZUCSign.ToString();
             */
+
+
             drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Orange);
             drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.Lime);
             drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Orange);
             drawStripLine(chartZUCHeights, listHeightsZUCThird, Color.Lime);
             //chartZUCHeights.Series[1].Points.Add(listHeightsZUCSign);
+
+            setAnnotation(chartZUCHeights, "Height of one third = " + Math.Round(listHeightsZUCThird, 7).ToString()
+                + "\nSignificiant height = " +  Math.Round(listHeightsZUCSign, 8).ToString());
+            setAnnotation(chartZDCHeights, "Heights of one third = " +  Math.Round(listHeightsZDCThird, 7).ToString()
+                + "\nSignificiant height = " +  Math.Round(listHeightsZDCSign, 8).ToString());
         }
         private void drawStripLine(Chart chart, double y, Color color)
         {
@@ -64,6 +71,16 @@ namespace StatAnalisys
             stripLine.BackColor = color;
             stripLine.StripWidth = 0.01;
             chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
+        }
+
+        private void setAnnotation(Chart chart, string str)
+        {
+            TextAnnotation text = new TextAnnotation();
+            text.X = 130;
+            text.Y = 1;
+            text.Text = str; 
+            text.AnchorDataPoint = chart.Series[0].Points[3];
+            chart.Annotations.Add(text);
         }
         private void chartGeneralGraphic_MouseWheel(object sender, MouseEventArgs e)
         {

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.LineAnnotation lineAnnotation1 = new System.Windows.Forms.DataVisualization.Charting.LineAnnotation();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem1 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
@@ -44,16 +43,6 @@
             this.chartZUCHeights = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBoxHeightsThirdZDC = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxHeightsSighZDC = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.textBoxHeightsThirdZUC = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxHeightsSighZUC = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,8 +50,6 @@
             this.ZDCHeights = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.chartZDCHeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartZUCHeights)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.ZUCHeights.SuspendLayout();
             this.ZDCHeights.SuspendLayout();
@@ -70,8 +57,6 @@
             // 
             // chartZDCHeights
             // 
-            lineAnnotation1.Name = "LineAnnotationZUC";
-            this.chartZDCHeights.Annotations.Add(lineAnnotation1);
             chartArea1.AxisX.LabelStyle.Format = "0.000";
             chartArea1.AxisY.LabelStyle.Format = "0.000";
             chartArea1.AxisY.Title = "H";
@@ -155,92 +140,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "-down-zero-crossing Heights";
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.textBoxHeightsThirdZDC);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.textBoxHeightsSighZDC);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(1041, 111);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(150, 110);
-            this.panel1.TabIndex = 4;
-            // 
-            // textBoxHeightsThirdZDC
-            // 
-            this.textBoxHeightsThirdZDC.Location = new System.Drawing.Point(13, 76);
-            this.textBoxHeightsThirdZDC.Name = "textBoxHeightsThirdZDC";
-            this.textBoxHeightsThirdZDC.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeightsThirdZDC.TabIndex = 6;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 60);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "height one third";
-            // 
-            // textBoxHeightsSighZDC
-            // 
-            this.textBoxHeightsSighZDC.Location = new System.Drawing.Point(13, 28);
-            this.textBoxHeightsSighZDC.Name = "textBoxHeightsSighZDC";
-            this.textBoxHeightsSighZDC.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeightsSighZDC.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "significant height";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.textBoxHeightsThirdZUC);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.textBoxHeightsSighZUC);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(1054, 107);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(150, 110);
-            this.panel2.TabIndex = 5;
-            // 
-            // textBoxHeightsThirdZUC
-            // 
-            this.textBoxHeightsThirdZUC.Location = new System.Drawing.Point(13, 76);
-            this.textBoxHeightsThirdZUC.Name = "textBoxHeightsThirdZUC";
-            this.textBoxHeightsThirdZUC.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeightsThirdZUC.TabIndex = 6;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 60);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "height one third";
-            // 
-            // textBoxHeightsSighZUC
-            // 
-            this.textBoxHeightsSighZUC.Location = new System.Drawing.Point(13, 28);
-            this.textBoxHeightsSighZUC.Name = "textBoxHeightsSighZUC";
-            this.textBoxHeightsSighZUC.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeightsSighZUC.TabIndex = 4;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 12);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(86, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "significant height";
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -268,7 +167,6 @@
             // 
             // ZUCHeights
             // 
-            this.ZUCHeights.Controls.Add(this.panel1);
             this.ZUCHeights.Controls.Add(this.chartZDCHeights);
             this.ZUCHeights.Location = new System.Drawing.Point(15, 44);
             this.ZUCHeights.Name = "ZUCHeights";
@@ -277,7 +175,6 @@
             // 
             // ZDCHeights
             // 
-            this.ZDCHeights.Controls.Add(this.panel2);
             this.ZDCHeights.Controls.Add(this.chartZUCHeights);
             this.ZDCHeights.Location = new System.Drawing.Point(15, 326);
             this.ZDCHeights.Name = "ZDCHeights";
@@ -299,10 +196,6 @@
             this.Text = "CSingleWaveDatas";
             ((System.ComponentModel.ISupportInitialize)(this.chartZDCHeights)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartZUCHeights)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ZUCHeights.ResumeLayout(false);
@@ -318,16 +211,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartZUCHeights;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBoxHeightsThirdZDC;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxHeightsSighZDC;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBoxHeightsThirdZUC;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxHeightsSighZUC;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveImagesToolStripMenuItem;
