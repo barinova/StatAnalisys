@@ -86,8 +86,8 @@
             this.chartZDCHeights.Size = new System.Drawing.Size(1223, 252);
             this.chartZDCHeights.TabIndex = 0;
             this.chartZDCHeights.Text = "chartHeightsZDC";
-            this.chartZDCHeights.MouseEnter += new System.EventHandler(this.chartZDCHeights_MouseEnter);
-            this.chartZDCHeights.MouseLeave += new System.EventHandler(this.chartZDCHeights_MouseLeave);
+            this.chartZDCHeights.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
+            this.chartZDCHeights.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
             this.chartZDCHeights.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chartGeneralGraphic_MouseWheel);
             // 
             // chartZUCHeights
@@ -118,8 +118,8 @@
             this.chartZUCHeights.Size = new System.Drawing.Size(1226, 248);
             this.chartZUCHeights.TabIndex = 1;
             this.chartZUCHeights.Text = "hartZUCHeights";
-            this.chartZUCHeights.MouseEnter += new System.EventHandler(this.chartZUCHeights_MouseEnter);
-            this.chartZUCHeights.MouseLeave += new System.EventHandler(this.chartZUCHeights_MouseLeave);
+            this.chartZUCHeights.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
+            this.chartZUCHeights.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
             this.chartZUCHeights.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chartGeneralGraphic_MouseWheel);
             // 
             // label1

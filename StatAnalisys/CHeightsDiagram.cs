@@ -93,32 +93,24 @@ namespace StatAnalisys
 
         }
 
-        private void chartZDCHeights_MouseLeave(object sender, EventArgs e)
+        private void chart_MouseLeave(object sender, EventArgs e)
         {
-            if (chartZDCHeights.Focused)
-                chartZDCHeights.Parent.Focus();
+            Chart chart = (Chart)sender;
+            if (chart.Focused)
+                chart.Parent.Focus();
         }
 
-        private void chartZDCHeights_MouseEnter(object sender, EventArgs e)
+        private void chart_MouseEnter(object sender, EventArgs e)
         {
-            if (!chartZDCHeights.Focused)
-                chartZDCHeights.Focus();
-        }
-
-        void chartZUCHeights_MouseLeave(object sender, EventArgs e)
-        {
-            if (chartZUCHeights.Focused)
-                chartZUCHeights.Parent.Focus();
-        }
-
-        private void chartZUCHeights_MouseEnter(object sender, EventArgs e)
-        {
-            if (!chartZUCHeights.Focused)
-                chartZUCHeights.Focus();
+            Chart chart = (Chart)sender;
+            if (!chart.Focused)
+                chart.Focus();
         }
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MainForm.zoomReset(chartZUCHeights); 
+            MainForm.zoomReset(chartZDCHeights);
             Images.saveImage(new Chart[] { chartZUCHeights, chartZDCHeights});
         }
     }

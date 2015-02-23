@@ -359,16 +359,18 @@ namespace StatAnalisys
             }
         }
 
-        private void buttonZoomReset_Click(object sender, EventArgs e)
+        public static void zoomReset(Chart chart)
         {
-            chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.ZoomReset();
-            chartGeneralGraphic.ChartAreas[0].AxisY.ScaleView.ZoomReset();
+            chart.ChartAreas[0].AxisX.ScaleView.ZoomReset();
+            chart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
         }
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //string[] str = { "general graphic", "Heights graphic", "Probabilities graphic"};
             //bool[] saveImages = CheckboxDialog.ShowDialog("Save Images", str);
+            MainForm.zoomReset(chartWavesPeriods);
+            MainForm.zoomReset(chartGeneralGraphic);
             Images.saveImage(new Chart[] {chartGeneralGraphic,  chartWavesPeriods});
         }
 
