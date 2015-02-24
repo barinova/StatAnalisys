@@ -75,13 +75,19 @@ namespace StatAnalisys
 
         private void setAnnotation(Chart chart, string str)
         {
+            Series s = new Series();
+            s.Name = str;
+            s.ChartType = SeriesChartType.Point;
+            chart.Series.Add(s);
+            /*
             TextAnnotation text = new TextAnnotation();
             text.X = 130;
             text.Y = 1;
             text.Text = str; 
             text.AnchorDataPoint = chart.Series[0].Points[3];
-            chart.Annotations.Add(text);
+            chart.Annotations.Add(text);*/
         }
+
         private void chartGeneralGraphic_MouseWheel(object sender, MouseEventArgs e)
         {
             try
@@ -109,8 +115,6 @@ namespace StatAnalisys
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MainForm.zoomReset(chartZUCHeights); 
-            MainForm.zoomReset(chartZDCHeights);
             Images.saveImage(new Chart[] { chartZUCHeights, chartZDCHeights});
         }
     }

@@ -412,7 +412,7 @@ namespace StatAnalisys
             this.chartWavesPeriods.Name = "chartWavesPeriods";
             series8.ChartArea = "ChartArea1";
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            series8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             series8.Legend = "Legend1";
             series8.Name = "T";
             this.chartWavesPeriods.Series.Add(series8);

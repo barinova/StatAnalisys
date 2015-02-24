@@ -56,10 +56,6 @@ namespace StatAnalisys
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MainForm.zoomReset(chartZDC); 
-            MainForm.zoomReset(chartZUC);
-            MainForm.zoomReset(chartZDCLog);
-            MainForm.zoomReset(chartZUCLog);
             Images.saveImage(new Chart[] { chartZDC, chartZDCLog, chartZUC, chartZUCLog });
         }
 

@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using csmatio.types;
 using csmatio.io;
@@ -367,10 +366,6 @@ namespace StatAnalisys
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //string[] str = { "general graphic", "Heights graphic", "Probabilities graphic"};
-            //bool[] saveImages = CheckboxDialog.ShowDialog("Save Images", str);
-            MainForm.zoomReset(chartWavesPeriods);
-            MainForm.zoomReset(chartGeneralGraphic);
             Images.saveImage(new Chart[] {chartGeneralGraphic,  chartWavesPeriods});
         }
 
@@ -397,6 +392,25 @@ namespace StatAnalisys
                 diagProbabilities.Show();
                 checkBoxProbabilitiesDiagram.Checked = false;
             }
+        }
+
+        public static Chart Copy(Chart chart)
+        {
+            Chart newChart = new Chart();
+
+            foreach (var ca in chart.ChartAreas)
+                newChart.ChartAreas.Add(ca);
+
+            foreach (var s in chart.Series)
+                newChart.Series.Add(s);
+
+            foreach (var l in chart.Legends)
+                newChart.Legends.Add(l);
+
+            foreach (var a in chart.Annotations)
+                newChart.Annotations.Add(a);
+
+            return newChart;
         }
     }
     public static class CheckboxDialog
@@ -449,6 +463,16 @@ namespace StatAnalisys
 
     public class Images
     {
+        private static ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+            foreach (ImageCodecInfo codec in codecs)
+                if (codec.FormatID == format.Guid)
+                    return codec;
+            return null;
+        }
+
+        
         public static void saveImage(Chart[] charts)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -467,26 +491,19 @@ namespace StatAnalisys
                         {
                             foreach (Chart chart in charts)
                             {
+                                Chart newChart = MainForm.Copy(chart);
+                                MainForm.zoomReset(newChart);
+                                newChart.Size = new Size(chart.Width * 5, chart.Height * 5);
                                 String name = saveFileDialog.FileName.Insert(saveFileDialog.FileName.Count() - 4, chart.Text);
+
                                 EncoderParameters myEncoderParameters = new EncoderParameters(1);
                                 System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
-                                myEncoderParameters.Param[0] = new EncoderParameter(myEncoder, 40L);
+                                myEncoderParameters.Param[0] = new EncoderParameter(myEncoder, 100L);
                                 System.IO.MemoryStream mS = new System.IO.MemoryStream();
-
-                                // call the SaveTo method using the Stream and any ImageFormat
-                                //chart.SaveImage(mS, System.Drawing.Imaging.ImageFormat.Bmp);
-                                // it is possible to retrieve the image later using Image.FromStream
-                                //System.Drawing.Image myImage = System.Drawing.Image.FromStream(mS);
-
-                                // or, just save the chart using a specified file path.
-                                chart.SaveImage(mS, ChartImageFormat.Png);
+                                newChart.SaveImage(mS, ChartImageFormat.Png);
                                 Image imgImage = Image.FromStream(mS);
-                                imgImage.Save(name);
-                                /*using (var fileStream = File.Create(name))
-                                {
-                                    mS.Seek(0, SeekOrigin.Begin);
-                                    mS.CopyTo(fileStream);
-                                }*/
+                                
+                                imgImage.Save(name, GetEncoder(ImageFormat.Jpeg), myEncoderParameters);
 
                             }
                         }
@@ -502,5 +519,6 @@ namespace StatAnalisys
                 }
             }
         }
+
     }
 }
