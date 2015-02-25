@@ -16,7 +16,7 @@ using System.Drawing.Imaging;
 namespace StatAnalisys
 {
     
-    public partial class MainForm : Form
+    public partial class MainForm : BaseForm
     {
 
         CCalculatedWaves arrayWaves;
@@ -28,6 +28,7 @@ namespace StatAnalisys
         public MainForm()
         {
             InitializeComponent();
+
             chartGeneralGraphic.Series[1]["PixelPointWidth"] = "1";
             chartZommedWave.Series[1]["PixelPointWidth"] = "1";
             chartZommedWave.ChartAreas[0].AxisY.TitleFont = new Font("Sans Serif", 10, FontStyle.Bold);
@@ -61,6 +62,7 @@ namespace StatAnalisys
             {
                 s.Points.Clear();
             }
+
             chartGeneralGraphic.Series[0].Points.Clear();
             chartWavesPeriods.Series[0].Points.Clear();
         }
@@ -68,6 +70,7 @@ namespace StatAnalisys
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult dRes = openFileDialog.ShowDialog();
+
             if (dRes == DialogResult.OK)
             {
                 string fileName = openFileDialog.FileName;
@@ -130,40 +133,6 @@ namespace StatAnalisys
                 renderChartOfWavesPeriods();
                 labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
             }
-        }
-
-        public static void zoom(MouseEventArgs e, System.Windows.Forms.DataVisualization.Charting.ChartArea area, int delta)
-        {
-            double xMin = area.AxisX.ScaleView.ViewMinimum;
-            double xMax = area.AxisX.ScaleView.ViewMaximum;
-            double yMin = area.AxisY.ScaleView.ViewMinimum;
-            double yMax = area.AxisY.ScaleView.ViewMaximum;
-
-            double posXStart = area.AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin);
-            double posXFinish = area.AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin);
-            double posYStart = area.AxisY.PixelPositionToValue(e.Location.Y) - (yMax - yMin);
-            double posYFinish = area.AxisY.PixelPositionToValue(e.Location.Y) + (yMax - yMin);
-
-            if (e.Delta < 0)
-            {
-                area.AxisX.ScaleView.Zoom(posXStart * delta, posXFinish * delta);
-                area.AxisY.ScaleView.Zoom(posYStart * delta, posYFinish * delta);
-            }
-
-            if (e.Delta > 0)
-            {
-                area.AxisX.ScaleView.Zoom(posXStart / delta, posXFinish / delta);
-                area.AxisY.ScaleView.Zoom(posYStart / delta, posYFinish / delta);
-            }
-        }
-
-        private void chartGeneralGraphic_MouseWheel(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                zoom(e, chartGeneralGraphic.ChartAreas[0], 2);
-            }
-            catch { }
         }
 
         private void chartGeneralGraphic_SelectionChanging(object sender, CursorEventArgs e)
@@ -231,19 +200,6 @@ namespace StatAnalisys
             chartZommedWave.Series[3].Points.AddXY(x1 - 0.5, y2 < y4 ? y2 : y4);
             chartZommedWave.Series[3].Points.AddXY(x5 - 0.5, y2 < y4 ? y2 : y4);
             chartZommedWave.Series[3].Points[1].Label = Math.Round(x5 - x1, 3).ToString();
-        }
-
-
-        private void chartGeneralGraphic_MouseLeave(object sender, EventArgs e)
-        {
-            if (chartGeneralGraphic.Focused)
-                chartGeneralGraphic.Parent.Focus();
-        }
-
-        private void chartGeneralGraphic_MouseEnter(object sender, EventArgs e)
-        {
-            if (!chartGeneralGraphic.Focused)
-                chartGeneralGraphic.Focus();
         }
 
         //update possible number of wave
@@ -358,15 +314,9 @@ namespace StatAnalisys
             }
         }
 
-        public static void zoomReset(Chart chart)
-        {
-            chart.ChartAreas[0].AxisX.ScaleView.ZoomReset();
-            chart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
-        }
-
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Images.saveImage(new Chart[] {chartGeneralGraphic,  chartWavesPeriods});
+            saveImage(new Chart[] {chartGeneralGraphic,  chartWavesPeriods});
         }
 
         
@@ -393,8 +343,74 @@ namespace StatAnalisys
                 checkBoxProbabilitiesDiagram.Checked = false;
             }
         }
+    }
 
-        public static Chart Copy(Chart chart)
+    public class BaseForm : Form
+    {
+        protected void zoom(MouseEventArgs e, System.Windows.Forms.DataVisualization.Charting.ChartArea area, int delta)
+        {
+            double xMin = area.AxisX.ScaleView.ViewMinimum;
+            double xMax = area.AxisX.ScaleView.ViewMaximum;
+            double yMin = area.AxisY.ScaleView.ViewMinimum;
+            double yMax = area.AxisY.ScaleView.ViewMaximum;
+
+            double posXStart = area.AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin);
+            double posXFinish = area.AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin);
+            double posYStart = area.AxisY.PixelPositionToValue(e.Location.Y) - (yMax - yMin);
+            double posYFinish = area.AxisY.PixelPositionToValue(e.Location.Y) + (yMax - yMin);
+
+            if (e.Delta < 0)
+            {
+                area.AxisX.ScaleView.Zoom(posXStart * delta, posXFinish * delta);
+                area.AxisY.ScaleView.Zoom(posYStart * delta, posYFinish * delta);
+            }
+
+            if (e.Delta > 0)
+            {
+                area.AxisX.ScaleView.Zoom(posXStart / delta, posXFinish / delta);
+                area.AxisY.ScaleView.Zoom(posYStart / delta, posYFinish / delta);
+            }
+        }
+
+        protected void zoomReset(Chart chart)
+        {
+            chart.ChartAreas[0].AxisX.ScaleView.ZoomReset();
+            chart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
+        }
+
+        public void chart_MouseWheel(object sender, MouseEventArgs e)
+        {
+            Chart chart = (Chart)sender;
+
+            try
+            {
+                zoom(e, chart.ChartAreas[0], 2);
+            }
+            catch { }
+
+        }
+        protected void chart_MouseLeave(object sender, EventArgs e)
+        {
+            Chart chart = (Chart)sender;
+            if (chart.Focused)
+                chart.Parent.Focus();
+        }
+
+        protected void chart_MouseEnter(object sender, EventArgs e)
+        {
+            Chart chart = (Chart)sender;
+            if (!chart.Focused)
+                chart.Focus();
+        }
+        private ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+            foreach (ImageCodecInfo codec in codecs)
+                if (codec.FormatID == format.Guid)
+                    return codec;
+            return null;
+        }
+        private Chart Copy(Chart chart)
         {
             Chart newChart = new Chart();
 
@@ -412,6 +428,58 @@ namespace StatAnalisys
 
             return newChart;
         }
+
+        protected void saveImage(Chart[] charts)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PNG file|*.png";
+            saveFileDialog.Title = "Save Charts As Image File";
+            DialogResult result = saveFileDialog.ShowDialog();
+            saveFileDialog.RestoreDirectory = true;
+
+            if (result == DialogResult.OK)
+            {
+                if (saveFileDialog.FileName != "")
+                {
+                    try
+                    {
+                        if (saveFileDialog.CheckPathExists)
+                        {
+                            foreach (Chart chart in charts)
+                            {
+                                Chart newChart = Copy(chart);
+
+                                zoomReset(newChart);
+
+                                newChart.Size = new Size(chart.Width * 5, chart.Height * 5);
+
+                                String name = saveFileDialog.FileName.Insert(saveFileDialog.FileName.Count() - 4, chart.Text);
+
+                                EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+
+                                myEncoderParameters.Param[0] = new EncoderParameter(myEncoder, 100L);
+                                System.IO.MemoryStream mS = new System.IO.MemoryStream();
+                                newChart.SaveImage(mS, ChartImageFormat.Png);
+
+                                Image imgImage = Image.FromStream(mS);
+
+                                imgImage.Save(name, GetEncoder(ImageFormat.Jpeg), myEncoderParameters);
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Given Path does not exist");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+        }
     }
     public static class CheckboxDialog
     {
@@ -421,13 +489,7 @@ namespace StatAnalisys
             FlowLayoutPanel panel = new FlowLayoutPanel();
             
             panel.AutoSize = true;
-            /*foreach (string c in caption)
-            {
-                CheckBox cb = new CheckBox();
-                cb.Text = c; 
-                panel.Controls.Add(cb);
-                panel.SetFlowBreak(cb, true);
-            }*/
+            
             panel.AutoSize = true;
 
             CheckBox cbGraphic = new CheckBox();
@@ -463,62 +525,5 @@ namespace StatAnalisys
 
     public class Images
     {
-        private static ImageCodecInfo GetEncoder(ImageFormat format)
-        {
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
-            foreach (ImageCodecInfo codec in codecs)
-                if (codec.FormatID == format.Guid)
-                    return codec;
-            return null;
-        }
-
-        
-        public static void saveImage(Chart[] charts)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PNG file|*.png";
-            saveFileDialog.Title = "Save Charts As Image File";
-            DialogResult result = saveFileDialog.ShowDialog();
-            saveFileDialog.RestoreDirectory = true;
-
-            if (result == DialogResult.OK)
-            {
-                if (saveFileDialog.FileName != "")
-                {
-                    try
-                    {
-                        if (saveFileDialog.CheckPathExists)
-                        {
-                            foreach (Chart chart in charts)
-                            {
-                                Chart newChart = MainForm.Copy(chart);
-                                MainForm.zoomReset(newChart);
-                                newChart.Size = new Size(chart.Width * 5, chart.Height * 5);
-                                String name = saveFileDialog.FileName.Insert(saveFileDialog.FileName.Count() - 4, chart.Text);
-
-                                EncoderParameters myEncoderParameters = new EncoderParameters(1);
-                                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
-                                myEncoderParameters.Param[0] = new EncoderParameter(myEncoder, 100L);
-                                System.IO.MemoryStream mS = new System.IO.MemoryStream();
-                                newChart.SaveImage(mS, ChartImageFormat.Png);
-                                Image imgImage = Image.FromStream(mS);
-                                
-                                imgImage.Save(name, GetEncoder(ImageFormat.Jpeg), myEncoderParameters);
-
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Given Path does not exist");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-            }
-        }
-
     }
 }

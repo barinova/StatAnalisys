@@ -10,11 +10,12 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 namespace StatAnalisys
 {
-    public partial class CHeightsDiagram : Form
+    public partial class CHeightsDiagram : BaseForm
     {
         public CHeightsDiagram()
         {
             InitializeComponent();
+
             chartZDCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZUCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZDCHeights.Series[0].Color = Color.Red;
@@ -88,34 +89,9 @@ namespace StatAnalisys
             chart.Annotations.Add(text);*/
         }
 
-        private void chartGeneralGraphic_MouseWheel(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                Chart chart = (Chart)sender;
-                MainForm.zoom(e, chart.ChartAreas[0], 2);
-            }
-            catch { }
-
-        }
-
-        private void chart_MouseLeave(object sender, EventArgs e)
-        {
-            Chart chart = (Chart)sender;
-            if (chart.Focused)
-                chart.Parent.Focus();
-        }
-
-        private void chart_MouseEnter(object sender, EventArgs e)
-        {
-            Chart chart = (Chart)sender;
-            if (!chart.Focused)
-                chart.Focus();
-        }
-
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Images.saveImage(new Chart[] { chartZUCHeights, chartZDCHeights});
+            saveImage(new Chart[] { chartZUCHeights, chartZDCHeights});
         }
     }
 }

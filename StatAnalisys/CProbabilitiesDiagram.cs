@@ -11,11 +11,12 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace StatAnalisys
 {
-    public partial class CProbabilitiesDiagram : Form
+    public partial class CProbabilitiesDiagram : BaseForm
     {
         public CProbabilitiesDiagram()
         {
             InitializeComponent();
+
             chartZUC.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
             chartZDC.ChartAreas[0].AxisX.ScrollBar.Enabled = true; 
             chartZUCLog.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
@@ -56,33 +57,9 @@ namespace StatAnalisys
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Images.saveImage(new Chart[] { chartZDC, chartZDCLog, chartZUC, chartZUCLog });
+            saveImage(new Chart[] { chartZDC, chartZDCLog, chartZUC, chartZUCLog });
         }
 
-        private void chart_MouseWheel(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                Chart chart = (Chart)sender;
-                MainForm.zoom(e, chart.ChartAreas[0], 2);
-            }
-            catch { }
-
-        }
-
-        private void chart_MouseLeave(object sender, EventArgs e)
-        {
-            Chart chart = (Chart)sender;
-            if (chart.Focused)
-                chart.Parent.Focus();
-        }
-       
-        private void chart_MouseEnter(object sender, EventArgs e)
-        {
-            Chart chart = (Chart)sender;
-            if (!chart.Focused)
-                chart.Focus();
-        }
     }
 
 }
