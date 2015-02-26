@@ -40,11 +40,12 @@ namespace StatAnalisys
     {
         List<CSingleWave> waves = new  List<CSingleWave>();
         public CSingleWave this[int index]
-        { 
+        {
             get
             {
                 return waves.ElementAt(index);
             }
+            private set {}
         }
 
         public void calculateDatas(double[] arrT, double[][] arrS)
@@ -150,11 +151,9 @@ namespace StatAnalisys
                     j--;
                 }
             }
-            if (i < r)
-                quickSort(a, i, r);
+            if (i < r) quickSort(a, i, r);
 
-            if (l < j)
-                quickSort(a, l, j);
+            if (l < j) quickSort(a, l, j);
         }
 
         double getNullPoint(double firstPointX, double firstPointY, double secondPointX, double secondPointY)
@@ -251,10 +250,6 @@ namespace StatAnalisys
             double heightSignificant = 0;
             size = 2 * (listHeights.Count()/3);
             double tmp = listHeights.Count() - size;
-            /*if (listHeights.Count() > 1)
-            {
-                quickSort(listHeights, 0, listHeights.Count() - 1);
-            }*/
 
             for(int i = size; i < listHeights.Count(); i++)
             {
@@ -265,9 +260,8 @@ namespace StatAnalisys
 
         double setSigma(List<double> listHeights, double sighificiantHeight)
         {
-            //float tmp = listHeights.count();
             double sigma = 0;
-            //if sign heights != 0
+
             for(int i = 0; i < listHeights.Count(); i++)
             {
                 sigma += Math.Sqrt(Math.Pow(listHeights[i] - sighificiantHeight, 2));

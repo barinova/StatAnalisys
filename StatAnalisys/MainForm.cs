@@ -29,6 +29,12 @@ namespace StatAnalisys
         {
             InitializeComponent();
 
+            setupUISettings();            
+            changeEnabledSettingsComponents(false);
+        }
+
+        void setupUISettings()
+        {
             chartGeneralGraphic.Series[1]["PixelPointWidth"] = "1";
             chartZommedWave.Series[1]["PixelPointWidth"] = "1";
             chartZommedWave.ChartAreas[0].AxisY.TitleFont = new Font("Sans Serif", 10, FontStyle.Bold);
@@ -46,9 +52,8 @@ namespace StatAnalisys
             chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-            changeEnabledSettingsComponents(false);
         }
-
+        
         void changeEnabledSettingsComponents(bool value)
         {
             checkBoxHeightsDiagram.Enabled = value;
@@ -299,6 +304,7 @@ namespace StatAnalisys
                 {
                     param = listWavesDatas.ElementAt(i);
                     int indS;
+
                     if (param.ridge < param.trough)
                     {
                         indS = chartGeneralGraphic.Series[1].Points.AddXY(param.ridge, param.amplMax);
@@ -318,13 +324,13 @@ namespace StatAnalisys
         {
             saveImage(new Chart[] {chartGeneralGraphic,  chartWavesPeriods});
         }
-
-        
+                
         private void checkBoxHeightsDiagram_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxHeightsDiagram.Checked)
             {
                 CHeightsDiagram diagHeights = new CHeightsDiagram();
+
                 diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
                     wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
                 diagHeights.Show();
@@ -480,6 +486,15 @@ namespace StatAnalisys
                 }
             }
         }
+
+        protected void drawStripLine(Chart chart, double y, Color color)
+        {
+            StripLine stripLine = new StripLine();
+            stripLine.IntervalOffset = y;
+            stripLine.BackColor = color;
+            stripLine.StripWidth = 0.01;
+            chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
+        }
     }
     public static class CheckboxDialog
     {
@@ -519,11 +534,8 @@ namespace StatAnalisys
             panel.Controls.Add(no);
             prompt.Controls.Add(panel);
             prompt.ShowDialog();
+
             return new bool[] { cbGraphic.Checked, cbHeights.Checked, cbProb.Checked};
         }
-    }
-
-    public class Images
-    {
     }
 }

@@ -27,7 +27,7 @@ namespace StatAnalisys
         public void renderProbabilities(typeCrossing type, List<probability> listProb)
         {
             Chart chart, chartLog;
-            probability prob;
+
             if (type == typeCrossing.ZDC)
             {
                 chart = chartZDC;
@@ -39,7 +39,14 @@ namespace StatAnalisys
                 chartLog = chartZUCLog;
             }
 
-            for (int i = 0; i < listProb.Count(); i++ )
+            drawPChart(listProb, chart, chartLog);
+        }
+
+        void drawPChart(List<probability> listProb, Chart chart, Chart chartLog)
+        {
+            probability prob;
+
+            for (int i = 0; i < listProb.Count(); i++)
             {
                 prob = listProb[i];
 
