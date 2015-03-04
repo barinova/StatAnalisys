@@ -228,20 +228,38 @@ namespace StatAnalisys
             }
             return wave;
         }
+
+        double sigma(List<double> listHeights)
+        {
+            double count = listHeights.Count();
+
+            if (count > 0)
+             {
+                double tmpHeight = 0;
+                double nu = 0;
+
+                foreach (double d in listHeights)
+                {
+                    nu += d;
+                }
+                
+                nu = nu / count;
+
+                foreach (double d in listHeights)
+                {
+                    tmpHeight += Math.Pow(Math.Abs(d - nu), 2);
+                }
+                
+                return Math.Sqrt(tmpHeight / count);
+
+             }
+
+            return Double.NaN;
+        }
+
         double significantHeights(List<double> listHeights)
         {
-            double tmp = listHeights.Count();
-            double tmpHeight = 0;
-            double heightSignificant = 0;
-
-            for (int i = 0; i < listHeights.Count(); i++)
-            {
-                tmpHeight = listHeights[i];
-                heightSignificant += tmpHeight;
-            }
-
-            tmp = heightSignificant / listHeights.Count();
-            return Math.Sqrt(4.04 * heightSignificant / listHeights.Count());
+            return 4.04 * sigma(listHeights);
         }
 
         double heightOneThird(List<double> listHeights)
@@ -258,17 +276,11 @@ namespace StatAnalisys
             return (heightSignificant/(listHeights.Count() - size));
         }
 
-        double setSigma(List<double> listHeights, double sighificiantHeight)
+        double setSigma(List<double> listHeights)
         {
-            double sigma = 0;
-
-            for(int i = 0; i < listHeights.Count(); i++)
-            {
-                sigma += Math.Sqrt(Math.Pow(listHeights[i] - sighificiantHeight, 2));
-            }
-            return (sigma/listHeights.Count());
-
+            return sigma(listHeights);
         }
+
         void setHeights(List<double> listHeihtsZDC, List<double> listHeihtsZUC)
         {
             heights zuc, zdc;
@@ -277,12 +289,12 @@ namespace StatAnalisys
             zdc = new heights();
             zdc.significantHeight = significantHeights(listHeihtsZDC);
             zdc.heightOneThird = heightOneThird(listHeihtsZDC);
-            zdc.sigma = setSigma(listHeihtsZDC, zdc.heightOneThird);
+            zdc.sigma = setSigma(listHeihtsZDC);
             listHeightsZDC = zdc;
 
             zuc.significantHeight = significantHeights(listHeihtsZUC);
             zuc.heightOneThird = heightOneThird(listHeihtsZUC);
-            zuc.sigma = setSigma(listHeihtsZUC, zuc.heightOneThird);
+            zuc.sigma = setSigma(listHeihtsZUC);
             listHeightsZUC = zuc;
 
         }
@@ -392,9 +404,9 @@ namespace StatAnalisys
                 obj.H = listHeights[i];
                 obj.experP = waveFrequency;
                 //obj.teorP = exp(-obj.H * obj.H/(8*h.at(type).sigma * h.at(type).sigma));
-                obj.crestP = Math.Exp(- 2 * Math.Pow(2 * listCrestA[i]/h.significantHeight, 2));
-                obj.troughP = Math.Exp(-2 * Math.Pow(2 * listThroughA[i] / h.significantHeight, 2));
-                obj.teorP = Math.Exp(-obj.H * obj.H / (8 * h.sigma * h.sigma));
+                obj.crestP = Math.Exp(-2 * Math.Pow(2.0 * listCrestA[i]/h.significantHeight, 2));
+                obj.troughP = Math.Exp(-2 * Math.Pow(2.0 * listThroughA[i] / h.significantHeight, 2));
+                obj.teorP = Math.Exp(-obj.H * obj.H / (8.0 * h.sigma * h.sigma));
 
                 if (type == typeCrossing.ZDC)
                 {
