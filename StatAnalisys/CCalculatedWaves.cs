@@ -266,14 +266,23 @@ namespace StatAnalisys
         {
             int size = 0;
             double heightSignificant = 0;
-            size = 2 * (listHeights.Count()/3);
-            double tmp = listHeights.Count() - size;
+            List<double> heights = new List<double>(listHeights);
+            int N = heights.Count();
 
-            for(int i = size; i < listHeights.Count(); i++)
+            size = 2 * (N / 3);
+
+            if (N > 1)
             {
-                heightSignificant += listHeights[i];
+                quickSort(heights, 0, (int)N - 1);
             }
-            return (heightSignificant/(listHeights.Count() - size));
+
+            double tmp = N - size;
+
+            for(int i = size; i < N; i++)
+            {
+                heightSignificant += heights[i];
+            }
+            return (heightSignificant/(N - size));
         }
 
         double setSigma(List<double> listHeights)
@@ -373,6 +382,7 @@ namespace StatAnalisys
             List<double> listThroughA = new List<double>(listTA);
 
             N = listHeights.Count();
+
             if (type == typeCrossing.ZDC)
             {
                 h = listHeightsZDC;

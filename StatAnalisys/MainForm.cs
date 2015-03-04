@@ -68,8 +68,15 @@ namespace StatAnalisys
                 s.Points.Clear();
             }
 
-            chartGeneralGraphic.Series[0].Points.Clear();
-            chartWavesPeriods.Series[0].Points.Clear();
+            foreach (Series s in chartGeneralGraphic.Series)
+            {
+                s.Points.Clear();
+            }
+
+            foreach (Series s in this.chartWavesPeriods.Series)
+            {
+                s.Points.Clear();
+            }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)

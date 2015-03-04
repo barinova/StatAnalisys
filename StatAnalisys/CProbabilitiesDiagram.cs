@@ -30,8 +30,8 @@ namespace StatAnalisys
             chartZDCLog.Series[1].Color = Color.RoyalBlue;
             chartZDC.Series[2].Color = Color.Green;
             chartZDCLog.Series[2].Color = Color.Green;
-            chartZDC.Series[3].Color = Color.Violet;
-            chartZDCLog.Series[3].Color = Color.Violet;
+            chartZDC.Series[3].Color = Color.Tomato;
+            chartZDCLog.Series[3].Color = Color.Tomato;
             
             chartZUC.Series[0].Color = Color.DarkOrange;
             chartZUCLog.Series[0].Color = Color.DarkOrange;
@@ -39,8 +39,8 @@ namespace StatAnalisys
             chartZUCLog.Series[1].Color = Color.RoyalBlue;
             chartZUC.Series[2].Color = Color.Green;
             chartZUCLog.Series[2].Color = Color.Green;
-            chartZUC.Series[3].Color = Color.Violet;
-            chartZUCLog.Series[3].Color = Color.Violet;
+            chartZUC.Series[3].Color = Color.Tomato;
+            chartZUCLog.Series[3].Color = Color.Tomato;
 
             setupMarkStyle(chartZDC, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
             setupMarkStyle(chartZDCLog, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
