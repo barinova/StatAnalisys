@@ -49,7 +49,7 @@ namespace StatAnalisys
             chartZommedWave.Series[3].Font = new Font("Arial", 8);
             chartGeneralGraphic.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartGeneralGraphic.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-            //chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
+            chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
         }
@@ -140,17 +140,19 @@ namespace StatAnalisys
             }
         }
 
-        private void chartGeneralGraphic_AxisViewChanging(object sender, ViewEventArgs e)
+        private void chartGeneralGraphic_SelectionRangeChanged(object sender, CursorEventArgs e)
         {
             int indexWave = comboBoxNumWave.SelectedIndex;
 
             if (indexWave > -1 && wave != null)
             {
-                if (selectedX != e.NewPosition + e.NewSize / 2)
+                double currentPoint = e.NewSelectionStart + (e.NewSelectionEnd - e.NewSelectionStart) / 2;
+
+                if (selectedX != currentPoint)
                 {
                     double x1, x2, x3, x4, x5, y1, y2, y3, y4, y5;
                     waveData selectedWave;
-                    selectedX = e.NewPosition + e.NewSize / 2;
+                    selectedX = currentPoint;
                     selectedWave = wave.calculatingWaves.FirstOrDefault(c => c.nullPoint[0] < selectedX && c.nullPoint[2] > selectedX);
 
                     if (selectedWave.nullPoint != null)
@@ -182,8 +184,6 @@ namespace StatAnalisys
                     }
                 }
             }
-
-            e.NewSize = Double.NaN;
 
         }
 

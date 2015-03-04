@@ -161,8 +161,8 @@ namespace StatAnalisys
             this.chartGeneralGraphic.Text = "Chart Wave";
             this.chartGeneralGraphic.MouseEnter += new System.EventHandler(chart_MouseEnter);
             this.chartGeneralGraphic.MouseLeave += new System.EventHandler(chart_MouseLeave);
-            this.chartGeneralGraphic.MouseWheel += new System.Windows.Forms.MouseEventHandler(chart_MouseWheel); 
-            this.chartGeneralGraphic.AxisViewChanging += new System.EventHandler<ViewEventArgs>(this.chartGeneralGraphic_AxisViewChanging);
+            this.chartGeneralGraphic.MouseWheel += new System.Windows.Forms.MouseEventHandler(chart_MouseWheel);
+            this.chartGeneralGraphic.SelectionRangeChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.chartGeneralGraphic_SelectionRangeChanged);
             // 
             // panel1
             // 
