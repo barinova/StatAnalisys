@@ -213,7 +213,7 @@ namespace StatAnalisys
 
             chartZommedWave.Series[3].Points.AddXY(x1 - 0.5, y2 < y4 ? y2 : y4);
             chartZommedWave.Series[3].Points.AddXY(x5 - 0.5, y2 < y4 ? y2 : y4);
-            chartZommedWave.Series[3].Points[1].Label = Math.Round(x5 - x1, 3).ToString();
+            //chartZommedWave.Series[3].Points[1].Label = Math.Round(x5 - x1, 3).ToString();
         }
 
         //update possible number of wave
@@ -294,6 +294,7 @@ namespace StatAnalisys
 
             if (indexWave > -1 && wave != null)
             {
+                chartGeneralGraphic.Series[1].Points.Clear();
                 renderingTroughsAndRidges(wave);
                 panelGraphic.Enabled = true;
             }

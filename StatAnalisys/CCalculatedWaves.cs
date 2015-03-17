@@ -236,21 +236,21 @@ namespace StatAnalisys
             if (count > 0)
              {
                 double tmpHeight = 0;
-                double nu = 0;
+                /*double nu = 0;
 
                 foreach (double d in listHeights)
                 {
                     nu += d;
                 }
                 
-                nu = nu / count;
+                nu = nu / count;*/
 
                 foreach (double d in listHeights)
                 {
-                    tmpHeight += Math.Pow(Math.Abs(d - nu), 2);
+                    tmpHeight += d;
                 }
                 
-                return Math.Sqrt(tmpHeight / count);
+                return (tmpHeight / count);
 
              }
 
@@ -259,7 +259,7 @@ namespace StatAnalisys
 
         double significantHeights(List<double> listHeights)
         {
-            return 4.04 * sigma(listHeights);
+            return Math.Sqrt(4.04*sigma(listHeights));
         }
 
         double heightOneThird(List<double> listHeights)
@@ -282,6 +282,7 @@ namespace StatAnalisys
             {
                 heightSignificant += heights[i];
             }
+
             return (heightSignificant/(N - size));
         }
 
