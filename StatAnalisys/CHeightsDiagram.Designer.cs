@@ -67,7 +67,7 @@
             legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
             legend1.Name = "Legend1";
             this.chartZDCHeights.Legends.Add(legend1);
-            this.chartZDCHeights.Location = new System.Drawing.Point(3, 3);
+            this.chartZDCHeights.Location = new System.Drawing.Point(12, 3);
             this.chartZDCHeights.Name = "chartZDCHeights";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
@@ -83,12 +83,9 @@
             this.chartZDCHeights.Series.Add(series1);
             this.chartZDCHeights.Series.Add(series2);
             this.chartZDCHeights.Series.Add(series3);
-            this.chartZDCHeights.Size = new System.Drawing.Size(1223, 252);
+            this.chartZDCHeights.Size = new System.Drawing.Size(1223, 349);
             this.chartZDCHeights.TabIndex = 0;
             this.chartZDCHeights.Text = "chartHeightsZDC";
-            this.chartZDCHeights.MouseEnter += new System.EventHandler(chart_MouseEnter);
-            this.chartZDCHeights.MouseLeave += new System.EventHandler(chart_MouseLeave);
-            this.chartZDCHeights.MouseWheel += new System.Windows.Forms.MouseEventHandler(chart_MouseWheel);
             // 
             // chartZUCHeights
             // 
@@ -99,7 +96,7 @@
             this.chartZUCHeights.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartZUCHeights.Legends.Add(legend2);
-            this.chartZUCHeights.Location = new System.Drawing.Point(3, 1);
+            this.chartZUCHeights.Location = new System.Drawing.Point(12, 16);
             this.chartZUCHeights.Name = "chartZUCHeights";
             series4.ChartArea = "ChartArea1";
             series4.Legend = "Legend1";
@@ -115,17 +112,14 @@
             this.chartZUCHeights.Series.Add(series4);
             this.chartZUCHeights.Series.Add(series5);
             this.chartZUCHeights.Series.Add(series6);
-            this.chartZUCHeights.Size = new System.Drawing.Size(1226, 248);
+            this.chartZUCHeights.Size = new System.Drawing.Size(1226, 339);
             this.chartZUCHeights.TabIndex = 1;
             this.chartZUCHeights.Text = "hartZUCHeights";
-            this.chartZUCHeights.MouseEnter += new System.EventHandler(chart_MouseEnter);
-            this.chartZUCHeights.MouseLeave += new System.EventHandler(chart_MouseLeave);
-            this.chartZUCHeights.MouseWheel += new System.Windows.Forms.MouseEventHandler(chart_MouseWheel);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 28);
+            this.label1.Location = new System.Drawing.Point(6, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(140, 13);
             this.label1.TabIndex = 2;
@@ -134,7 +128,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 310);
+            this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 13);
             this.label2.TabIndex = 3;
@@ -167,30 +161,30 @@
             // 
             // ZUCHeights
             // 
+            this.ZUCHeights.Controls.Add(this.label1);
             this.ZUCHeights.Controls.Add(this.chartZDCHeights);
-            this.ZUCHeights.Location = new System.Drawing.Point(15, 44);
+            this.ZUCHeights.Location = new System.Drawing.Point(15, 28);
             this.ZUCHeights.Name = "ZUCHeights";
-            this.ZUCHeights.Size = new System.Drawing.Size(1229, 258);
+            this.ZUCHeights.Size = new System.Drawing.Size(1249, 355);
             this.ZUCHeights.TabIndex = 7;
             // 
             // ZDCHeights
             // 
+            this.ZDCHeights.Controls.Add(this.label2);
             this.ZDCHeights.Controls.Add(this.chartZUCHeights);
-            this.ZDCHeights.Location = new System.Drawing.Point(15, 326);
+            this.ZDCHeights.Location = new System.Drawing.Point(15, 389);
             this.ZDCHeights.Name = "ZDCHeights";
-            this.ZDCHeights.Size = new System.Drawing.Size(1229, 252);
+            this.ZDCHeights.Size = new System.Drawing.Size(1249, 376);
             this.ZDCHeights.TabIndex = 8;
             // 
             // CHeightsDiagram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1276, 590);
+            this.ClientSize = new System.Drawing.Size(1276, 743);
             this.Controls.Add(this.ZDCHeights);
             this.Controls.Add(this.ZUCHeights);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.MinimizeBox = false;
             this.Name = "CHeightsDiagram";
             this.Text = "CSingleWaveDatas";
@@ -199,7 +193,9 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ZUCHeights.ResumeLayout(false);
+            this.ZUCHeights.PerformLayout();
             this.ZDCHeights.ResumeLayout(false);
+            this.ZDCHeights.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
