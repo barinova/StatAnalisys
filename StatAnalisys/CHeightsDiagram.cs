@@ -30,28 +30,48 @@ namespace StatAnalisys
             chartZUCHeights.Series[0].Font = new Font("Arial", 7);
         }
 
+        private void highlightRougeWave(Chart chart, int x, double y)
+        {
+            chart.Series[0].Points[x].Color = Color.DarkViolet;
+        }
+
         public void renderHeights(double listHeightsZDCThird, double listHeightsZDCSign, double listHeightsZUCThird,
             double listHeightsZUCSign, List<double> listHeihtsZDC, List<double> listHeihtsZUC)
         {
             int indX;
+            double HHSingnZDC = 2*listHeightsZDCSign;
+            double HHSingnZUC = 2*listHeightsZUCSign;
+
             foreach (var h in listHeihtsZDC)
             {
                 indX = chartZDCHeights.Series[0].Points.AddY(h);
                 chartZDCHeights.Series[0].Points[indX].Label = Math.Round(h, 3).ToString();
+
+                if (h > HHSingnZDC)
+                {
+                    highlightRougeWave(chartZDCHeights, indX, h);
+                }
             }
 
             foreach (var h in listHeihtsZUC)
             {
                 indX = chartZUCHeights.Series[0].Points.AddY(h);
-                chartZUCHeights.Series[0].Points[indX].Label = Math.Round(h, 3).ToString();
+                chartZUCHeights.Series[0].Points[indX].Label = Math.Round(h, 3).ToString(); 
+
+                if (h > HHSingnZUC)
+                {
+                    highlightRougeWave(chartZUCHeights, indX, h);
+                }
             }
 
             drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Orange);
             drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.Violet);
             drawStripLine(chartZDCHeights, 2 * listHeightsZDCSign, Color.RoyalBlue);
+            drawStripLine(chartZDCHeights, 2*listHeightsZDCSign, Color.Aqua);
             drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Orange);
             drawStripLine(chartZUCHeights, listHeightsZUCThird, Color.Violet);
             drawStripLine(chartZUCHeights, 2 * listHeightsZUCSign, Color.RoyalBlue);
+            drawStripLine(chartZUCHeights, 2 * listHeightsZUCSign, Color.Aqua);
 
 
             if (chartZDCHeights.Height < 2 * listHeightsZDCSign)
@@ -59,10 +79,13 @@ namespace StatAnalisys
                 chartZDCHeights.Height = 2 * (int)listHeightsZDCSign + 1;
             }
             setAnnotation(chartZUCHeights, "Height of one third = " + Math.Round(listHeightsZUCThird, 7).ToString()
-                + "\nSignificiant height = " +  Math.Round(listHeightsZUCSign, 8).ToString());
+                + "\nSignificiant height = " +  Math.Round(listHeightsZUCSign, 8).ToString()
+                + "\n2 * Significiant height = " + Math.Round(2 * listHeightsZUCSign, 7).ToString());
             setAnnotation(chartZDCHeights, "Heights of one third = " +  Math.Round(listHeightsZDCThird, 7).ToString()
-                + "\nSignificiant height = " +  Math.Round(listHeightsZDCSign, 8).ToString());
+                + "\nSignificiant height = " + Math.Round(listHeightsZDCSign, 8).ToString()
+                + "\n2 * Significiant height = " + Math.Round(2 * listHeightsZDCSign, 7).ToString());
         }
+
 
         private void setAnnotation(Chart chart, string str)
         {

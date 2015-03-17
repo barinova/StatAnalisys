@@ -359,6 +359,38 @@ namespace StatAnalisys
                 checkBoxProbabilitiesDiagram.Checked = false;
             }
         }
+
+        private void buttonViewRougeWaves_Click(object sender, EventArgs e)
+        {
+            Form rougeWavesForm = new Form();
+            Label rLabel = new Label();
+            Dictionary<int, int> rWaves = arrayWaves.rougeWaves;
+
+            rougeWavesForm.AutoSize = true;
+
+            if (rWaves.Count > 0)
+            {
+                ListBox lstBox = new ListBox();
+                rougeWavesForm.Controls.Add(lstBox);
+
+                rLabel.Text = "Found rouge waves:";
+                rougeWavesForm.Controls.Add(rLabel);
+
+                foreach (int index in rWaves.Keys)
+                {
+                    lstBox.Items.Add("Wave num.: " + index + "\tRouge waves: " + rWaves[index]);
+                }
+
+                lstBox.Width = rougeWavesForm.Width;
+            }
+            else
+            {
+                rLabel.Text = "Rouge waves are not found:";
+                rougeWavesForm.Controls.Add(rLabel);
+            }
+
+            rougeWavesForm.Show();
+        }
     }
 
     public class BaseForm : Form

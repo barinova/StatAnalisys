@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Diagnostics;
 
 namespace StatAnalisys
 {
@@ -39,6 +39,8 @@ namespace StatAnalisys
     class CCalculatedWaves
     {
         List<CSingleWave> waves = new  List<CSingleWave>();
+        public Dictionary<int, int> rougeWaves = new Dictionary<int, int>();
+
         public CSingleWave this[int index]
         {
             get
@@ -53,9 +55,32 @@ namespace StatAnalisys
             for (int i = 0; i < arrS.Count(); i++)
             {
                 CSingleWave wave = new CSingleWave();
+
                 if (wave.calculateSingleWave(arrT, arrS[i]))
                 {
                     waves.Add(wave);
+
+                    findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight);
+                    findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight);
+                }
+            }
+        }
+        void findRougeWaves(List<double> listHeights, double twiseSignH)
+        {
+            foreach (double d in listHeights)
+            {
+                int index = waves.Count();
+
+                if (d > twiseSignH)
+                {
+                    if (rougeWaves.ContainsKey(index))
+                    {
+                        rougeWaves[index] += 1;
+                    }
+                    else 
+                    {
+                        rougeWaves.Add(index, 1);
+                    }
                 }
             }
         }
@@ -210,6 +235,7 @@ namespace StatAnalisys
                 currentPointSec = arrT[i];
                 currentPointShift = arrS[i];
             }
+
             wave.verticalAsummetry = Math.Abs(wave.amplMax / wave.amplMin);
             wave.horizontalAsymmetry = (wave.nullPoint[1] - wave.nullPoint[0]) / (wave.nullPoint[2] - wave.nullPoint[1]);
             wave.totalHeight = Math.Abs(wave.amplMax) + Math.Abs(wave.amplMin);
@@ -218,13 +244,13 @@ namespace StatAnalisys
             {
                 listHeihtsZDC.Add(wave.totalHeight);
                 listCrestAZDC.Add(wave.amplMax);
-                listThroughAZDC.Add(-wave.amplMin);
+                listThroughAZDC.Add(wave.amplMin);
             }
             else
             {
                 listHeihtsZUC.Add(wave.totalHeight);
                 listCrestAZUC.Add(wave.amplMax);
-                listThroughAZUC.Add(-wave.amplMin);
+                listThroughAZUC.Add(wave.amplMin);
             }
             return wave;
         }
@@ -248,8 +274,11 @@ namespace StatAnalisys
                 foreach (double d in listHeights)
                 {
                     tmpHeight += d;
+                    //Debug.WriteLine("({0} - {1})^2 = {2}", d, nu, Math.Pow(Math.Abs(d - nu), 2));
                 }
-                
+
+                //Debug.WriteLine(tmpHeight / count);
+
                 return (tmpHeight / count);
 
              }
@@ -259,7 +288,10 @@ namespace StatAnalisys
 
         double significantHeights(List<double> listHeights)
         {
-            return Math.Sqrt(4.04*sigma(listHeights));
+            //Debug.WriteLine(sigma(listHeights));
+            double s = sigma(listHeights);
+            //Debug.WriteLine(s);
+            return 4.04 * s;
         }
 
         double heightOneThird(List<double> listHeights)
@@ -293,10 +325,9 @@ namespace StatAnalisys
 
         void setHeights(List<double> listHeihtsZDC, List<double> listHeihtsZUC)
         {
-            heights zuc, zdc;
+            heights zuc = new heights();
+            heights zdc = new heights();
 
-            zuc = new heights();
-            zdc = new heights();
             zdc.significantHeight = significantHeights(listHeihtsZDC);
             zdc.heightOneThird = heightOneThird(listHeihtsZDC);
             zdc.sigma = setSigma(listHeihtsZDC);
@@ -308,6 +339,7 @@ namespace StatAnalisys
             listHeightsZUC = zuc;
 
         }
+
         public bool calculateSingleWave(double[] arrT, double[] arrS)
         {
             waveData newWave;
