@@ -41,10 +41,19 @@ namespace StatAnalisys
             this.txtOutput = new System.Windows.Forms.RichTextBox();
             this.chartGeneralGraphic = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.buttonViewRougeWaves = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.buttonCalculate = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxNumWave = new System.Windows.Forms.ComboBox();
+            this.panelGraphic = new System.Windows.Forms.Panel();
+            this.checkBoxProbabilitiesDiagram = new System.Windows.Forms.CheckBox();
+            this.checkBoxHeightsDiagram = new System.Windows.Forms.CheckBox();
+            this.labelGraphic = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBoxType = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -56,32 +65,23 @@ namespace StatAnalisys
             this.labelAmplitude = new System.Windows.Forms.Label();
             this.textBoxAmplitudePlus = new System.Windows.Forms.TextBox();
             this.labelCurrentWave = new System.Windows.Forms.Label();
-            this.panelGraphic = new System.Windows.Forms.Panel();
-            this.checkBoxProbabilitiesDiagram = new System.Windows.Forms.CheckBox();
-            this.checkBoxHeightsDiagram = new System.Windows.Forms.CheckBox();
-            this.labelGraphic = new System.Windows.Forms.Label();
             this.chartZommedWave = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label5 = new System.Windows.Forms.Label();
             this.chartWavesPeriods = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.labelIntervalsPeriod = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonViewRougeWaves = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panelGraphic.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartWavesPeriods)).BeginInit();
             this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -166,7 +166,7 @@ namespace StatAnalisys
             this.chartGeneralGraphic.Size = new System.Drawing.Size(1039, 318);
             this.chartGeneralGraphic.TabIndex = 1;
             this.chartGeneralGraphic.Text = "Chart Wave";
-            this.chartGeneralGraphic.SelectionRangeChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.chartGeneralGraphic_SelectionRangeChanged);
+            this.chartGeneralGraphic.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chartGeneralGraphic_SelectionRangeChanged);
             // 
             // panel1
             // 
@@ -181,14 +181,51 @@ namespace StatAnalisys
             this.panel1.Size = new System.Drawing.Size(201, 383);
             this.panel1.TabIndex = 2;
             // 
-            // panel3
+            // label3
             // 
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.comboBoxNumWave);
-            this.panel3.Location = new System.Drawing.Point(3, 14);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(191, 76);
-            this.panel3.TabIndex = 17;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 191);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Actions";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.panel6);
+            this.panel5.Controls.Add(this.buttonCalculate);
+            this.panel5.Location = new System.Drawing.Point(3, 193);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(191, 112);
+            this.panel5.TabIndex = 18;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.buttonViewRougeWaves);
+            this.panel6.Controls.Add(this.label8);
+            this.panel6.Location = new System.Drawing.Point(6, 53);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(168, 44);
+            this.panel6.TabIndex = 7;
+            // 
+            // buttonViewRougeWaves
+            // 
+            this.buttonViewRougeWaves.Location = new System.Drawing.Point(6, 18);
+            this.buttonViewRougeWaves.Name = "buttonViewRougeWaves";
+            this.buttonViewRougeWaves.Size = new System.Drawing.Size(75, 23);
+            this.buttonViewRougeWaves.TabIndex = 2;
+            this.buttonViewRougeWaves.Text = "View";
+            this.buttonViewRougeWaves.UseVisualStyleBackColor = true;
+            this.buttonViewRougeWaves.Click += new System.EventHandler(this.buttonViewRougeWaves_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(161, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Click to view found rouge waves";
             // 
             // buttonCalculate
             // 
@@ -199,6 +236,15 @@ namespace StatAnalisys
             this.buttonCalculate.Text = "Calculate";
             this.buttonCalculate.UseVisualStyleBackColor = true;
             this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.comboBoxNumWave);
+            this.panel3.Location = new System.Drawing.Point(3, 14);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(191, 76);
+            this.panel3.TabIndex = 17;
             // 
             // label6
             // 
@@ -219,6 +265,47 @@ namespace StatAnalisys
             this.comboBoxNumWave.Size = new System.Drawing.Size(121, 21);
             this.comboBoxNumWave.TabIndex = 0;
             this.comboBoxNumWave.SelectedIndexChanged += new System.EventHandler(this.comboBoxNumWave_SelectedIndexChanged);
+            // 
+            // panelGraphic
+            // 
+            this.panelGraphic.Controls.Add(this.checkBoxProbabilitiesDiagram);
+            this.panelGraphic.Controls.Add(this.checkBoxHeightsDiagram);
+            this.panelGraphic.Controls.Add(this.labelGraphic);
+            this.panelGraphic.Location = new System.Drawing.Point(3, 96);
+            this.panelGraphic.Name = "panelGraphic";
+            this.panelGraphic.Size = new System.Drawing.Size(193, 91);
+            this.panelGraphic.TabIndex = 2;
+            // 
+            // checkBoxProbabilitiesDiagram
+            // 
+            this.checkBoxProbabilitiesDiagram.AutoSize = true;
+            this.checkBoxProbabilitiesDiagram.Location = new System.Drawing.Point(17, 39);
+            this.checkBoxProbabilitiesDiagram.Name = "checkBoxProbabilitiesDiagram";
+            this.checkBoxProbabilitiesDiagram.Size = new System.Drawing.Size(124, 17);
+            this.checkBoxProbabilitiesDiagram.TabIndex = 6;
+            this.checkBoxProbabilitiesDiagram.Text = "Probabilities Diagram";
+            this.checkBoxProbabilitiesDiagram.UseVisualStyleBackColor = true;
+            this.checkBoxProbabilitiesDiagram.CheckedChanged += new System.EventHandler(this.checkBoxProbabilitiesDiagram_CheckedChanged);
+            // 
+            // checkBoxHeightsDiagram
+            // 
+            this.checkBoxHeightsDiagram.AutoSize = true;
+            this.checkBoxHeightsDiagram.Location = new System.Drawing.Point(17, 16);
+            this.checkBoxHeightsDiagram.Name = "checkBoxHeightsDiagram";
+            this.checkBoxHeightsDiagram.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxHeightsDiagram.TabIndex = 5;
+            this.checkBoxHeightsDiagram.Text = "Heights Diagram";
+            this.checkBoxHeightsDiagram.UseVisualStyleBackColor = true;
+            this.checkBoxHeightsDiagram.CheckedChanged += new System.EventHandler(this.checkBoxHeightsDiagram_CheckedChanged);
+            // 
+            // labelGraphic
+            // 
+            this.labelGraphic.AutoSize = true;
+            this.labelGraphic.Location = new System.Drawing.Point(14, 0);
+            this.labelGraphic.Name = "labelGraphic";
+            this.labelGraphic.Size = new System.Drawing.Size(98, 13);
+            this.labelGraphic.TabIndex = 4;
+            this.labelGraphic.Text = "Additional Graphics";
             // 
             // panel2
             // 
@@ -320,47 +407,6 @@ namespace StatAnalisys
             this.labelCurrentWave.TabIndex = 5;
             this.labelCurrentWave.Text = "Current wave";
             // 
-            // panelGraphic
-            // 
-            this.panelGraphic.Controls.Add(this.checkBoxProbabilitiesDiagram);
-            this.panelGraphic.Controls.Add(this.checkBoxHeightsDiagram);
-            this.panelGraphic.Controls.Add(this.labelGraphic);
-            this.panelGraphic.Location = new System.Drawing.Point(3, 96);
-            this.panelGraphic.Name = "panelGraphic";
-            this.panelGraphic.Size = new System.Drawing.Size(193, 91);
-            this.panelGraphic.TabIndex = 2;
-            // 
-            // checkBoxProbabilitiesDiagram
-            // 
-            this.checkBoxProbabilitiesDiagram.AutoSize = true;
-            this.checkBoxProbabilitiesDiagram.Location = new System.Drawing.Point(17, 39);
-            this.checkBoxProbabilitiesDiagram.Name = "checkBoxProbabilitiesDiagram";
-            this.checkBoxProbabilitiesDiagram.Size = new System.Drawing.Size(124, 17);
-            this.checkBoxProbabilitiesDiagram.TabIndex = 6;
-            this.checkBoxProbabilitiesDiagram.Text = "Probabilities Diagram";
-            this.checkBoxProbabilitiesDiagram.UseVisualStyleBackColor = true;
-            this.checkBoxProbabilitiesDiagram.CheckedChanged += new System.EventHandler(this.checkBoxProbabilitiesDiagram_CheckedChanged);
-            // 
-            // checkBoxHeightsDiagram
-            // 
-            this.checkBoxHeightsDiagram.AutoSize = true;
-            this.checkBoxHeightsDiagram.Location = new System.Drawing.Point(17, 16);
-            this.checkBoxHeightsDiagram.Name = "checkBoxHeightsDiagram";
-            this.checkBoxHeightsDiagram.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxHeightsDiagram.TabIndex = 5;
-            this.checkBoxHeightsDiagram.Text = "Heights Diagram";
-            this.checkBoxHeightsDiagram.UseVisualStyleBackColor = true;
-            this.checkBoxHeightsDiagram.CheckedChanged += new System.EventHandler(this.checkBoxHeightsDiagram_CheckedChanged);
-            // 
-            // labelGraphic
-            // 
-            this.labelGraphic.AutoSize = true;
-            this.labelGraphic.Location = new System.Drawing.Point(14, 0);
-            this.labelGraphic.Name = "labelGraphic";
-            this.labelGraphic.Size = new System.Drawing.Size(98, 13);
-            this.labelGraphic.TabIndex = 4;
-            this.labelGraphic.Text = "Additional Graphics";
-            // 
             // chartZommedWave
             // 
             this.chartZommedWave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -455,57 +501,10 @@ namespace StatAnalisys
             this.label7.TabIndex = 8;
             this.label7.Text = "Wave";
             // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.panel6);
-            this.panel5.Controls.Add(this.buttonCalculate);
-            this.panel5.Location = new System.Drawing.Point(3, 193);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(191, 112);
-            this.panel5.TabIndex = 18;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 191);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Actions";
-            // 
-            // buttonViewRougeWaves
-            // 
-            this.buttonViewRougeWaves.Location = new System.Drawing.Point(6, 18);
-            this.buttonViewRougeWaves.Name = "buttonViewRougeWaves";
-            this.buttonViewRougeWaves.Size = new System.Drawing.Size(75, 23);
-            this.buttonViewRougeWaves.TabIndex = 2;
-            this.buttonViewRougeWaves.Text = "View";
-            this.buttonViewRougeWaves.UseVisualStyleBackColor = true;
-            this.buttonViewRougeWaves.Click += new System.EventHandler(this.buttonViewRougeWaves_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(161, 13);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "Click to view found rouge waves";
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.buttonViewRougeWaves);
-            this.panel6.Controls.Add(this.label8);
-            this.panel6.Location = new System.Drawing.Point(6, 53);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(168, 44);
-            this.panel6.TabIndex = 7;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1264, 640);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panel4);
@@ -522,19 +521,19 @@ namespace StatAnalisys
             ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panelGraphic.ResumeLayout(false);
             this.panelGraphic.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartWavesPeriods)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

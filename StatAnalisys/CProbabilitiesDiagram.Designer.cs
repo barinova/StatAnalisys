@@ -130,7 +130,6 @@
             this.chartZDCLog.Size = new System.Drawing.Size(1244, 240);
             this.chartZDCLog.TabIndex = 7;
             this.chartZDCLog.Text = "chartZDCLog";
-            this.chartZDCLog.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
             // 
             // chartZDC
             // 
@@ -168,15 +167,6 @@
             this.chartZDC.Size = new System.Drawing.Size(1244, 240);
             this.chartZDC.TabIndex = 6;
             this.chartZDC.Text = "chartZDCLog";
-            this.chartZDC.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
-            this.chartZDC.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
-            this.chartZDC.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
-            this.chartZUC.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
-            this.chartZUC.MouseLeave += new System.EventHandler(this.chart_MouseLeave); 
-            this.chartZDCLog.MouseLeave += new System.EventHandler(this.chart_MouseLeave); 
-            this.chartZUCLog.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
-            this.chartZDCLog.MouseEnter += new System.EventHandler(this.chart_MouseEnter); 
-            this.chartZUCLog.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
             // 
             // tabPage2
             // 
@@ -226,7 +216,6 @@
             this.chartZUCLog.Size = new System.Drawing.Size(1244, 240);
             this.chartZUCLog.TabIndex = 9;
             this.chartZUCLog.Text = "chart1";
-            this.chartZUCLog.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
             // 
             // chartZUC
             // 
@@ -264,7 +253,6 @@
             this.chartZUC.Size = new System.Drawing.Size(1244, 240);
             this.chartZUC.TabIndex = 8;
             this.chartZUC.Text = "chartZUC";
-            this.chartZUC.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
             // 
             // toolStrip1
             // 

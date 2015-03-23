@@ -26,21 +26,33 @@ namespace StatAnalisys
 
             chartZDC.Series[0].Color = Color.DarkOrange;
             chartZDCLog.Series[0].Color = Color.DarkOrange;
+            chartZDC.Series[0].BorderDashStyle = ChartDashStyle.Dash;
+            chartZDCLog.Series[0].BorderDashStyle = ChartDashStyle.Dash;
             chartZDC.Series[1].Color = Color.RoyalBlue;
             chartZDCLog.Series[1].Color = Color.RoyalBlue;
+            chartZDC.Series[1].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZDCLog.Series[1].BorderDashStyle = ChartDashStyle.DashDotDot;
             chartZDC.Series[2].Color = Color.Green;
             chartZDCLog.Series[2].Color = Color.Green;
             chartZDC.Series[3].Color = Color.Tomato;
             chartZDCLog.Series[3].Color = Color.Tomato;
+            chartZDC.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZDCLog.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
             
             chartZUC.Series[0].Color = Color.DarkOrange;
             chartZUCLog.Series[0].Color = Color.DarkOrange;
+            chartZUC.Series[0].BorderDashStyle = ChartDashStyle.Dash;
+            chartZUCLog.Series[0].BorderDashStyle = ChartDashStyle.Dash;
             chartZUC.Series[1].Color = Color.RoyalBlue;
             chartZUCLog.Series[1].Color = Color.RoyalBlue;
+            chartZUC.Series[1].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZUCLog.Series[1].BorderDashStyle = ChartDashStyle.DashDotDot;
             chartZUC.Series[2].Color = Color.Green;
             chartZUCLog.Series[2].Color = Color.Green;
             chartZUC.Series[3].Color = Color.Tomato;
             chartZUCLog.Series[3].Color = Color.Tomato;
+            chartZUC.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZUCLog.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
 
             setupMarkStyle(chartZDC, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
             setupMarkStyle(chartZDCLog, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
@@ -58,7 +70,7 @@ namespace StatAnalisys
             }
         }
 
-        public void renderProbabilities(typeCrossing type, List<probability> listProb)
+        public void renderProbabilities(typeCrossing type, List<probability> listProb, double signH)
         {
             Chart chart, chartLog;
 
@@ -73,10 +85,10 @@ namespace StatAnalisys
                 chartLog = chartZUCLog;
             }
 
-            drawPChart(listProb, chart, chartLog);
+            drawPChart(listProb, chart, chartLog, signH);
         }
 
-        void drawPChart(List<probability> listProb, Chart chart, Chart chartLog)
+        void drawPChart(List<probability> listProb, Chart chart, Chart chartLog, double signH)
         {
             probability prob;
 
@@ -84,15 +96,15 @@ namespace StatAnalisys
             {
                 prob = listProb[i];
 
-                chart.Series[0].Points.AddXY(prob.H, prob.experP);
-                chart.Series[1].Points.AddXY(prob.H, prob.teorP);
-                chart.Series[2].Points.AddXY(prob.H, prob.crestP);
-                chart.Series[3].Points.AddXY(prob.H, prob.troughP);
+                chart.Series[0].Points.AddXY(prob.H / signH, prob.experP);
+                chart.Series[1].Points.AddXY(prob.H / signH, prob.teorP);
+                chart.Series[2].Points.AddXY(prob.H / signH, prob.crestP);
+                chart.Series[3].Points.AddXY(prob.H / signH, prob.troughP);
 
-                chartLog.Series[0].Points.AddXY(prob.H, Math.Log10(prob.experP));
-                chartLog.Series[1].Points.AddXY(prob.H, Math.Log10(prob.teorP));
-                chartLog.Series[2].Points.AddXY(prob.H, Math.Log10(prob.crestP));
-                chartLog.Series[3].Points.AddXY(prob.H, Math.Log10(prob.troughP));
+                chartLog.Series[0].Points.AddXY(prob.H / signH, Math.Log10(prob.experP));
+                chartLog.Series[1].Points.AddXY(prob.H / signH, Math.Log10(prob.teorP));
+                chartLog.Series[2].Points.AddXY(prob.H / signH, Math.Log10(prob.crestP));
+                chartLog.Series[3].Points.AddXY(prob.H / signH, Math.Log10(prob.troughP));
             }
         }
 

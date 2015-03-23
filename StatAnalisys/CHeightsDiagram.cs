@@ -18,12 +18,12 @@ namespace StatAnalisys
 
             chartZDCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZUCHeights.Series[0]["PixelPointWidth"] = "1";
-            /*chartZDCHeights.Series[0].Color = Color.Red;
+            chartZDCHeights.Series[0].Color = Color.Red;
             chartZUCHeights.Series[0].Color = Color.Red;
             chartZDCHeights.Series[1].Color = Color.Azure;
             chartZUCHeights.Series[1].Color = Color.Azure; 
             chartZDCHeights.Series[2].Color = Color.Lime;
-            chartZUCHeights.Series[2].Color = Color.Lime;*/
+            chartZUCHeights.Series[2].Color = Color.Lime;
             chartZDCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
             chartZUCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true; 
             chartZDCHeights.Series[0].Font = new Font("Arial", 7);
@@ -67,11 +67,9 @@ namespace StatAnalisys
             drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Orange);
             drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.Violet);
             drawStripLine(chartZDCHeights, 2 * listHeightsZDCSign, Color.RoyalBlue);
-            drawStripLine(chartZDCHeights, 2*listHeightsZDCSign, Color.Aqua);
             drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Orange);
             drawStripLine(chartZUCHeights, listHeightsZUCThird, Color.Violet);
             drawStripLine(chartZUCHeights, 2 * listHeightsZUCSign, Color.RoyalBlue);
-            drawStripLine(chartZUCHeights, 2 * listHeightsZUCSign, Color.Aqua);
 
 
             if (chartZDCHeights.Height < 2 * listHeightsZDCSign)

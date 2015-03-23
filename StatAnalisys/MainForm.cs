@@ -49,7 +49,7 @@ namespace StatAnalisys
             chartZommedWave.Series[3].Font = new Font("Arial", 8);
             chartGeneralGraphic.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartGeneralGraphic.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-            chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
+            chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
         }
@@ -147,13 +147,16 @@ namespace StatAnalisys
             }
         }
 
-        private void chartGeneralGraphic_SelectionRangeChanged(object sender, CursorEventArgs e)
+        private void chartGeneralGraphic_SelectionRangeChanged(object sender, ViewEventArgs e)
         {
             int indexWave = comboBoxNumWave.SelectedIndex;
 
             if (indexWave > -1 && wave != null)
             {
-                double currentPoint = e.NewSelectionStart + (e.NewSelectionEnd - e.NewSelectionStart) / 2;
+                int start = (int)e.Axis.ScaleView.ViewMinimum;
+                int end = (int)e.Axis.ScaleView.ViewMaximum;
+
+                double currentPoint = start + (end - start) / 2;
 
                 if (selectedX != currentPoint)
                 {
@@ -209,7 +212,7 @@ namespace StatAnalisys
 
             chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y2);
             chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y4);
-            chartZommedWave.Series[2].Points[y2 > y4 ? 0 : 1].Label = Math.Round(selectedWave.totalHeight, 3).ToString();
+            //chartZommedWave.Series[2].Points[y2 > y4 ? 0 : 1].Label = Math.Round(selectedWave.totalHeight, 3).ToString();
 
             chartZommedWave.Series[3].Points.AddXY(x1 - 0.5, y2 < y4 ? y2 : y4);
             chartZommedWave.Series[3].Points.AddXY(x5 - 0.5, y2 < y4 ? y2 : y4);
@@ -353,8 +356,8 @@ namespace StatAnalisys
             if (checkBoxProbabilitiesDiagram.Checked)
             {
                 CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
-                diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC);
-                diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC);
+                diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC, wave.heightsZDC.significantHeight);
+                diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC, wave.heightsZUC.significantHeight);
                 diagProbabilities.Show();
                 checkBoxProbabilitiesDiagram.Checked = false;
             }
