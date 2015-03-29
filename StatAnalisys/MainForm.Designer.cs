@@ -48,11 +48,14 @@ namespace StatAnalisys
             this.label8 = new System.Windows.Forms.Label();
             this.buttonCalculate = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.labelNumWaves = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.buttonNumWave = new System.Windows.Forms.Button();
+            this.textBoxNumWave = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxNumWave = new System.Windows.Forms.ComboBox();
             this.panelGraphic = new System.Windows.Forms.Panel();
-            this.checkBoxProbabilitiesDiagram = new System.Windows.Forms.CheckBox();
-            this.checkBoxHeightsDiagram = new System.Windows.Forms.CheckBox();
+            this.ProbabilitiesDiagram = new System.Windows.Forms.Button();
+            this.buttonHeightsDiagram = new System.Windows.Forms.Button();
             this.labelGraphic = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBoxType = new System.Windows.Forms.TextBox();
@@ -239,12 +242,49 @@ namespace StatAnalisys
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.labelNumWaves);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.buttonNumWave);
+            this.panel3.Controls.Add(this.textBoxNumWave);
             this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.comboBoxNumWave);
             this.panel3.Location = new System.Drawing.Point(3, 14);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(191, 76);
             this.panel3.TabIndex = 17;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // labelNumWaves
+            // 
+            this.labelNumWaves.AutoSize = true;
+            this.labelNumWaves.Location = new System.Drawing.Point(14, 21);
+            this.labelNumWaves.Name = "labelNumWaves";
+            this.labelNumWaves.Size = new System.Drawing.Size(0, 13);
+            this.labelNumWaves.TabIndex = 20;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(0, 13);
+            this.label9.TabIndex = 19;
+            // 
+            // buttonNumWave
+            // 
+            this.buttonNumWave.Location = new System.Drawing.Point(105, 35);
+            this.buttonNumWave.Name = "buttonNumWave";
+            this.buttonNumWave.Size = new System.Drawing.Size(83, 20);
+            this.buttonNumWave.TabIndex = 18;
+            this.buttonNumWave.Text = "Open";
+            this.buttonNumWave.UseVisualStyleBackColor = true;
+            this.buttonNumWave.Click += new System.EventHandler(this.buttonNumWave_Click);
+            // 
+            // textBoxNumWave
+            // 
+            this.textBoxNumWave.Location = new System.Drawing.Point(12, 35);
+            this.textBoxNumWave.Name = "textBoxNumWave";
+            this.textBoxNumWave.Size = new System.Drawing.Size(75, 20);
+            this.textBoxNumWave.TabIndex = 17;
             // 
             // label6
             // 
@@ -255,48 +295,35 @@ namespace StatAnalisys
             this.label6.TabIndex = 16;
             this.label6.Text = "Select wave";
             // 
-            // comboBoxNumWave
-            // 
-            this.comboBoxNumWave.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxNumWave.FormattingEnabled = true;
-            this.comboBoxNumWave.Location = new System.Drawing.Point(17, 16);
-            this.comboBoxNumWave.Name = "comboBoxNumWave";
-            this.comboBoxNumWave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.comboBoxNumWave.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxNumWave.TabIndex = 0;
-            this.comboBoxNumWave.SelectedIndexChanged += new System.EventHandler(this.comboBoxNumWave_SelectedIndexChanged);
-            // 
             // panelGraphic
             // 
-            this.panelGraphic.Controls.Add(this.checkBoxProbabilitiesDiagram);
-            this.panelGraphic.Controls.Add(this.checkBoxHeightsDiagram);
+            this.panelGraphic.Controls.Add(this.ProbabilitiesDiagram);
+            this.panelGraphic.Controls.Add(this.buttonHeightsDiagram);
             this.panelGraphic.Controls.Add(this.labelGraphic);
             this.panelGraphic.Location = new System.Drawing.Point(3, 96);
             this.panelGraphic.Name = "panelGraphic";
             this.panelGraphic.Size = new System.Drawing.Size(193, 91);
             this.panelGraphic.TabIndex = 2;
             // 
-            // checkBoxProbabilitiesDiagram
+            // ProbabilitiesDiagram
             // 
-            this.checkBoxProbabilitiesDiagram.AutoSize = true;
-            this.checkBoxProbabilitiesDiagram.Location = new System.Drawing.Point(17, 39);
-            this.checkBoxProbabilitiesDiagram.Name = "checkBoxProbabilitiesDiagram";
-            this.checkBoxProbabilitiesDiagram.Size = new System.Drawing.Size(124, 17);
-            this.checkBoxProbabilitiesDiagram.TabIndex = 6;
-            this.checkBoxProbabilitiesDiagram.Text = "Probabilities Diagram";
-            this.checkBoxProbabilitiesDiagram.UseVisualStyleBackColor = true;
-            this.checkBoxProbabilitiesDiagram.CheckedChanged += new System.EventHandler(this.checkBoxProbabilitiesDiagram_CheckedChanged);
+            this.ProbabilitiesDiagram.Location = new System.Drawing.Point(12, 45);
+            this.ProbabilitiesDiagram.Name = "ProbabilitiesDiagram";
+            this.ProbabilitiesDiagram.Size = new System.Drawing.Size(75, 40);
+            this.ProbabilitiesDiagram.TabIndex = 8;
+            this.ProbabilitiesDiagram.Text = "Probabilities Diagram";
+            this.ProbabilitiesDiagram.UseVisualStyleBackColor = true;
+            this.ProbabilitiesDiagram.Click += new System.EventHandler(this.ProbabilitiesDiagram_Click);
             // 
-            // checkBoxHeightsDiagram
+            // buttonHeightsDiagram
             // 
-            this.checkBoxHeightsDiagram.AutoSize = true;
-            this.checkBoxHeightsDiagram.Location = new System.Drawing.Point(17, 16);
-            this.checkBoxHeightsDiagram.Name = "checkBoxHeightsDiagram";
-            this.checkBoxHeightsDiagram.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxHeightsDiagram.TabIndex = 5;
-            this.checkBoxHeightsDiagram.Text = "Heights Diagram";
-            this.checkBoxHeightsDiagram.UseVisualStyleBackColor = true;
-            this.checkBoxHeightsDiagram.CheckedChanged += new System.EventHandler(this.checkBoxHeightsDiagram_CheckedChanged);
+            this.buttonHeightsDiagram.Location = new System.Drawing.Point(12, 16);
+            this.buttonHeightsDiagram.Name = "buttonHeightsDiagram";
+            this.buttonHeightsDiagram.Size = new System.Drawing.Size(75, 23);
+            this.buttonHeightsDiagram.TabIndex = 7;
+            this.buttonHeightsDiagram.Text = "Heights Diagram";
+            this.buttonHeightsDiagram.UseVisualStyleBackColor = true;
+            this.buttonHeightsDiagram.Click += new System.EventHandler(this.buttonHeightsDiagram_Click);
             // 
             // labelGraphic
             // 
@@ -548,7 +575,6 @@ namespace StatAnalisys
         private System.Windows.Forms.RichTextBox txtOutput;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartGeneralGraphic;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBoxNumWave;
         private System.Windows.Forms.Button buttonCalculate;
         private System.Windows.Forms.Panel panelGraphic;
         private System.Windows.Forms.Label labelGraphic;
@@ -570,8 +596,6 @@ namespace StatAnalisys
         private System.Windows.Forms.Label labelIntervalsPeriod;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBoxProbabilitiesDiagram;
-        private System.Windows.Forms.CheckBox checkBoxHeightsDiagram;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label3;
@@ -579,6 +603,12 @@ namespace StatAnalisys
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button buttonViewRougeWaves;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button buttonHeightsDiagram;
+        private System.Windows.Forms.Button ProbabilitiesDiagram;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonNumWave;
+        private System.Windows.Forms.TextBox textBoxNumWave;
+        private System.Windows.Forms.Label labelNumWaves;
     }
 }
 

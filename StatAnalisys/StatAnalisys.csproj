@@ -58,6 +58,12 @@
     <Compile Include="CProbabilitiesDiagram.Designer.cs">
       <DependentUpon>CProbabilitiesDiagram.cs</DependentUpon>
     </Compile>
+    <Compile Include="CRougeWaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRougeWaveForm.Designer.cs">
+      <DependentUpon>CRougeWaveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CProbabilitiesDiagram.resx">
       <DependentUpon>CProbabilitiesDiagram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRougeWaveForm.resx">
+      <DependentUpon>CRougeWaveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

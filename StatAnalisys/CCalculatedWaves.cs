@@ -47,6 +47,7 @@ namespace StatAnalisys
             {
                 return waves.ElementAt(index);
             }
+
             private set {}
         }
 
@@ -244,29 +245,34 @@ namespace StatAnalisys
 
         double sigma(List<double> listHeights)
         {
-            int count = listHeights.Count();
+            List<double> heights = new List<double>(listHeights);
+            int N = heights.Count();
 
-            if (count > 0)
+            if (N > 1)
+            {
+                quickSort(heights, 0, (int)N - 1);
+            }
+
+            heights.RemoveRange(0, 2 * (N / 3));
+
+            if (heights.Count() > 0)
              {
                 double tmpHeight = 0;
                 double nu = 0;
 
-                foreach (double d in listHeights)
+                foreach (double d in heights)
                 {
-                    nu += d;
-                }
-                
-                nu = nu / count;
-
-                foreach (double d in listHeights)
-                {
-                    tmpHeight += (d - nu) * (d - nu);
-                    //Debug.WriteLine("({0} - {1})^2 = {2}", d, nu, Math.Pow(Math.Abs(d - nu), 2));
+                    nu += d*d;
                 }
 
-                //Debug.WriteLine(tmpHeight / count);
+                nu = Math.Sqrt(nu / heights.Count());
 
-                return Math.Sqrt(4 * tmpHeight/count);
+                foreach (double d in heights)
+                {
+                    tmpHeight += (d - nu) * (d - nu);                    
+                }
+
+                return Math.Sqrt(tmpHeight / heights.Count());
              }
 
             return Double.NaN;
@@ -274,9 +280,7 @@ namespace StatAnalisys
 
         double significantHeights(List<double> listHeights)
         {
-            //Debug.WriteLine(sigma(listHeights));
-            double s = sigma(listHeights);
-            //Debug.WriteLine(s);
+            double s = 4.04 * sigma(listHeights);
             return s;
         }
 
@@ -329,9 +333,10 @@ namespace StatAnalisys
         public bool calculateSingleWave(double[] arrT, double[] arrS)
         {
             waveData newWave;
+            int firstPoint = 0;
 
-            for (int i = 0; i < arrT.Count() - 1; i++)
-            {
+            for (int i = firstPoint + 1; i < arrT.Count() - 1; i++)
+           {
                 if (arrS[i] * arrS[i + 1] < 0)
                 {
                     typeCrossing type;
@@ -443,7 +448,7 @@ namespace StatAnalisys
 
             for(int i = 0; i < N; i++)
             {
-                signH = Math.Pow(h.significantHeight,2);
+                //signH = Math.Pow(h.significantHeight,2);
                 waveFrequency = (N-i)/N;
                 obj.H = listHeights[i];
                 obj.experP = waveFrequency;//  /Hs

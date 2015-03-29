@@ -56,8 +56,8 @@ namespace StatAnalisys
         
         void changeEnabledSettingsComponents(bool value)
         {
-            checkBoxHeightsDiagram.Enabled = value;
-            checkBoxProbabilitiesDiagram.Enabled = value;
+            buttonHeightsDiagram.Enabled = value;
+            ProbabilitiesDiagram.Enabled = value;
             saveImagesToolStripMenuItem.Enabled = value;
         }
 
@@ -124,32 +124,15 @@ namespace StatAnalisys
             }
         }
 
-        private void comboBoxNumWave_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int indexWave = comboBoxNumWave.SelectedIndex;
-
-            if (indexWave > -1)
-            {
-                changeEnabledSettingsComponents(true);
-                clearGraphics();
-                double [] heights = arrayS[indexWave];
-
-                for (int i = 1; i < arrayT.Count(); i++)
-                {
-                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i - 1], heights[i - 1]);
-                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i], heights[i]);
-                }
-
-                wave = arrayWaves[indexWave];
-
-                renderChartOfWavesPeriods();
-                labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
-            }
-        }
-
         private void chartGeneralGraphic_SelectionRangeChanged(object sender, ViewEventArgs e)
         {
-            int indexWave = comboBoxNumWave.SelectedIndex;
+
+            int indexWave = -1;
+
+            if (textBoxNumWave.Text != string.Empty && Int32.TryParse(textBoxNumWave.Text, out indexWave))
+            {
+                
+            }
 
             if (indexWave > -1 && wave != null)
             {
@@ -222,10 +205,7 @@ namespace StatAnalisys
         //update possible number of wave
         private void updateComboBoxNumberWaveValues(int size)
         {
-            for (int i = 0 ;  i < size; i++)
-            {
-                comboBoxNumWave.Items.Add(i.ToString());
-            }
+            labelNumWaves.Text = "Enter number of wave (0 - " + (size - 1) + ")";
         }
 
         private void hightliteWaveOnChart(double x1, double x2, double x3, double x4, double x5, double y1, double y2, double y3, 
@@ -293,13 +273,16 @@ namespace StatAnalisys
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
-            int indexWave = comboBoxNumWave.SelectedIndex;
+            int indexWave;
 
-            if (indexWave > -1 && wave != null)
+            if (Int32.TryParse(textBoxNumWave.Text, out indexWave))
             {
-                chartGeneralGraphic.Series[1].Points.Clear();
-                renderingTroughsAndRidges(wave);
-                panelGraphic.Enabled = true;
+                if (indexWave > -1 && wave != null)
+                {
+                    chartGeneralGraphic.Series[1].Points.Clear();
+                    renderingTroughsAndRidges(wave);
+                    panelGraphic.Enabled = true;
+                }
             }
         }
 
@@ -337,62 +320,78 @@ namespace StatAnalisys
         {
             saveImage(new Chart[] {chartGeneralGraphic,  chartWavesPeriods});
         }
-                
-        private void checkBoxHeightsDiagram_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxHeightsDiagram.Checked)
-            {
-                CHeightsDiagram diagHeights = new CHeightsDiagram();
-
-                diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
-                    wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
-                diagHeights.Show();
-                checkBoxHeightsDiagram.Checked = false;
-            }
-        }
-
-        private void checkBoxProbabilitiesDiagram_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxProbabilitiesDiagram.Checked)
-            {
-                CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
-                diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC, wave.heightsZDC.significantHeight);
-                diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC, wave.heightsZUC.significantHeight);
-                diagProbabilities.Show();
-                checkBoxProbabilitiesDiagram.Checked = false;
-            }
-        }
 
         private void buttonViewRougeWaves_Click(object sender, EventArgs e)
         {
-            Form rougeWavesForm = new Form();
-            Label rLabel = new Label();
             Dictionary<int, int> rWaves = arrayWaves.rougeWaves;
-
-            rougeWavesForm.AutoSize = true;
 
             if (rWaves.Count > 0)
             {
-                ListBox lstBox = new ListBox();
-                rougeWavesForm.Controls.Add(lstBox);
-
-                rLabel.Text = "Found rouge waves:";
-                rougeWavesForm.Controls.Add(rLabel);
-
+                CRougeWaveForm rougeForm = new CRougeWaveForm();
+                
                 foreach (int index in rWaves.Keys)
                 {
-                    lstBox.Items.Add("Wave num.: " + index + "\tRouge waves: " + rWaves[index]);
+                    rougeForm.addRow("Wave num.: " + index + "\tRouge waves: " + rWaves[index]);
                 }
 
-                lstBox.Width = rougeWavesForm.Width;
+                rougeForm.Show();
             }
             else
             {
-                rLabel.Text = "Rouge waves are not found:";
-                rougeWavesForm.Controls.Add(rLabel);
+                MessageBox.Show("Rouge waves wasn't found", "Rouge wave", MessageBoxButtons.OK);
             }
+        }
 
-            rougeWavesForm.Show();
+        private void buttonHeightsDiagram_Click(object sender, EventArgs e)
+        {
+            CHeightsDiagram diagHeights = new CHeightsDiagram();
+
+            diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
+                wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
+            diagHeights.Show();
+        }
+
+        private void ProbabilitiesDiagram_Click(object sender, EventArgs e)
+        {
+            CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
+            diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC, wave.heightsZDC.significantHeight);
+            diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC, wave.heightsZUC.significantHeight);
+            diagProbabilities.Show();
+        }
+        public static void buttonOpenRougeWave_Click(int num)
+        {
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void buttonNumWave_Click(object sender, EventArgs e)
+        {
+            int indexWave;
+
+            if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count()-1 || indexWave < 0)
+            {
+                MessageBox.Show("Rouge waves wasn't found", "Rouge wave", MessageBoxButtons.OK);
+            }
+            else
+            {
+                changeEnabledSettingsComponents(true);
+                clearGraphics();
+                double[] heights = arrayS[indexWave];
+
+                for (int i = 1; i < arrayT.Count(); i++)
+                {
+                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i - 1], heights[i - 1]);
+                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i], heights[i]);
+                }
+
+                wave = arrayWaves[indexWave];
+
+                renderChartOfWavesPeriods();
+                labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
+            }
         }
     }
 
@@ -537,7 +536,7 @@ namespace StatAnalisys
             StripLine stripLine = new StripLine();
             stripLine.IntervalOffset = y;
             stripLine.BackColor = color;
-            stripLine.StripWidth = 0.01;
+            stripLine.StripWidth = 0.03;
             chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
         }
     }
