@@ -331,7 +331,7 @@ namespace StatAnalisys
                 
                 foreach (int index in rWaves.Keys)
                 {
-                    rougeForm.addRow("Wave num.: " + index + "\tRouge waves: " + rWaves[index]);
+                    rougeForm.addRow(index, rWaves[index]);
                 }
 
                 rougeForm.Show();
@@ -358,6 +358,7 @@ namespace StatAnalisys
             diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC, wave.heightsZUC.significantHeight);
             diagProbabilities.Show();
         }
+
         public static void buttonOpenRougeWave_Click(int num)
         {
         }
@@ -373,7 +374,7 @@ namespace StatAnalisys
 
             if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count()-1 || indexWave < 0)
             {
-                MessageBox.Show("Rouge waves wasn't found", "Rouge wave", MessageBoxButtons.OK);
+                MessageBox.Show("Wave does't found", "Wave", MessageBoxButtons.OK);
             }
             else
             {

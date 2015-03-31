@@ -89,16 +89,9 @@
             this.chartZDCHeights.Series.Add(series2);
             this.chartZDCHeights.Series.Add(series3);
             this.chartZDCHeights.Series.Add(series4);
-            this.chartZDCHeights.Size = new System.Drawing.Size(1223, 349);
             this.chartZDCHeights.Size = new System.Drawing.Size(1223, 252);
             this.chartZDCHeights.TabIndex = 0;
             this.chartZDCHeights.Text = "chartHeightsZDC";
-            this.chartZDCHeights.MouseEnter += new System.EventHandler(chart_MouseEnter);
-            this.chartZDCHeights.MouseLeave += new System.EventHandler(chart_MouseLeave);
-            this.chartZDCHeights.MouseWheel += new System.Windows.Forms.MouseEventHandler(chart_MouseWheel); 
-            this.chartZUCHeights.MouseEnter += new System.EventHandler(chart_MouseEnter);
-            this.chartZUCHeights.MouseLeave += new System.EventHandler(chart_MouseLeave);
-            this.chartZUCHeights.MouseWheel += new System.Windows.Forms.MouseEventHandler(chart_MouseWheel);
             // 
             // chartZUCHeights
             // 

@@ -25,7 +25,9 @@ namespace StatAnalisys
             chartZDCHeights.Series[2].Color = Color.Lime;
             chartZUCHeights.Series[2].Color = Color.Lime;
             chartZDCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
-            chartZUCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true; 
+            chartZDCHeights.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chartZUCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
+            chartZUCHeights.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
             chartZDCHeights.Series[0].Font = new Font("Arial", 7);
             chartZUCHeights.Series[0].Font = new Font("Arial", 7);
         }
@@ -105,5 +107,6 @@ namespace StatAnalisys
         {
             saveImage(new Chart[] { chartZUCHeights, chartZDCHeights});
         }
+
     }
 }
