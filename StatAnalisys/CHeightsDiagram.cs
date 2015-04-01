@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+
 namespace StatAnalisys
 {
     public partial class CHeightsDiagram : BaseForm
@@ -18,21 +19,23 @@ namespace StatAnalisys
 
             chartZDCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZUCHeights.Series[0]["PixelPointWidth"] = "1";
-            chartZDCHeights.Series[0].Color = Color.Red;
-            chartZUCHeights.Series[0].Color = Color.Red;
-            chartZDCHeights.Series[1].Color = Color.Azure;
-            chartZUCHeights.Series[1].Color = Color.Azure; 
-            chartZDCHeights.Series[2].Color = Color.Lime;
-            chartZUCHeights.Series[2].Color = Color.Lime;
             chartZDCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
             chartZUCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true; 
             chartZDCHeights.Series[0].Font = new Font("Arial", 7);
             chartZUCHeights.Series[0].Font = new Font("Arial", 7);
+            chartZUCHeights.ChartAreas[0].CursorX.IsUserEnabled = true;
+            chartZUCHeights.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+            chartZUCHeights.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chartZDCHeights.ChartAreas[0].CursorX.IsUserEnabled = true;
+            chartZDCHeights.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+            chartZDCHeights.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
         }
 
         private void highlightRougeWave(Chart chart, int x, double y)
         {
-            chart.Series[0].Points[x].Color = Color.DarkViolet;
+            chart.Series[3].Color = Color.Navy;
+            chart.Series[3].Points.AddXY(x, 0);
+            chart.Series[3].Points.AddXY(x, y);
         }
 
         public void renderHeights(double listHeightsZDCThird, double listHeightsZDCSign, double listHeightsZUCThird,
@@ -64,18 +67,19 @@ namespace StatAnalisys
                 }
             }
 
-            drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Orange);
-            drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.Violet);
-            drawStripLine(chartZDCHeights, 2 * listHeightsZDCSign, Color.RoyalBlue);
-            drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Orange);
-            drawStripLine(chartZUCHeights, listHeightsZUCThird, Color.Violet);
-            drawStripLine(chartZUCHeights, 2 * listHeightsZUCSign, Color.RoyalBlue);
+            drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Green, 0.06);
+            drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.FromArgb(255, 128, 0), 0.06);
+            drawStripLine(chartZDCHeights, 2 * listHeightsZDCSign, Color.Maroon, 0.06);
+            drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Green, 0.06);
+            drawStripLine(chartZUCHeights, listHeightsZUCThird, Color.FromArgb(255, 128, 0), 0.06);
+            drawStripLine(chartZUCHeights, 2 * listHeightsZUCSign, Color.Maroon, 0.06);
 
 
             if (chartZDCHeights.Height < 2 * listHeightsZDCSign)
             {
                 chartZDCHeights.Height = 2 * (int)listHeightsZDCSign + 1;
             }
+
             setAnnotation(chartZUCHeights, "Height of one third = " + Math.Round(listHeightsZUCThird, 7).ToString()
                 + "\nSignificiant height = " +  Math.Round(listHeightsZUCSign, 8).ToString()
                 + "\n2 * Significiant height = " + Math.Round(2 * listHeightsZUCSign, 7).ToString());

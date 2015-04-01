@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CCalculatedWaves.cs" />
+    <Compile Include="CClouds.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CClouds.Designer.cs">
+      <DependentUpon>CClouds.cs</DependentUpon>
+    </Compile>
     <Compile Include="CHeightsDiagram.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CClouds.resx">
+      <DependentUpon>CClouds.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CHeightsDiagram.resx">
       <DependentUpon>CHeightsDiagram.cs</DependentUpon>
     </EmbeddedResource>

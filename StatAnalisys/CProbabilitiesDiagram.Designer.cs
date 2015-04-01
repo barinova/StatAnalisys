@@ -52,6 +52,9 @@
             System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlProb = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.chartZDCLog = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -59,9 +62,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.chartZUCLog = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartZUC = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1.SuspendLayout();
             this.tabControlProb.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZDCLog)).BeginInit();
@@ -69,8 +70,32 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZUCLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartZUC)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1276, 25);
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveImagesToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 25);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveImagesToolStripMenuItem
+            // 
+            this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveImagesToolStripMenuItem.Text = "Save Images";
+            this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
             // tabControlProb
             // 
@@ -106,23 +131,35 @@
             this.chartZDCLog.Legends.Add(legend1);
             this.chartZDCLog.Location = new System.Drawing.Point(6, 268);
             this.chartZDCLog.Name = "chartZDCLog";
+            series1.BorderWidth = 2;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            series1.LabelBorderWidth = 2;
             series1.Legend = "Legend1";
             series1.Name = "Experemental Probabilities";
+            series2.BorderWidth = 2;
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series2.LabelBorderWidth = 2;
             series2.Legend = "Legend1";
             series2.Name = "Teoretical Probabilities";
+            series3.BorderWidth = 2;
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Color = System.Drawing.Color.Red;
+            series3.LabelBorderWidth = 2;
             series3.Legend = "Legend1";
             series3.Name = "Through Probabilities";
+            series4.BorderWidth = 2;
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series4.LabelBorderWidth = 2;
             series4.Legend = "Legend1";
             series4.Name = "Crest Probabilities";
-            series4.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series4.ShadowColor = System.Drawing.Color.White;
             this.chartZDCLog.Series.Add(series1);
             this.chartZDCLog.Series.Add(series2);
             this.chartZDCLog.Series.Add(series3);
@@ -136,6 +173,7 @@
             chartArea2.AxisX.LabelStyle.Format = "0.000";
             chartArea2.AxisX.Title = "Wave number";
             chartArea2.AxisY.LabelStyle.Format = "0.000";
+            chartArea2.AxisY.ScaleView.Zoomable = false;
             chartArea2.AxisY.Title = "P (Lg)";
             chartArea2.Name = "ChartArea1";
             this.chartZDC.ChartAreas.Add(chartArea2);
@@ -143,23 +181,35 @@
             this.chartZDC.Legends.Add(legend2);
             this.chartZDC.Location = new System.Drawing.Point(6, 33);
             this.chartZDC.Name = "chartZDC";
+            series5.BorderWidth = 2;
             series5.ChartArea = "ChartArea1";
             series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             series5.Legend = "Legend1";
+            series5.MarkerBorderWidth = 2;
             series5.Name = "Experemental Probabilities";
+            series6.BorderWidth = 2;
             series6.ChartArea = "ChartArea1";
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             series6.Legend = "Legend1";
+            series6.MarkerBorderWidth = 2;
             series6.Name = "Teoretical Probabilities";
+            series7.BorderWidth = 2;
             series7.ChartArea = "ChartArea1";
             series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Color = System.Drawing.Color.Red;
             series7.Legend = "Legend1";
+            series7.MarkerBorderWidth = 2;
             series7.Name = "Through Probabilities";
+            series8.BorderWidth = 2;
             series8.ChartArea = "ChartArea1";
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             series8.Legend = "Legend1";
+            series8.MarkerBorderWidth = 2;
             series8.Name = "Crest Probabilities";
-            series8.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series8.ShadowColor = System.Drawing.Color.White;
             this.chartZDC.Series.Add(series5);
             this.chartZDC.Series.Add(series6);
             this.chartZDC.Series.Add(series7);
@@ -192,23 +242,35 @@
             this.chartZUCLog.Legends.Add(legend3);
             this.chartZUCLog.Location = new System.Drawing.Point(0, 268);
             this.chartZUCLog.Name = "chartZUCLog";
+            series9.BorderWidth = 2;
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            series9.LabelBorderWidth = 2;
             series9.Legend = "Legend1";
             series9.Name = "Experemental Probabilities";
+            series10.BorderWidth = 2;
             series10.ChartArea = "ChartArea1";
             series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series10.LabelBorderWidth = 2;
             series10.Legend = "Legend1";
             series10.Name = "Teoretical Probabilities";
+            series11.BorderWidth = 2;
             series11.ChartArea = "ChartArea1";
             series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series11.Color = System.Drawing.Color.Red;
+            series11.LabelBorderWidth = 2;
             series11.Legend = "Legend1";
             series11.Name = "Through Probabilities";
+            series12.BorderWidth = 2;
             series12.ChartArea = "ChartArea1";
             series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series12.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series12.LabelBorderWidth = 2;
             series12.Legend = "Legend1";
             series12.Name = "Crest Probabilities";
-            series12.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series12.ShadowColor = System.Drawing.Color.White;
             this.chartZUCLog.Series.Add(series9);
             this.chartZUCLog.Series.Add(series10);
             this.chartZUCLog.Series.Add(series11);
@@ -229,23 +291,35 @@
             this.chartZUC.Legends.Add(legend4);
             this.chartZUC.Location = new System.Drawing.Point(0, 32);
             this.chartZUC.Name = "chartZUC";
+            series13.BorderWidth = 2;
             series13.ChartArea = "ChartArea1";
             series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series13.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            series13.LabelBorderWidth = 2;
             series13.Legend = "Legend1";
             series13.Name = "Experemental Probabilities";
+            series14.BorderWidth = 2;
             series14.ChartArea = "ChartArea1";
             series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series14.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series14.LabelBorderWidth = 2;
             series14.Legend = "Legend1";
             series14.Name = "Teoretical Probabilities";
+            series15.BorderWidth = 2;
             series15.ChartArea = "ChartArea1";
             series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series15.Color = System.Drawing.Color.Red;
+            series15.LabelBorderWidth = 2;
             series15.Legend = "Legend1";
             series15.Name = "Through Probabilities";
+            series16.BorderWidth = 2;
             series16.ChartArea = "ChartArea1";
             series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series16.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series16.LabelBorderWidth = 2;
             series16.Legend = "Legend1";
             series16.Name = "Crest Probabilities";
-            series16.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series16.ShadowColor = System.Drawing.Color.White;
             this.chartZUC.Series.Add(series13);
             this.chartZUC.Series.Add(series14);
             this.chartZUC.Series.Add(series15);
@@ -253,31 +327,6 @@
             this.chartZUC.Size = new System.Drawing.Size(1244, 240);
             this.chartZUC.TabIndex = 8;
             this.chartZUC.Text = "chartZUC";
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1276, 25);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveImagesToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 25);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // saveImagesToolStripMenuItem
-            // 
-            this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
-            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.saveImagesToolStripMenuItem.Text = "Save Images";
-            this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
             // CProbabilitiesDiagram
             // 
@@ -289,6 +338,8 @@
             this.Controls.Add(this.tabControlProb);
             this.Name = "CProbabilitiesDiagram";
             this.Text = "HeightsProbabilities";
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.tabControlProb.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartZDCLog)).EndInit();
@@ -296,8 +347,6 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartZUCLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartZUC)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

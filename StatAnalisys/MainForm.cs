@@ -360,6 +360,7 @@ namespace StatAnalisys
         }
         public static void buttonOpenRougeWave_Click(int num)
         {
+
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -373,7 +374,7 @@ namespace StatAnalisys
 
             if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count()-1 || indexWave < 0)
             {
-                MessageBox.Show("Rouge waves wasn't found", "Rouge wave", MessageBoxButtons.OK);
+                MessageBox.Show("Wave does't found", "Wave", MessageBoxButtons.OK);
             }
             else
             {
@@ -392,6 +393,14 @@ namespace StatAnalisys
                 renderChartOfWavesPeriods();
                 labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
             }
+        }
+
+        private void buttonClouds_Click(object sender, EventArgs e)
+        {
+            CClouds cloudsForm = new CClouds();
+            cloudsForm.renderClouds(wave.heightsZDC.heightOneThird, wave.heightsZUC.heightOneThird, wave.calculatingWaves);
+            cloudsForm.Show();
+            
         }
     }
 
@@ -531,25 +540,22 @@ namespace StatAnalisys
             }
         }
 
-        protected void drawStripLine(Chart chart, double y, Color color)
+        protected void drawStripLine(Chart chart, double y, Color color, double width)
         {
             StripLine stripLine = new StripLine();
             stripLine.IntervalOffset = y;
             stripLine.BackColor = color;
-            stripLine.StripWidth = 0.03;
+            stripLine.StripWidth = width;
             chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
         }
     }
+
     public static class CheckboxDialog
     {
         public static bool[] ShowDialog(string text, string[] caption)
         {
             Form prompt = new Form();
             FlowLayoutPanel panel = new FlowLayoutPanel();
-            
-            panel.AutoSize = true;
-            
-            panel.AutoSize = true;
 
             CheckBox cbGraphic = new CheckBox();
             cbGraphic.Text = caption[0];

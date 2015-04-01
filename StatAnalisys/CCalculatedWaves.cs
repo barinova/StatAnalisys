@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace StatAnalisys
 {
     public enum typeCrossing { ZDC, ZUC};
-    struct waveData
+    public struct waveData
     {
         public typeCrossing type;
         public double amplMax;

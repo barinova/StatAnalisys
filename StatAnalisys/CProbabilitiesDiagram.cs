@@ -24,33 +24,17 @@ namespace StatAnalisys
             tabControlProb.TabPages[0].Text = "-down-zero-crossings";
             tabControlProb.TabPages[1].Text = "-up-zero-crossings";
 
-            chartZDC.Series[0].Color = Color.DarkOrange;
-            chartZDCLog.Series[0].Color = Color.DarkOrange;
             chartZDC.Series[0].BorderDashStyle = ChartDashStyle.Dash;
             chartZDCLog.Series[0].BorderDashStyle = ChartDashStyle.Dash;
-            chartZDC.Series[1].Color = Color.RoyalBlue;
-            chartZDCLog.Series[1].Color = Color.RoyalBlue;
-            chartZDC.Series[1].BorderDashStyle = ChartDashStyle.DashDotDot;
-            chartZDCLog.Series[1].BorderDashStyle = ChartDashStyle.DashDotDot;
-            chartZDC.Series[2].Color = Color.Green;
-            chartZDCLog.Series[2].Color = Color.Green;
-            chartZDC.Series[3].Color = Color.Tomato;
-            chartZDCLog.Series[3].Color = Color.Tomato;
+            chartZDC.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZDCLog.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
             chartZDC.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
             chartZDCLog.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
-            
-            chartZUC.Series[0].Color = Color.DarkOrange;
-            chartZUCLog.Series[0].Color = Color.DarkOrange;
+
             chartZUC.Series[0].BorderDashStyle = ChartDashStyle.Dash;
             chartZUCLog.Series[0].BorderDashStyle = ChartDashStyle.Dash;
-            chartZUC.Series[1].Color = Color.RoyalBlue;
-            chartZUCLog.Series[1].Color = Color.RoyalBlue;
-            chartZUC.Series[1].BorderDashStyle = ChartDashStyle.DashDotDot;
-            chartZUCLog.Series[1].BorderDashStyle = ChartDashStyle.DashDotDot;
-            chartZUC.Series[2].Color = Color.Green;
-            chartZUCLog.Series[2].Color = Color.Green;
-            chartZUC.Series[3].Color = Color.Tomato;
-            chartZUCLog.Series[3].Color = Color.Tomato;
+            chartZUC.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZUCLog.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
             chartZUC.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
             chartZUCLog.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
 
@@ -58,6 +42,19 @@ namespace StatAnalisys
             setupMarkStyle(chartZDCLog, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
             setupMarkStyle(chartZUC, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
             setupMarkStyle(chartZUCLog, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
+
+            this.chartZDC.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
+            this.chartZDC.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
+            this.chartZUC.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
+            this.chartZUC.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
+            this.chartZDCLog.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
+            this.chartZUCLog.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
+            this.chartZDCLog.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
+            this.chartZUCLog.MouseEnter += new System.EventHandler(this.chart_MouseEnter); 
+            this.chartZDC.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
+            this.chartZUC.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
+            this.chartZDCLog.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
+            this.chartZUCLog.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
         }
 
         void setupMarkStyle(Chart chart, MarkerStyle style, int size, Color color)
