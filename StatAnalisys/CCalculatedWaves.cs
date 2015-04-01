@@ -413,7 +413,7 @@ namespace StatAnalisys
                                          List<double> listTA, typeCrossing type)
         {
             probability obj;
-            double waveFrequency, signH, N;
+            double waveFrequency, N;
             heights h;
 
             List<double> listHeights = new List<double>(listH);

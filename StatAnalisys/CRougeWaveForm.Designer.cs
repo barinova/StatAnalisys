@@ -55,3 +55,18 @@
         private System.Windows.Forms.ListBox listBoxRougeWaves;
     }
 }
+<<<<<<< .mine
+
+
+
+
+
+
+=======
+        #endregion
+
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelRougeWaves;
+    }
+}
+>>>>>>> .theirs

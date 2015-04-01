@@ -331,7 +331,7 @@ namespace StatAnalisys
                 
                 foreach (int index in rWaves.Keys)
                 {
-                    rougeForm.addRow("Wave num.: " + index + "\tRouge waves: " + rWaves[index]);
+                    rougeForm.addRow(index, rWaves[index]);
                 }
 
                 rougeForm.Show();
@@ -358,6 +358,7 @@ namespace StatAnalisys
             diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC, wave.heightsZUC.significantHeight);
             diagProbabilities.Show();
         }
+
         public static void buttonOpenRougeWave_Click(int num)
         {
 

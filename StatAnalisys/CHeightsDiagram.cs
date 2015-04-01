@@ -20,7 +20,9 @@ namespace StatAnalisys
             chartZDCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZUCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZDCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
-            chartZUCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true; 
+            chartZDCHeights.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chartZUCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
+            chartZUCHeights.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
             chartZDCHeights.Series[0].Font = new Font("Arial", 7);
             chartZUCHeights.Series[0].Font = new Font("Arial", 7);
             chartZUCHeights.ChartAreas[0].CursorX.IsUserEnabled = true;
@@ -109,5 +111,6 @@ namespace StatAnalisys
         {
             saveImage(new Chart[] { chartZUCHeights, chartZDCHeights});
         }
+
     }
 }
