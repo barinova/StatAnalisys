@@ -122,7 +122,7 @@
             // chartZDCLog
             // 
             chartArea1.AxisX.LabelStyle.Format = "0.000";
-            chartArea1.AxisX.Title = "Wave number";
+            chartArea1.AxisX.Title = "H / Hs";
             chartArea1.AxisY.LabelStyle.Format = "0.000";
             chartArea1.AxisY.Title = "P";
             chartArea1.Name = "ChartArea1";
@@ -171,7 +171,7 @@
             // chartZDC
             // 
             chartArea2.AxisX.LabelStyle.Format = "0.000";
-            chartArea2.AxisX.Title = "Wave number";
+            chartArea2.AxisX.Title = "H / Hs";
             chartArea2.AxisY.LabelStyle.Format = "0.000";
             chartArea2.AxisY.ScaleView.Zoomable = false;
             chartArea2.AxisY.Title = "P (Lg)";
@@ -233,7 +233,7 @@
             // chartZUCLog
             // 
             chartArea3.AxisX.LabelStyle.Format = "0.000";
-            chartArea3.AxisX.Title = "Wave number";
+            chartArea3.AxisX.Title = "H / Hs";
             chartArea3.AxisY.LabelStyle.Format = "0.000";
             chartArea3.AxisY.Title = "P";
             chartArea3.Name = "ChartArea1";
@@ -282,7 +282,7 @@
             // chartZUC
             // 
             chartArea4.AxisX.LabelStyle.Format = "0.000";
-            chartArea4.AxisX.Title = "Wave number";
+            chartArea4.AxisX.Title = "H / Hs";
             chartArea4.AxisY.LabelStyle.Format = "0.000";
             chartArea4.AxisY.Title = "P (Lg)";
             chartArea4.Name = "ChartArea1";

@@ -58,6 +58,7 @@ namespace StatAnalisys
         {
             buttonHeightsDiagram.Enabled = value;
             ProbabilitiesDiagram.Enabled = value;
+            buttonClouds.Enabled = value;
             saveImagesToolStripMenuItem.Enabled = value;
         }
 
@@ -193,12 +194,12 @@ namespace StatAnalisys
             chartZommedWave.Series[1].Points.AddXY(x2, y2);
             chartZommedWave.Series[1].Points.AddXY(x4, y4);
 
-            chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y2);
-            chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y4);
+           // chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y2);
+            //chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y4);
             //chartZommedWave.Series[2].Points[y2 > y4 ? 0 : 1].Label = Math.Round(selectedWave.totalHeight, 3).ToString();
 
-            chartZommedWave.Series[3].Points.AddXY(x1 - 0.5, y2 < y4 ? y2 : y4);
-            chartZommedWave.Series[3].Points.AddXY(x5 - 0.5, y2 < y4 ? y2 : y4);
+            //chartZommedWave.Series[3].Points.AddXY(x1 - 0.5, y2 < y4 ? y2 : y4);
+            //chartZommedWave.Series[3].Points.AddXY(x5 - 0.5, y2 < y4 ? y2 : y4);
             //chartZommedWave.Series[3].Points[1].Label = Math.Round(x5 - x1, 3).ToString();
         }
 
@@ -397,9 +398,12 @@ namespace StatAnalisys
 
         private void buttonClouds_Click(object sender, EventArgs e)
         {
-            CClouds cloudsForm = new CClouds();
-            cloudsForm.renderClouds(wave.heightsZDC.heightOneThird, wave.heightsZUC.heightOneThird, wave.calculatingWaves);
-            cloudsForm.Show();
+            if (wave != null)
+            {
+                CClouds cloudsForm = new CClouds();
+                cloudsForm.renderClouds(wave.heightsZDC.heightOneThird, wave.heightsZUC.heightOneThird, wave.calculatingWaves);
+                cloudsForm.Show();
+            }
             
         }
     }
