@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CCalculatedWaves.cs" />
+    <Compile Include="CClouds.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CClouds.Designer.cs">
+      <DependentUpon>CClouds.cs</DependentUpon>
+    </Compile>
     <Compile Include="CHeightsDiagram.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,12 @@
     <Compile Include="CProbabilitiesDiagram.Designer.cs">
       <DependentUpon>CProbabilitiesDiagram.cs</DependentUpon>
     </Compile>
+    <Compile Include="CRougeWaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRougeWaveForm.Designer.cs">
+      <DependentUpon>CRougeWaveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,11 +78,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CClouds.resx">
+      <DependentUpon>CClouds.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CHeightsDiagram.resx">
       <DependentUpon>CHeightsDiagram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CProbabilitiesDiagram.resx">
       <DependentUpon>CProbabilitiesDiagram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRougeWaveForm.resx">
+      <DependentUpon>CRougeWaveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

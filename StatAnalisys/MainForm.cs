@@ -49,15 +49,16 @@ namespace StatAnalisys
             chartZommedWave.Series[3].Font = new Font("Arial", 8);
             chartGeneralGraphic.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartGeneralGraphic.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-            chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = false;
+            chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
         }
         
         void changeEnabledSettingsComponents(bool value)
         {
-            checkBoxHeightsDiagram.Enabled = value;
-            checkBoxProbabilitiesDiagram.Enabled = value;
+            buttonHeightsDiagram.Enabled = value;
+            ProbabilitiesDiagram.Enabled = value;
+            buttonClouds.Enabled = value;
             saveImagesToolStripMenuItem.Enabled = value;
         }
 
@@ -68,8 +69,15 @@ namespace StatAnalisys
                 s.Points.Clear();
             }
 
-            chartGeneralGraphic.Series[0].Points.Clear();
-            chartWavesPeriods.Series[0].Points.Clear();
+            foreach (Series s in chartGeneralGraphic.Series)
+            {
+                s.Points.Clear();
+            }
+
+            foreach (Series s in this.chartWavesPeriods.Series)
+            {
+                s.Points.Clear();
+            }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -117,40 +125,28 @@ namespace StatAnalisys
             }
         }
 
-        private void comboBoxNumWave_SelectedIndexChanged(object sender, EventArgs e)
+        private void chartGeneralGraphic_SelectionRangeChanged(object sender, ViewEventArgs e)
         {
-            int indexWave = comboBoxNumWave.SelectedIndex;
 
-            if (indexWave > -1)
+            int indexWave = -1;
+
+            if (textBoxNumWave.Text != string.Empty && Int32.TryParse(textBoxNumWave.Text, out indexWave))
             {
-                changeEnabledSettingsComponents(true);
-                clearGraphics();
-                double [] heights = arrayS[indexWave];
-
-                for (int i = 1; i < arrayT.Count(); i++)
-                {
-                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i - 1], heights[i - 1]);
-                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i], heights[i]);
-                }
-
-                wave = arrayWaves[indexWave];
-
-                renderChartOfWavesPeriods();
-                labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
+                
             }
-        }
-
-        private void chartGeneralGraphic_SelectionChanging(object sender, CursorEventArgs e)
-        {
-            int indexWave = comboBoxNumWave.SelectedIndex;
 
             if (indexWave > -1 && wave != null)
             {
-                if (selectedX != e.NewSelectionStart)
+                int start = (int)e.Axis.ScaleView.ViewMinimum;
+                int end = (int)e.Axis.ScaleView.ViewMaximum;
+
+                double currentPoint = start + (end - start) / 2;
+
+                if (selectedX != currentPoint)
                 {
                     double x1, x2, x3, x4, x5, y1, y2, y3, y4, y5;
                     waveData selectedWave;
-                    selectedX = e.NewSelectionStart;
+                    selectedX = currentPoint;
                     selectedWave = wave.calculatingWaves.FirstOrDefault(c => c.nullPoint[0] < selectedX && c.nullPoint[2] > selectedX);
 
                     if (selectedWave.nullPoint != null)
@@ -198,22 +194,19 @@ namespace StatAnalisys
             chartZommedWave.Series[1].Points.AddXY(x2, y2);
             chartZommedWave.Series[1].Points.AddXY(x4, y4);
 
-            chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y2);
-            chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y4);
-            chartZommedWave.Series[2].Points[y2 > y4 ? 0 : 1].Label = Math.Round(selectedWave.totalHeight, 3).ToString();
+           // chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y2);
+            //chartZommedWave.Series[2].Points.AddXY(x1 - 0.5, y4);
+            //chartZommedWave.Series[2].Points[y2 > y4 ? 0 : 1].Label = Math.Round(selectedWave.totalHeight, 3).ToString();
 
-            chartZommedWave.Series[3].Points.AddXY(x1 - 0.5, y2 < y4 ? y2 : y4);
-            chartZommedWave.Series[3].Points.AddXY(x5 - 0.5, y2 < y4 ? y2 : y4);
-            chartZommedWave.Series[3].Points[1].Label = Math.Round(x5 - x1, 3).ToString();
+            //chartZommedWave.Series[3].Points.AddXY(x1 - 0.5, y2 < y4 ? y2 : y4);
+            //chartZommedWave.Series[3].Points.AddXY(x5 - 0.5, y2 < y4 ? y2 : y4);
+            //chartZommedWave.Series[3].Points[1].Label = Math.Round(x5 - x1, 3).ToString();
         }
 
         //update possible number of wave
         private void updateComboBoxNumberWaveValues(int size)
         {
-            for (int i = 0 ;  i < size; i++)
-            {
-                comboBoxNumWave.Items.Add(i.ToString());
-            }
+            labelNumWaves.Text = "Enter number of wave (1 - " + (size) + ")";
         }
 
         private void hightliteWaveOnChart(double x1, double x2, double x3, double x4, double x5, double y1, double y2, double y3, 
@@ -281,12 +274,16 @@ namespace StatAnalisys
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
-            int indexWave = comboBoxNumWave.SelectedIndex;
+            int indexWave;
 
-            if (indexWave > -1 && wave != null)
+            if (Int32.TryParse(textBoxNumWave.Text, out indexWave))
             {
-                renderingTroughsAndRidges(wave);
-                panelGraphic.Enabled = true;
+                if (indexWave > -1 && wave != null)
+                {
+                    chartGeneralGraphic.Series[1].Points.Clear();
+                    renderingTroughsAndRidges(wave);
+                    panelGraphic.Enabled = true;
+                }
             }
         }
 
@@ -324,30 +321,91 @@ namespace StatAnalisys
         {
             saveImage(new Chart[] {chartGeneralGraphic,  chartWavesPeriods});
         }
-                
-        private void checkBoxHeightsDiagram_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxHeightsDiagram.Checked)
-            {
-                CHeightsDiagram diagHeights = new CHeightsDiagram();
 
-                diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
-                    wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
-                diagHeights.Show();
-                checkBoxHeightsDiagram.Checked = false;
+        private void buttonViewRougeWaves_Click(object sender, EventArgs e)
+        {
+            Dictionary<int, int> rWaves = arrayWaves.rougeWaves;
+
+            if (rWaves.Count > 0)
+            {
+                CRougeWaveForm rougeForm = new CRougeWaveForm();
+                
+                foreach (int index in rWaves.Keys)
+                {
+                    rougeForm.addRow("Wave num.: " + index + "\tRouge waves: " + rWaves[index]);
+                }
+
+                rougeForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Rouge waves wasn't found", "Rouge wave", MessageBoxButtons.OK);
             }
         }
 
-        private void checkBoxProbabilitiesDiagram_CheckedChanged(object sender, EventArgs e)
+        private void buttonHeightsDiagram_Click(object sender, EventArgs e)
         {
-            if (checkBoxProbabilitiesDiagram.Checked)
+            CHeightsDiagram diagHeights = new CHeightsDiagram();
+
+            diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
+                wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
+            diagHeights.Show();
+        }
+
+        private void ProbabilitiesDiagram_Click(object sender, EventArgs e)
+        {
+            CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
+            diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC, wave.heightsZDC.significantHeight);
+            diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC, wave.heightsZUC.significantHeight);
+            diagProbabilities.Show();
+        }
+        public static void buttonOpenRougeWave_Click(int num)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void buttonNumWave_Click(object sender, EventArgs e)
+        {
+            int indexWave;
+
+            if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count() || indexWave < 1)
             {
-                CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
-                diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC);
-                diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC);
-                diagProbabilities.Show();
-                checkBoxProbabilitiesDiagram.Checked = false;
+                MessageBox.Show("Wave does't found", "Wave", MessageBoxButtons.OK);
             }
+            else
+            {
+                indexWave -= 1;
+                changeEnabledSettingsComponents(true);
+                clearGraphics();
+                double[] heights = arrayS[indexWave];
+
+                for (int i = 1; i < arrayT.Count(); i++)
+                {
+                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i - 1], heights[i - 1]);
+                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i], heights[i]);
+                }
+
+                wave = arrayWaves[indexWave];
+
+                renderChartOfWavesPeriods();
+                labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
+            }
+        }
+
+        private void buttonClouds_Click(object sender, EventArgs e)
+        {
+            if (wave != null)
+            {
+                CClouds cloudsForm = new CClouds();
+                cloudsForm.renderClouds(wave.heightsZDC.heightOneThird, wave.heightsZUC.heightOneThird, wave.calculatingWaves);
+                cloudsForm.Show();
+            }
+            
         }
     }
 
@@ -457,7 +515,7 @@ namespace StatAnalisys
 
                                 zoomReset(newChart);
 
-                                newChart.Size = new Size(chart.Width * 5, chart.Height * 5);
+                                newChart.Size = new Size(chart.Width * 4, chart.Height * 5);
 
                                 String name = saveFileDialog.FileName.Insert(saveFileDialog.FileName.Count() - 4, chart.Text);
 
@@ -470,7 +528,7 @@ namespace StatAnalisys
 
                                 Image imgImage = Image.FromStream(mS);
 
-                                imgImage.Save(name, GetEncoder(ImageFormat.Jpeg), myEncoderParameters);
+                                imgImage.Save(name, GetEncoder(ImageFormat.Png), myEncoderParameters);
 
                             }
                         }
@@ -487,25 +545,22 @@ namespace StatAnalisys
             }
         }
 
-        protected void drawStripLine(Chart chart, double y, Color color)
+        protected void drawStripLine(Chart chart, double y, Color color, double width)
         {
             StripLine stripLine = new StripLine();
             stripLine.IntervalOffset = y;
             stripLine.BackColor = color;
-            stripLine.StripWidth = 0.01;
+            stripLine.StripWidth = width;
             chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
         }
     }
+
     public static class CheckboxDialog
     {
         public static bool[] ShowDialog(string text, string[] caption)
         {
             Form prompt = new Form();
             FlowLayoutPanel panel = new FlowLayoutPanel();
-            
-            panel.AutoSize = true;
-            
-            panel.AutoSize = true;
 
             CheckBox cbGraphic = new CheckBox();
             cbGraphic.Text = caption[0];

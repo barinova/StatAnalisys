@@ -24,27 +24,20 @@ namespace StatAnalisys
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.txtOutput = new System.Windows.Forms.RichTextBox();
-            this.chartGeneralGraphic = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.buttonCalculate = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxNumWave = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBoxType = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -56,26 +49,451 @@ namespace StatAnalisys
             this.labelAmplitude = new System.Windows.Forms.Label();
             this.textBoxAmplitudePlus = new System.Windows.Forms.TextBox();
             this.labelCurrentWave = new System.Windows.Forms.Label();
-            this.panelGraphic = new System.Windows.Forms.Panel();
-            this.checkBoxProbabilitiesDiagram = new System.Windows.Forms.CheckBox();
-            this.checkBoxHeightsDiagram = new System.Windows.Forms.CheckBox();
-            this.labelGraphic = new System.Windows.Forms.Label();
             this.chartZommedWave = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label5 = new System.Windows.Forms.Label();
-            this.chartWavesPeriods = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.labelIntervalsPeriod = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.chartWavesPeriods = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.buttonViewRougeWaves = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.buttonCalculate = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.labelNumWaves = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.buttonNumWave = new System.Windows.Forms.Button();
+            this.textBoxNumWave = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.panelGraphic = new System.Windows.Forms.Panel();
+            this.ProbabilitiesDiagram = new System.Windows.Forms.Button();
+            this.buttonHeightsDiagram = new System.Windows.Forms.Button();
+            this.labelGraphic = new System.Windows.Forms.Label();
+            this.chartGeneralGraphic = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonClouds = new System.Windows.Forms.Button();
+            this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panelGraphic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartWavesPeriods)).BeginInit();
-            this.panel4.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panelGraphic.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.Filter = "MAT-files|*.mat|All files|*.*";
+            this.openFileDialog.Title = "Select a MAT-file";
+            // 
+            // txtOutput
+            // 
+            this.txtOutput.AcceptsTab = true;
+            this.txtOutput.Location = new System.Drawing.Point(12, 176);
+            this.txtOutput.Name = "txtOutput";
+            this.txtOutput.ReadOnly = true;
+            this.txtOutput.Size = new System.Drawing.Size(451, 247);
+            this.txtOutput.TabIndex = 5;
+            this.txtOutput.Text = "";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 32);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Wave";
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.panel2);
+            this.panel4.Controls.Add(this.chartZommedWave);
+            this.panel4.Location = new System.Drawing.Point(855, 398);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(403, 230);
+            this.panel4.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Selected wave";
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.textBoxType);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.textBoxT);
+            this.panel2.Controls.Add(this.labelT);
+            this.panel2.Controls.Add(this.textBoxAmplitudeMinus);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.labelAmplitude);
+            this.panel2.Controls.Add(this.textBoxAmplitudePlus);
+            this.panel2.Controls.Add(this.labelCurrentWave);
+            this.panel2.Location = new System.Drawing.Point(241, 107);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(138, 118);
+            this.panel2.TabIndex = 4;
+            // 
+            // textBoxType
+            // 
+            this.textBoxType.Location = new System.Drawing.Point(38, 168);
+            this.textBoxType.Name = "textBoxType";
+            this.textBoxType.Size = new System.Drawing.Size(100, 20);
+            this.textBoxType.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 152);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Type";
+            // 
+            // textBoxT
+            // 
+            this.textBoxT.Location = new System.Drawing.Point(33, 93);
+            this.textBoxT.Name = "textBoxT";
+            this.textBoxT.Size = new System.Drawing.Size(100, 20);
+            this.textBoxT.TabIndex = 13;
+            // 
+            // labelT
+            // 
+            this.labelT.AutoSize = true;
+            this.labelT.Location = new System.Drawing.Point(14, 96);
+            this.labelT.Name = "labelT";
+            this.labelT.Size = new System.Drawing.Size(14, 13);
+            this.labelT.TabIndex = 12;
+            this.labelT.Text = "T";
+            // 
+            // textBoxAmplitudeMinus
+            // 
+            this.textBoxAmplitudeMinus.Location = new System.Drawing.Point(33, 56);
+            this.textBoxAmplitudeMinus.Name = "textBoxAmplitudeMinus";
+            this.textBoxAmplitudeMinus.Size = new System.Drawing.Size(100, 20);
+            this.textBoxAmplitudeMinus.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 63);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(10, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "-";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(13, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "+";
+            // 
+            // labelAmplitude
+            // 
+            this.labelAmplitude.AutoSize = true;
+            this.labelAmplitude.Location = new System.Drawing.Point(14, 18);
+            this.labelAmplitude.Name = "labelAmplitude";
+            this.labelAmplitude.Size = new System.Drawing.Size(53, 13);
+            this.labelAmplitude.TabIndex = 7;
+            this.labelAmplitude.Text = "Amplitude";
+            // 
+            // textBoxAmplitudePlus
+            // 
+            this.textBoxAmplitudePlus.Location = new System.Drawing.Point(33, 34);
+            this.textBoxAmplitudePlus.Name = "textBoxAmplitudePlus";
+            this.textBoxAmplitudePlus.Size = new System.Drawing.Size(100, 20);
+            this.textBoxAmplitudePlus.TabIndex = 6;
+            // 
+            // labelCurrentWave
+            // 
+            this.labelCurrentWave.AutoSize = true;
+            this.labelCurrentWave.Location = new System.Drawing.Point(14, 0);
+            this.labelCurrentWave.Name = "labelCurrentWave";
+            this.labelCurrentWave.Size = new System.Drawing.Size(70, 13);
+            this.labelCurrentWave.TabIndex = 5;
+            this.labelCurrentWave.Text = "Current wave";
+            // 
+            // chartZommedWave
+            // 
+            this.chartZommedWave.Anchor = System.Windows.Forms.AnchorStyles.None;
+            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.Name = "ChartAreaSelectedWave";
+            this.chartZommedWave.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartZommedWave.Legends.Add(legend1);
+            this.chartZommedWave.Location = new System.Drawing.Point(12, 33);
+            this.chartZommedWave.Name = "chartZommedWave";
+            series1.ChartArea = "ChartAreaSelectedWave";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.Name = "Current selected wave";
+            series2.ChartArea = "ChartAreaSelectedWave";
+            series2.Legend = "Legend1";
+            series2.Name = "Amplitudes";
+            series3.ChartArea = "ChartAreaSelectedWave";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series3.Legend = "Legend1";
+            series3.Name = "T";
+            series4.ChartArea = "ChartAreaSelectedWave";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series4.Legend = "Legend1";
+            series4.Name = "H";
+            this.chartZommedWave.Series.Add(series1);
+            this.chartZommedWave.Series.Add(series2);
+            this.chartZommedWave.Series.Add(series3);
+            this.chartZommedWave.Series.Add(series4);
+            this.chartZommedWave.Size = new System.Drawing.Size(390, 182);
+            this.chartZommedWave.TabIndex = 3;
+            this.chartZommedWave.Text = "Chart Zommed Wave";
+            // 
+            // labelIntervalsPeriod
+            // 
+            this.labelIntervalsPeriod.AutoSize = true;
+            this.labelIntervalsPeriod.Location = new System.Drawing.Point(12, 382);
+            this.labelIntervalsPeriod.Name = "labelIntervalsPeriod";
+            this.labelIntervalsPeriod.Size = new System.Drawing.Size(119, 13);
+            this.labelIntervalsPeriod.TabIndex = 6;
+            this.labelIntervalsPeriod.Text = "Chart of Waves Periods";
+            // 
+            // chartWavesPeriods
+            // 
+            this.chartWavesPeriods.Anchor = System.Windows.Forms.AnchorStyles.None;
+            chartArea2.Name = "ChartArea1";
+            this.chartWavesPeriods.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartWavesPeriods.Legends.Add(legend2);
+            this.chartWavesPeriods.Location = new System.Drawing.Point(12, 398);
+            this.chartWavesPeriods.Name = "chartWavesPeriods";
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            series5.Legend = "Legend1";
+            series5.Name = "T";
+            this.chartWavesPeriods.Series.Add(series5);
+            this.chartWavesPeriods.Size = new System.Drawing.Size(821, 230);
+            this.chartWavesPeriods.TabIndex = 5;
+            this.chartWavesPeriods.Text = "Chart Periods";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.panel5);
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.panelGraphic);
+            this.panel1.Location = new System.Drawing.Point(1057, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(201, 383);
+            this.panel1.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, -2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Actions";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.label3);
+            this.panel5.Controls.Add(this.panel6);
+            this.panel5.Controls.Add(this.buttonCalculate);
+            this.panel5.Location = new System.Drawing.Point(5, 250);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(191, 112);
+            this.panel5.TabIndex = 18;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.buttonViewRougeWaves);
+            this.panel6.Controls.Add(this.label8);
+            this.panel6.Location = new System.Drawing.Point(6, 53);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(168, 44);
+            this.panel6.TabIndex = 7;
+            // 
+            // buttonViewRougeWaves
+            // 
+            this.buttonViewRougeWaves.Location = new System.Drawing.Point(20, 16);
+            this.buttonViewRougeWaves.Name = "buttonViewRougeWaves";
+            this.buttonViewRougeWaves.Size = new System.Drawing.Size(75, 23);
+            this.buttonViewRougeWaves.TabIndex = 2;
+            this.buttonViewRougeWaves.Text = "View";
+            this.buttonViewRougeWaves.UseVisualStyleBackColor = true;
+            this.buttonViewRougeWaves.Click += new System.EventHandler(this.buttonViewRougeWaves_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(161, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Click to view found rouge waves";
+            // 
+            // buttonCalculate
+            // 
+            this.buttonCalculate.Location = new System.Drawing.Point(6, 14);
+            this.buttonCalculate.Name = "buttonCalculate";
+            this.buttonCalculate.Size = new System.Drawing.Size(112, 23);
+            this.buttonCalculate.TabIndex = 1;
+            this.buttonCalculate.Text = "Render heights";
+            this.buttonCalculate.UseVisualStyleBackColor = true;
+            this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.labelNumWaves);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.buttonNumWave);
+            this.panel3.Controls.Add(this.textBoxNumWave);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Location = new System.Drawing.Point(3, 14);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(191, 76);
+            this.panel3.TabIndex = 17;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // labelNumWaves
+            // 
+            this.labelNumWaves.AutoSize = true;
+            this.labelNumWaves.Location = new System.Drawing.Point(14, 21);
+            this.labelNumWaves.Name = "labelNumWaves";
+            this.labelNumWaves.Size = new System.Drawing.Size(0, 13);
+            this.labelNumWaves.TabIndex = 20;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(0, 13);
+            this.label9.TabIndex = 19;
+            // 
+            // buttonNumWave
+            // 
+            this.buttonNumWave.Location = new System.Drawing.Point(105, 35);
+            this.buttonNumWave.Name = "buttonNumWave";
+            this.buttonNumWave.Size = new System.Drawing.Size(83, 20);
+            this.buttonNumWave.TabIndex = 18;
+            this.buttonNumWave.Text = "Open";
+            this.buttonNumWave.UseVisualStyleBackColor = true;
+            this.buttonNumWave.Click += new System.EventHandler(this.buttonNumWave_Click);
+            // 
+            // textBoxNumWave
+            // 
+            this.textBoxNumWave.Location = new System.Drawing.Point(12, 35);
+            this.textBoxNumWave.Name = "textBoxNumWave";
+            this.textBoxNumWave.Size = new System.Drawing.Size(75, 20);
+            this.textBoxNumWave.TabIndex = 17;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Select wave";
+            // 
+            // panelGraphic
+            // 
+            this.panelGraphic.Controls.Add(this.buttonClouds);
+            this.panelGraphic.Controls.Add(this.ProbabilitiesDiagram);
+            this.panelGraphic.Controls.Add(this.buttonHeightsDiagram);
+            this.panelGraphic.Controls.Add(this.labelGraphic);
+            this.panelGraphic.Location = new System.Drawing.Point(3, 96);
+            this.panelGraphic.Name = "panelGraphic";
+            this.panelGraphic.Size = new System.Drawing.Size(193, 135);
+            this.panelGraphic.TabIndex = 2;
+            // 
+            // ProbabilitiesDiagram
+            // 
+            this.ProbabilitiesDiagram.Location = new System.Drawing.Point(12, 45);
+            this.ProbabilitiesDiagram.Name = "ProbabilitiesDiagram";
+            this.ProbabilitiesDiagram.Size = new System.Drawing.Size(129, 29);
+            this.ProbabilitiesDiagram.TabIndex = 8;
+            this.ProbabilitiesDiagram.Text = "Probabilities Diagram";
+            this.ProbabilitiesDiagram.UseVisualStyleBackColor = true;
+            this.ProbabilitiesDiagram.Click += new System.EventHandler(this.ProbabilitiesDiagram_Click);
+            // 
+            // buttonHeightsDiagram
+            // 
+            this.buttonHeightsDiagram.Location = new System.Drawing.Point(12, 16);
+            this.buttonHeightsDiagram.Name = "buttonHeightsDiagram";
+            this.buttonHeightsDiagram.Size = new System.Drawing.Size(129, 23);
+            this.buttonHeightsDiagram.TabIndex = 7;
+            this.buttonHeightsDiagram.Text = "Heights Diagram";
+            this.buttonHeightsDiagram.UseVisualStyleBackColor = true;
+            this.buttonHeightsDiagram.Click += new System.EventHandler(this.buttonHeightsDiagram_Click);
+            // 
+            // labelGraphic
+            // 
+            this.labelGraphic.AutoSize = true;
+            this.labelGraphic.Location = new System.Drawing.Point(14, 0);
+            this.labelGraphic.Name = "labelGraphic";
+            this.labelGraphic.Size = new System.Drawing.Size(98, 13);
+            this.labelGraphic.TabIndex = 4;
+            this.labelGraphic.Text = "Additional Graphics";
+            // 
+            // chartGeneralGraphic
+            // 
+            this.chartGeneralGraphic.Anchor = System.Windows.Forms.AnchorStyles.None;
+            chartArea3.AxisX.LabelStyle.Format = "0.000";
+            chartArea3.AxisX.Title = "t";
+            chartArea3.AxisY.LabelStyle.Format = "0.000";
+            chartArea3.AxisY.Maximum = 5D;
+            chartArea3.AxisY.Minimum = -5D;
+            chartArea3.AxisY.Title = "h";
+            chartArea3.CursorY.Interval = 0.5D;
+            chartArea3.Name = "ChartArea1";
+            this.chartGeneralGraphic.ChartAreas.Add(chartArea3);
+            this.chartGeneralGraphic.Cursor = System.Windows.Forms.Cursors.Default;
+            legend3.Name = "Legend1";
+            this.chartGeneralGraphic.Legends.Add(legend3);
+            this.chartGeneralGraphic.Location = new System.Drawing.Point(12, 48);
+            this.chartGeneralGraphic.Name = "chartGeneralGraphic";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Legend = "Legend1";
+            series6.Name = "Wave";
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Troughs & Ridges";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series8.Legend = "Legend1";
+            series8.Name = "Hightlighted Wave";
+            this.chartGeneralGraphic.Series.Add(series6);
+            this.chartGeneralGraphic.Series.Add(series7);
+            this.chartGeneralGraphic.Series.Add(series8);
+            this.chartGeneralGraphic.Size = new System.Drawing.Size(1039, 318);
+            this.chartGeneralGraphic.TabIndex = 1;
+            this.chartGeneralGraphic.Text = "Chart Wave";
+            this.chartGeneralGraphic.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chartGeneralGraphic_SelectionRangeChanged);
             // 
             // menuStrip1
             // 
@@ -110,351 +528,20 @@ namespace StatAnalisys
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
-            // openFileDialog
+            // buttonClouds
             // 
-            this.openFileDialog.Filter = "MAT-files|*.mat|All files|*.*";
-            this.openFileDialog.Title = "Select a MAT-file";
-            // 
-            // txtOutput
-            // 
-            this.txtOutput.AcceptsTab = true;
-            this.txtOutput.Location = new System.Drawing.Point(12, 176);
-            this.txtOutput.Name = "txtOutput";
-            this.txtOutput.ReadOnly = true;
-            this.txtOutput.Size = new System.Drawing.Size(451, 247);
-            this.txtOutput.TabIndex = 5;
-            this.txtOutput.Text = "";
-            // 
-            // chartGeneralGraphic
-            // 
-            this.chartGeneralGraphic.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            chartArea1.AxisX.LabelStyle.Format = "0.000";
-            chartArea1.AxisX.Title = "t";
-            chartArea1.AxisY.LabelStyle.Format = "0.000";
-            chartArea1.AxisY.Maximum = 5D;
-            chartArea1.AxisY.Minimum = -5D;
-            chartArea1.AxisY.Title = "h";
-            chartArea1.CursorY.Interval = 0.5D;
-            chartArea1.Name = "ChartArea1";
-            this.chartGeneralGraphic.ChartAreas.Add(chartArea1);
-            this.chartGeneralGraphic.Cursor = System.Windows.Forms.Cursors.Default;
-            legend1.Name = "Legend1";
-            this.chartGeneralGraphic.Legends.Add(legend1);
-            this.chartGeneralGraphic.Location = new System.Drawing.Point(12, 48);
-            this.chartGeneralGraphic.Name = "chartGeneralGraphic";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Legend = "Legend1";
-            series1.Name = "Wave";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Troughs & Ridges";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Legend = "Legend1";
-            series3.Name = "Hightlighted Wave";
-            this.chartGeneralGraphic.Series.Add(series1);
-            this.chartGeneralGraphic.Series.Add(series2);
-            this.chartGeneralGraphic.Series.Add(series3);
-            this.chartGeneralGraphic.Size = new System.Drawing.Size(1039, 318);
-            this.chartGeneralGraphic.TabIndex = 1;
-            this.chartGeneralGraphic.Text = "Chart Wave";
-            this.chartGeneralGraphic.SelectionRangeChanging += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.chartGeneralGraphic_SelectionChanging);
-            this.chartGeneralGraphic.MouseEnter += new System.EventHandler(chart_MouseEnter);
-            this.chartGeneralGraphic.MouseLeave += new System.EventHandler(chart_MouseLeave);
-            this.chartGeneralGraphic.MouseWheel += new System.Windows.Forms.MouseEventHandler(chart_MouseWheel);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.panelGraphic);
-            this.panel1.Location = new System.Drawing.Point(1057, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(201, 383);
-            this.panel1.TabIndex = 2;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.buttonCalculate);
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.comboBoxNumWave);
-            this.panel3.Location = new System.Drawing.Point(3, 14);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(191, 76);
-            this.panel3.TabIndex = 17;
-            // 
-            // buttonCalculate
-            // 
-            this.buttonCalculate.Location = new System.Drawing.Point(17, 44);
-            this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(75, 23);
-            this.buttonCalculate.TabIndex = 1;
-            this.buttonCalculate.Text = "Calculate";
-            this.buttonCalculate.UseVisualStyleBackColor = true;
-            this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Select wave";
-            // 
-            // comboBoxNumWave
-            // 
-            this.comboBoxNumWave.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxNumWave.FormattingEnabled = true;
-            this.comboBoxNumWave.Location = new System.Drawing.Point(17, 16);
-            this.comboBoxNumWave.Name = "comboBoxNumWave";
-            this.comboBoxNumWave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.comboBoxNumWave.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxNumWave.TabIndex = 0;
-            this.comboBoxNumWave.SelectedIndexChanged += new System.EventHandler(this.comboBoxNumWave_SelectedIndexChanged);
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.textBoxType);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.textBoxT);
-            this.panel2.Controls.Add(this.labelT);
-            this.panel2.Controls.Add(this.textBoxAmplitudeMinus);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.labelAmplitude);
-            this.panel2.Controls.Add(this.textBoxAmplitudePlus);
-            this.panel2.Controls.Add(this.labelCurrentWave);
-            this.panel2.Location = new System.Drawing.Point(3, 164);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(193, 208);
-            this.panel2.TabIndex = 4;
-            // 
-            // textBoxType
-            // 
-            this.textBoxType.Location = new System.Drawing.Point(38, 168);
-            this.textBoxType.Name = "textBoxType";
-            this.textBoxType.Size = new System.Drawing.Size(100, 20);
-            this.textBoxType.TabIndex = 15;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 152);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Type";
-            // 
-            // textBoxT
-            // 
-            this.textBoxT.Location = new System.Drawing.Point(38, 112);
-            this.textBoxT.Name = "textBoxT";
-            this.textBoxT.Size = new System.Drawing.Size(100, 20);
-            this.textBoxT.TabIndex = 13;
-            // 
-            // labelT
-            // 
-            this.labelT.AutoSize = true;
-            this.labelT.Location = new System.Drawing.Point(14, 96);
-            this.labelT.Name = "labelT";
-            this.labelT.Size = new System.Drawing.Size(14, 13);
-            this.labelT.TabIndex = 12;
-            this.labelT.Text = "T";
-            // 
-            // textBoxAmplitudeMinus
-            // 
-            this.textBoxAmplitudeMinus.Location = new System.Drawing.Point(38, 63);
-            this.textBoxAmplitudeMinus.Name = "textBoxAmplitudeMinus";
-            this.textBoxAmplitudeMinus.Size = new System.Drawing.Size(100, 20);
-            this.textBoxAmplitudeMinus.TabIndex = 11;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 63);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(10, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "-";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(13, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "+";
-            // 
-            // labelAmplitude
-            // 
-            this.labelAmplitude.AutoSize = true;
-            this.labelAmplitude.Location = new System.Drawing.Point(14, 18);
-            this.labelAmplitude.Name = "labelAmplitude";
-            this.labelAmplitude.Size = new System.Drawing.Size(53, 13);
-            this.labelAmplitude.TabIndex = 7;
-            this.labelAmplitude.Text = "Amplitude";
-            // 
-            // textBoxAmplitudePlus
-            // 
-            this.textBoxAmplitudePlus.Location = new System.Drawing.Point(38, 34);
-            this.textBoxAmplitudePlus.Name = "textBoxAmplitudePlus";
-            this.textBoxAmplitudePlus.Size = new System.Drawing.Size(100, 20);
-            this.textBoxAmplitudePlus.TabIndex = 6;
-            // 
-            // labelCurrentWave
-            // 
-            this.labelCurrentWave.AutoSize = true;
-            this.labelCurrentWave.Location = new System.Drawing.Point(14, 0);
-            this.labelCurrentWave.Name = "labelCurrentWave";
-            this.labelCurrentWave.Size = new System.Drawing.Size(70, 13);
-            this.labelCurrentWave.TabIndex = 5;
-            this.labelCurrentWave.Text = "Current wave";
-            // 
-            // panelGraphic
-            // 
-            this.panelGraphic.Controls.Add(this.checkBoxProbabilitiesDiagram);
-            this.panelGraphic.Controls.Add(this.checkBoxHeightsDiagram);
-            this.panelGraphic.Controls.Add(this.labelGraphic);
-            this.panelGraphic.Location = new System.Drawing.Point(3, 96);
-            this.panelGraphic.Name = "panelGraphic";
-            this.panelGraphic.Size = new System.Drawing.Size(193, 62);
-            this.panelGraphic.TabIndex = 2;
-            // 
-            // checkBoxProbabilitiesDiagram
-            // 
-            this.checkBoxProbabilitiesDiagram.AutoSize = true;
-            this.checkBoxProbabilitiesDiagram.Location = new System.Drawing.Point(17, 39);
-            this.checkBoxProbabilitiesDiagram.Name = "checkBoxProbabilitiesDiagram";
-            this.checkBoxProbabilitiesDiagram.Size = new System.Drawing.Size(124, 17);
-            this.checkBoxProbabilitiesDiagram.TabIndex = 6;
-            this.checkBoxProbabilitiesDiagram.Text = "Probabilities Diagram";
-            this.checkBoxProbabilitiesDiagram.UseVisualStyleBackColor = true;
-            this.checkBoxProbabilitiesDiagram.CheckedChanged += new System.EventHandler(this.checkBoxProbabilitiesDiagram_CheckedChanged);
-            // 
-            // checkBoxHeightsDiagram
-            // 
-            this.checkBoxHeightsDiagram.AutoSize = true;
-            this.checkBoxHeightsDiagram.Location = new System.Drawing.Point(17, 16);
-            this.checkBoxHeightsDiagram.Name = "checkBoxHeightsDiagram";
-            this.checkBoxHeightsDiagram.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxHeightsDiagram.TabIndex = 5;
-            this.checkBoxHeightsDiagram.Text = "Heights Diagram";
-            this.checkBoxHeightsDiagram.UseVisualStyleBackColor = true;
-            this.checkBoxHeightsDiagram.CheckedChanged += new System.EventHandler(this.checkBoxHeightsDiagram_CheckedChanged);
-            // 
-            // labelGraphic
-            // 
-            this.labelGraphic.AutoSize = true;
-            this.labelGraphic.Location = new System.Drawing.Point(14, 0);
-            this.labelGraphic.Name = "labelGraphic";
-            this.labelGraphic.Size = new System.Drawing.Size(98, 13);
-            this.labelGraphic.TabIndex = 4;
-            this.labelGraphic.Text = "Additional Graphics";
-            // 
-            // chartZommedWave
-            // 
-            this.chartZommedWave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea2.Name = "ChartAreaSelectedWave";
-            this.chartZommedWave.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartZommedWave.Legends.Add(legend2);
-            this.chartZommedWave.Location = new System.Drawing.Point(12, 33);
-            this.chartZommedWave.Name = "chartZommedWave";
-            series4.ChartArea = "ChartAreaSelectedWave";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series4.Legend = "Legend1";
-            series4.Name = "Current selected wave";
-            series5.ChartArea = "ChartAreaSelectedWave";
-            series5.Legend = "Legend1";
-            series5.Name = "Amplitudes";
-            series6.ChartArea = "ChartAreaSelectedWave";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series6.Legend = "Legend1";
-            series6.Name = "T";
-            series7.ChartArea = "ChartAreaSelectedWave";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series7.Legend = "Legend1";
-            series7.Name = "H";
-            this.chartZommedWave.Series.Add(series4);
-            this.chartZommedWave.Series.Add(series5);
-            this.chartZommedWave.Series.Add(series6);
-            this.chartZommedWave.Series.Add(series7);
-            this.chartZommedWave.Size = new System.Drawing.Size(390, 182);
-            this.chartZommedWave.TabIndex = 3;
-            this.chartZommedWave.Text = "Chart Zommed Wave";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Selected wave";
-            // 
-            // chartWavesPeriods
-            // 
-            this.chartWavesPeriods.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            chartArea3.Name = "ChartArea1";
-            this.chartWavesPeriods.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartWavesPeriods.Legends.Add(legend3);
-            this.chartWavesPeriods.Location = new System.Drawing.Point(12, 398);
-            this.chartWavesPeriods.Name = "chartWavesPeriods";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            series8.Legend = "Legend1";
-            series8.Name = "T";
-            this.chartWavesPeriods.Series.Add(series8);
-            this.chartWavesPeriods.Size = new System.Drawing.Size(821, 230);
-            this.chartWavesPeriods.TabIndex = 5;
-            this.chartWavesPeriods.Text = "Chart Periods";
-            // 
-            // labelIntervalsPeriod
-            // 
-            this.labelIntervalsPeriod.AutoSize = true;
-            this.labelIntervalsPeriod.Location = new System.Drawing.Point(12, 382);
-            this.labelIntervalsPeriod.Name = "labelIntervalsPeriod";
-            this.labelIntervalsPeriod.Size = new System.Drawing.Size(119, 13);
-            this.labelIntervalsPeriod.TabIndex = 6;
-            this.labelIntervalsPeriod.Text = "Chart of Waves Periods";
-            // 
-            // panel4
-            // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label5);
-            this.panel4.Controls.Add(this.chartZommedWave);
-            this.panel4.Location = new System.Drawing.Point(855, 398);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(403, 230);
-            this.panel4.TabIndex = 7;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 32);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Wave";
+            this.buttonClouds.Location = new System.Drawing.Point(12, 80);
+            this.buttonClouds.Name = "buttonClouds";
+            this.buttonClouds.Size = new System.Drawing.Size(129, 23);
+            this.buttonClouds.TabIndex = 9;
+            this.buttonClouds.Text = "Clouds";
+            this.buttonClouds.UseVisualStyleBackColor = true;
+            this.buttonClouds.Click += new System.EventHandler(this.buttonClouds_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1264, 640);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panel4);
@@ -466,20 +553,24 @@ namespace StatAnalisys
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Waves";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panelGraphic.ResumeLayout(false);
-            this.panelGraphic.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartWavesPeriods)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartWavesPeriods)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panelGraphic.ResumeLayout(false);
+            this.panelGraphic.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -494,7 +585,6 @@ namespace StatAnalisys
         private System.Windows.Forms.RichTextBox txtOutput;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartGeneralGraphic;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBoxNumWave;
         private System.Windows.Forms.Button buttonCalculate;
         private System.Windows.Forms.Panel panelGraphic;
         private System.Windows.Forms.Label labelGraphic;
@@ -516,10 +606,20 @@ namespace StatAnalisys
         private System.Windows.Forms.Label labelIntervalsPeriod;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBoxProbabilitiesDiagram;
-        private System.Windows.Forms.CheckBox checkBoxHeightsDiagram;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button buttonViewRougeWaves;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button buttonHeightsDiagram;
+        private System.Windows.Forms.Button ProbabilitiesDiagram;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonNumWave;
+        private System.Windows.Forms.TextBox textBoxNumWave;
+        private System.Windows.Forms.Label labelNumWaves;
+        private System.Windows.Forms.Button buttonClouds;
     }
 }
 

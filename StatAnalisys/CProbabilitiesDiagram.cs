@@ -23,8 +23,51 @@ namespace StatAnalisys
             chartZDCLog.ChartAreas[0].AxisX.ScrollBar.Enabled = true; 
             tabControlProb.TabPages[0].Text = "-down-zero-crossings";
             tabControlProb.TabPages[1].Text = "-up-zero-crossings";
+
+            chartZDC.Series[0].BorderDashStyle = ChartDashStyle.Dash;
+            chartZDCLog.Series[0].BorderDashStyle = ChartDashStyle.Dash;
+            chartZDC.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZDCLog.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZDC.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZDCLog.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
+
+            chartZUC.Series[0].BorderDashStyle = ChartDashStyle.Dash;
+            chartZUCLog.Series[0].BorderDashStyle = ChartDashStyle.Dash;
+            chartZUC.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZUCLog.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZUC.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZUCLog.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
+
+            setupMarkStyle(chartZDC, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
+            setupMarkStyle(chartZDCLog, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
+            setupMarkStyle(chartZUC, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
+            setupMarkStyle(chartZUCLog, System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle, 2, Color.Black);
+
+            this.chartZDC.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
+            this.chartZDC.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
+            this.chartZUC.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
+            this.chartZUC.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
+            this.chartZDCLog.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
+            this.chartZUCLog.MouseLeave += new System.EventHandler(this.chart_MouseLeave);
+            this.chartZDCLog.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
+            this.chartZUCLog.MouseEnter += new System.EventHandler(this.chart_MouseEnter); 
+            this.chartZDC.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
+            this.chartZUC.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
+            this.chartZDCLog.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
+            this.chartZUCLog.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
         }
-        public void renderProbabilities(typeCrossing type, List<probability> listProb)
+
+        void setupMarkStyle(Chart chart, MarkerStyle style, int size, Color color)
+        {
+            foreach (Series s in chart.Series)
+            {
+                s.MarkerStyle = style;
+                s.MarkerSize = size;
+                s.MarkerColor = color;
+            }
+        }
+
+        public void renderProbabilities(typeCrossing type, List<probability> listProb, double signH)
         {
             Chart chart, chartLog;
 
@@ -39,10 +82,10 @@ namespace StatAnalisys
                 chartLog = chartZUCLog;
             }
 
-            drawPChart(listProb, chart, chartLog);
+            drawPChart(listProb, chart, chartLog, signH);
         }
 
-        void drawPChart(List<probability> listProb, Chart chart, Chart chartLog)
+        void drawPChart(List<probability> listProb, Chart chart, Chart chartLog, double signH)
         {
             probability prob;
 
@@ -50,15 +93,15 @@ namespace StatAnalisys
             {
                 prob = listProb[i];
 
-                chart.Series[0].Points.AddXY(prob.H, prob.experP);
-                chart.Series[1].Points.AddXY(prob.H, prob.teorP);
-                chart.Series[2].Points.AddXY(prob.H, prob.troughP);
-                chart.Series[3].Points.AddXY(prob.H, prob.crestP);
+                chart.Series[0].Points.AddXY(prob.H / signH, prob.experP);
+                chart.Series[1].Points.AddXY(prob.H / signH, prob.teorP);
+                chart.Series[2].Points.AddXY(prob.H / signH, prob.crestP);
+                chart.Series[3].Points.AddXY(prob.H / signH, prob.troughP);
 
-                chartLog.Series[0].Points.AddXY(prob.H, Math.Log10(prob.experP));
-                chartLog.Series[1].Points.AddXY(prob.H, Math.Log10(prob.teorP));
-                chartLog.Series[2].Points.AddXY(prob.H, Math.Log10(prob.troughP));
-                chartLog.Series[3].Points.AddXY(prob.H, Math.Log10(prob.crestP));
+                chartLog.Series[0].Points.AddXY(prob.H / signH, Math.Log10(prob.experP));
+                chartLog.Series[1].Points.AddXY(prob.H / signH, Math.Log10(prob.teorP));
+                chartLog.Series[2].Points.AddXY(prob.H / signH, Math.Log10(prob.crestP));
+                chartLog.Series[3].Points.AddXY(prob.H / signH, Math.Log10(prob.troughP));
             }
         }
 
