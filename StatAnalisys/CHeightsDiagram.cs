@@ -33,22 +33,21 @@ namespace StatAnalisys
 
         private void highlightRougeWave(Chart chart, int x, double y)
         {
-            chart.Series[3].Color = Color.Navy;
-            chart.Series[3].Points.AddXY(x, 0);
-            chart.Series[3].Points.AddXY(x, y);
+            chart.Series[4].Points.AddXY(x, y);
         }
 
         public void renderHeights(double listHeightsZDCThird, double listHeightsZDCSign, double listHeightsZUCThird,
             double listHeightsZUCSign, List<double> listHeihtsZDC, List<double> listHeihtsZUC)
         {
-            int indX;
+            int indX, x = 0;
             double HHSingnZDC = 2*listHeightsZDCSign;
             double HHSingnZUC = 2*listHeightsZUCSign;
 
             foreach (var h in listHeihtsZDC)
             {
-                indX = chartZDCHeights.Series[0].Points.AddY(h);
+                indX = chartZDCHeights.Series[0].Points.AddXY(x, h);
                 chartZDCHeights.Series[0].Points[indX].Label = Math.Round(h, 3).ToString();
+                x++;
 
                 if (h > HHSingnZDC)
                 {
@@ -56,11 +55,13 @@ namespace StatAnalisys
                 }
             }
 
+            x = 0;
+
             foreach (var h in listHeihtsZUC)
             {
-                indX = chartZUCHeights.Series[0].Points.AddY(h);
-                chartZUCHeights.Series[0].Points[indX].Label = Math.Round(h, 3).ToString(); 
-
+                indX = chartZUCHeights.Series[0].Points.AddXY(x, h);
+                chartZUCHeights.Series[0].Points[indX].Label = Math.Round(h, 3).ToString();
+                x++;
                 if (h > HHSingnZUC)
                 {
                     highlightRougeWave(chartZUCHeights, indX, h);
@@ -95,14 +96,6 @@ namespace StatAnalisys
             s.Name = str;
             s.ChartType = SeriesChartType.Point;
             chart.Series.Add(s);
-
-            /*
-            TextAnnotation text = new TextAnnotation();
-            text.X = 130;
-            text.Y = 1;
-            text.Text = str; 
-            text.AnchorDataPoint = chart.Series[0].Points[3];
-            chart.Annotations.Add(text);*/
         }
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)

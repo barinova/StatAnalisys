@@ -206,7 +206,7 @@ namespace StatAnalisys
         //update possible number of wave
         private void updateComboBoxNumberWaveValues(int size)
         {
-            labelNumWaves.Text = "Enter number of wave (0 - " + (size - 1) + ")";
+            labelNumWaves.Text = "Enter number of wave (1 - " + (size) + ")";
         }
 
         private void hightliteWaveOnChart(double x1, double x2, double x3, double x4, double x5, double y1, double y2, double y3, 
@@ -373,12 +373,13 @@ namespace StatAnalisys
         {
             int indexWave;
 
-            if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count()-1 || indexWave < 0)
+            if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count() || indexWave < 1)
             {
                 MessageBox.Show("Wave does't found", "Wave", MessageBoxButtons.OK);
             }
             else
             {
+                indexWave -= 1;
                 changeEnabledSettingsComponents(true);
                 clearGraphics();
                 double[] heights = arrayS[indexWave];

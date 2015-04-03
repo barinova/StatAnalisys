@@ -122,7 +122,6 @@
             series4.Name = "2 * Significiant height";
             series5.BorderWidth = 2;
             series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series5.Color = System.Drawing.Color.Navy;
             series5.Legend = "Legend1";
             series5.Name = "Rouge wave";
@@ -186,12 +185,11 @@
             series9.Name = "2 * Significiant height";
             series10.BorderWidth = 2;
             series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series10.Color = System.Drawing.Color.Navy;
             series10.LabelBorderWidth = 2;
             series10.Legend = "Legend1";
             series10.MarkerBorderWidth = 2;
-            series10.Name = "RougeWave";
+            series10.Name = "Rouge Wave";
             this.chartZDCHeights.Series.Add(series6);
             this.chartZDCHeights.Series.Add(series7);
             this.chartZDCHeights.Series.Add(series8);
