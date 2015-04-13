@@ -53,10 +53,10 @@ namespace StatAnalisys
             this.labelIntervalsPeriod = new System.Windows.Forms.Label();
             this.chartWavesPeriods = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.buttonViewRougeWaves = new System.Windows.Forms.Button();
+            this.buttonViewRogueWaves = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.buttonCalculate = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -66,6 +66,7 @@ namespace StatAnalisys
             this.textBoxNumWave = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panelGraphic = new System.Windows.Forms.Panel();
+            this.buttonClouds = new System.Windows.Forms.Button();
             this.ProbabilitiesDiagram = new System.Windows.Forms.Button();
             this.buttonHeightsDiagram = new System.Windows.Forms.Button();
             this.labelGraphic = new System.Windows.Forms.Label();
@@ -74,7 +75,6 @@ namespace StatAnalisys
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonClouds = new System.Windows.Forms.Button();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).BeginInit();
@@ -307,15 +307,6 @@ namespace StatAnalisys
             this.panel1.Size = new System.Drawing.Size(201, 383);
             this.panel1.TabIndex = 2;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, -2);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Actions";
-            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.label3);
@@ -326,24 +317,33 @@ namespace StatAnalisys
             this.panel5.Size = new System.Drawing.Size(191, 112);
             this.panel5.TabIndex = 18;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, -2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Actions";
+            // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.buttonViewRougeWaves);
+            this.panel6.Controls.Add(this.buttonViewRogueWaves);
             this.panel6.Controls.Add(this.label8);
             this.panel6.Location = new System.Drawing.Point(6, 53);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(168, 44);
             this.panel6.TabIndex = 7;
             // 
-            // buttonViewRougeWaves
+            // buttonViewRogueWaves
             // 
-            this.buttonViewRougeWaves.Location = new System.Drawing.Point(20, 16);
-            this.buttonViewRougeWaves.Name = "buttonViewRougeWaves";
-            this.buttonViewRougeWaves.Size = new System.Drawing.Size(75, 23);
-            this.buttonViewRougeWaves.TabIndex = 2;
-            this.buttonViewRougeWaves.Text = "View";
-            this.buttonViewRougeWaves.UseVisualStyleBackColor = true;
-            this.buttonViewRougeWaves.Click += new System.EventHandler(this.buttonViewRougeWaves_Click);
+            this.buttonViewRogueWaves.Location = new System.Drawing.Point(20, 16);
+            this.buttonViewRogueWaves.Name = "buttonViewRogueWaves";
+            this.buttonViewRogueWaves.Size = new System.Drawing.Size(75, 23);
+            this.buttonViewRogueWaves.TabIndex = 2;
+            this.buttonViewRogueWaves.Text = "View";
+            this.buttonViewRogueWaves.UseVisualStyleBackColor = true;
+            this.buttonViewRogueWaves.Click += new System.EventHandler(this.buttonViewRougeWaves_Click);
             // 
             // label8
             // 
@@ -429,6 +429,16 @@ namespace StatAnalisys
             this.panelGraphic.Name = "panelGraphic";
             this.panelGraphic.Size = new System.Drawing.Size(193, 135);
             this.panelGraphic.TabIndex = 2;
+            // 
+            // buttonClouds
+            // 
+            this.buttonClouds.Location = new System.Drawing.Point(12, 80);
+            this.buttonClouds.Name = "buttonClouds";
+            this.buttonClouds.Size = new System.Drawing.Size(129, 23);
+            this.buttonClouds.TabIndex = 9;
+            this.buttonClouds.Text = "Clouds";
+            this.buttonClouds.UseVisualStyleBackColor = true;
+            this.buttonClouds.Click += new System.EventHandler(this.buttonClouds_Click);
             // 
             // ProbabilitiesDiagram
             // 
@@ -528,16 +538,6 @@ namespace StatAnalisys
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
-            // buttonClouds
-            // 
-            this.buttonClouds.Location = new System.Drawing.Point(12, 80);
-            this.buttonClouds.Name = "buttonClouds";
-            this.buttonClouds.Size = new System.Drawing.Size(129, 23);
-            this.buttonClouds.TabIndex = 9;
-            this.buttonClouds.Text = "Clouds";
-            this.buttonClouds.UseVisualStyleBackColor = true;
-            this.buttonClouds.Click += new System.EventHandler(this.buttonClouds_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -611,7 +611,7 @@ namespace StatAnalisys
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Button buttonViewRougeWaves;
+        private System.Windows.Forms.Button buttonViewRogueWaves;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button buttonHeightsDiagram;
         private System.Windows.Forms.Button ProbabilitiesDiagram;

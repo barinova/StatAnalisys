@@ -451,7 +451,7 @@ namespace StatAnalisys
                 //signH = Math.Pow(h.significantHeight,2);
                 waveFrequency = (N-i)/N;
                 obj.H = listHeights[i];
-                obj.experP = waveFrequency;//  /Hs
+                obj.experP = Math.Exp(-2 * Math.Pow(listHeights[i] / h.significantHeight, 2));//  /Hs
                 //obj.teorP = exp(-obj.H * obj.H/(8*h.at(type).sigma * h.at(type).sigma));
                 obj.crestP = Math.Exp(-2 * Math.Pow(2.0 * listCrestA[i]/h.significantHeight, 2));
                 obj.troughP = Math.Exp(-2 * Math.Pow(2.0 * listThroughA[i] / h.significantHeight, 2));//A/As Hs/2

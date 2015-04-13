@@ -57,19 +57,31 @@
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlProb = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.chartZDCLog = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabControl4 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.chartZDC = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.chartZDCLog = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chartZUCLog = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.chartZUC = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.chartZUCLog = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolStrip1.SuspendLayout();
             this.tabControlProb.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartZDCLog)).BeginInit();
+            this.tabControl4.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZDC)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartZDCLog)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartZUCLog)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZUC)).BeginInit();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartZUCLog)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -109,8 +121,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.chartZDCLog);
-            this.tabPage1.Controls.Add(this.chartZDC);
+            this.tabPage1.Controls.Add(this.tabControl4);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -119,109 +130,141 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // chartZDCLog
+            // tabControl4
+            // 
+            this.tabControl4.Controls.Add(this.tabPage4);
+            this.tabControl4.Controls.Add(this.tabPage3);
+            this.tabControl4.Location = new System.Drawing.Point(6, 12);
+            this.tabControl4.Name = "tabControl4";
+            this.tabControl4.SelectedIndex = 0;
+            this.tabControl4.Size = new System.Drawing.Size(1254, 512);
+            this.tabControl4.TabIndex = 8;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.chartZDC);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1246, 486);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Log H/Hs";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // chartZDC
             // 
             chartArea1.AxisX.LabelStyle.Format = "0.000";
             chartArea1.AxisX.Title = "H / Hs";
             chartArea1.AxisY.LabelStyle.Format = "0.000";
-            chartArea1.AxisY.Title = "P";
+            chartArea1.AxisY.ScaleView.Zoomable = false;
+            chartArea1.AxisY.Title = "P (Lg)";
             chartArea1.Name = "ChartArea1";
-            this.chartZDCLog.ChartAreas.Add(chartArea1);
+            this.chartZDC.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.chartZDCLog.Legends.Add(legend1);
-            this.chartZDCLog.Location = new System.Drawing.Point(6, 268);
-            this.chartZDCLog.Name = "chartZDCLog";
+            this.chartZDC.Legends.Add(legend1);
+            this.chartZDC.Location = new System.Drawing.Point(-1, 0);
+            this.chartZDC.Name = "chartZDC";
             series1.BorderWidth = 2;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            series1.LabelBorderWidth = 2;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             series1.Legend = "Legend1";
+            series1.MarkerBorderWidth = 2;
             series1.Name = "Experemental Probabilities";
+            series1.ShadowColor = System.Drawing.Color.Gray;
             series2.BorderWidth = 2;
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            series2.LabelBorderWidth = 2;
+            series2.Color = System.Drawing.Color.Blue;
             series2.Legend = "Legend1";
+            series2.MarkerBorderWidth = 2;
             series2.Name = "Teoretical Probabilities";
             series3.BorderWidth = 2;
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series3.Color = System.Drawing.Color.Red;
-            series3.LabelBorderWidth = 2;
             series3.Legend = "Legend1";
+            series3.MarkerBorderWidth = 2;
             series3.Name = "Through Probabilities";
             series4.BorderWidth = 2;
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            series4.LabelBorderWidth = 2;
+            series4.Color = System.Drawing.Color.Green;
             series4.Legend = "Legend1";
+            series4.MarkerBorderWidth = 2;
             series4.Name = "Crest Probabilities";
             series4.ShadowColor = System.Drawing.Color.White;
-            this.chartZDCLog.Series.Add(series1);
-            this.chartZDCLog.Series.Add(series2);
-            this.chartZDCLog.Series.Add(series3);
-            this.chartZDCLog.Series.Add(series4);
-            this.chartZDCLog.Size = new System.Drawing.Size(1244, 240);
-            this.chartZDCLog.TabIndex = 7;
-            this.chartZDCLog.Text = "chartZDCLog";
+            this.chartZDC.Series.Add(series1);
+            this.chartZDC.Series.Add(series2);
+            this.chartZDC.Series.Add(series3);
+            this.chartZDC.Series.Add(series4);
+            this.chartZDC.Size = new System.Drawing.Size(1244, 480);
+            this.chartZDC.TabIndex = 6;
+            this.chartZDC.Text = "chartZDCLog";
             // 
-            // chartZDC
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.chartZDCLog);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1246, 486);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "H/Hs";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // chartZDCLog
             // 
             chartArea2.AxisX.LabelStyle.Format = "0.000";
             chartArea2.AxisX.Title = "H / Hs";
             chartArea2.AxisY.LabelStyle.Format = "0.000";
-            chartArea2.AxisY.ScaleView.Zoomable = false;
-            chartArea2.AxisY.Title = "P (Lg)";
+            chartArea2.AxisY.Title = "P";
             chartArea2.Name = "ChartArea1";
-            this.chartZDC.ChartAreas.Add(chartArea2);
+            this.chartZDCLog.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
-            this.chartZDC.Legends.Add(legend2);
-            this.chartZDC.Location = new System.Drawing.Point(6, 33);
-            this.chartZDC.Name = "chartZDC";
+            this.chartZDCLog.Legends.Add(legend2);
+            this.chartZDCLog.Location = new System.Drawing.Point(0, 0);
+            this.chartZDCLog.Name = "chartZDCLog";
             series5.BorderWidth = 2;
             series5.ChartArea = "ChartArea1";
             series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series5.LabelBorderWidth = 2;
             series5.Legend = "Legend1";
-            series5.MarkerBorderWidth = 2;
             series5.Name = "Experemental Probabilities";
             series6.BorderWidth = 2;
             series6.ChartArea = "ChartArea1";
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series6.Color = System.Drawing.Color.Blue;
+            series6.LabelBorderWidth = 2;
             series6.Legend = "Legend1";
-            series6.MarkerBorderWidth = 2;
             series6.Name = "Teoretical Probabilities";
             series7.BorderWidth = 2;
             series7.ChartArea = "ChartArea1";
             series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series7.Color = System.Drawing.Color.Red;
+            series7.LabelBorderWidth = 2;
             series7.Legend = "Legend1";
-            series7.MarkerBorderWidth = 2;
             series7.Name = "Through Probabilities";
             series8.BorderWidth = 2;
             series8.ChartArea = "ChartArea1";
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series8.Color = System.Drawing.Color.Green;
+            series8.LabelBorderWidth = 2;
             series8.Legend = "Legend1";
-            series8.MarkerBorderWidth = 2;
             series8.Name = "Crest Probabilities";
             series8.ShadowColor = System.Drawing.Color.White;
-            this.chartZDC.Series.Add(series5);
-            this.chartZDC.Series.Add(series6);
-            this.chartZDC.Series.Add(series7);
-            this.chartZDC.Series.Add(series8);
-            this.chartZDC.Size = new System.Drawing.Size(1244, 240);
-            this.chartZDC.TabIndex = 6;
-            this.chartZDC.Text = "chartZDCLog";
+            this.chartZDCLog.Series.Add(series5);
+            this.chartZDCLog.Series.Add(series6);
+            this.chartZDCLog.Series.Add(series7);
+            this.chartZDCLog.Series.Add(series8);
+            this.chartZDCLog.Size = new System.Drawing.Size(1244, 477);
+            this.chartZDCLog.TabIndex = 7;
+            this.chartZDCLog.Text = "chartZDCLog";
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.chartZUCLog);
-            this.tabPage2.Controls.Add(this.chartZUC);
+            this.tabPage2.Controls.Add(this.tabControl1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -230,29 +273,50 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // chartZUCLog
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Location = new System.Drawing.Point(6, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1254, 512);
+            this.tabControl1.TabIndex = 10;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.chartZUC);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1246, 486);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "Log H/Hs";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // chartZUC
             // 
             chartArea3.AxisX.LabelStyle.Format = "0.000";
             chartArea3.AxisX.Title = "H / Hs";
             chartArea3.AxisY.LabelStyle.Format = "0.000";
-            chartArea3.AxisY.Title = "P";
+            chartArea3.AxisY.Title = "P (Lg)";
             chartArea3.Name = "ChartArea1";
-            this.chartZUCLog.ChartAreas.Add(chartArea3);
+            this.chartZUC.ChartAreas.Add(chartArea3);
             legend3.Name = "Legend1";
-            this.chartZUCLog.Legends.Add(legend3);
-            this.chartZUCLog.Location = new System.Drawing.Point(0, 268);
-            this.chartZUCLog.Name = "chartZUCLog";
+            this.chartZUC.Legends.Add(legend3);
+            this.chartZUC.Location = new System.Drawing.Point(0, 0);
+            this.chartZUC.Name = "chartZUC";
             series9.BorderWidth = 2;
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            series9.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             series9.LabelBorderWidth = 2;
             series9.Legend = "Legend1";
             series9.Name = "Experemental Probabilities";
             series10.BorderWidth = 2;
             series10.ChartArea = "ChartArea1";
             series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series10.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series10.Color = System.Drawing.Color.Blue;
             series10.LabelBorderWidth = 2;
             series10.Legend = "Legend1";
             series10.Name = "Teoretical Probabilities";
@@ -271,37 +335,48 @@
             series12.Legend = "Legend1";
             series12.Name = "Crest Probabilities";
             series12.ShadowColor = System.Drawing.Color.White;
-            this.chartZUCLog.Series.Add(series9);
-            this.chartZUCLog.Series.Add(series10);
-            this.chartZUCLog.Series.Add(series11);
-            this.chartZUCLog.Series.Add(series12);
-            this.chartZUCLog.Size = new System.Drawing.Size(1244, 240);
-            this.chartZUCLog.TabIndex = 9;
-            this.chartZUCLog.Text = "chart1";
+            this.chartZUC.Series.Add(series9);
+            this.chartZUC.Series.Add(series10);
+            this.chartZUC.Series.Add(series11);
+            this.chartZUC.Series.Add(series12);
+            this.chartZUC.Size = new System.Drawing.Size(1250, 494);
+            this.chartZUC.TabIndex = 8;
+            this.chartZUC.Text = "chartZUC";
             // 
-            // chartZUC
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.chartZUCLog);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(1246, 486);
+            this.tabPage6.TabIndex = 2;
+            this.tabPage6.Text = "H/Hs";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // chartZUCLog
             // 
             chartArea4.AxisX.LabelStyle.Format = "0.000";
             chartArea4.AxisX.Title = "H / Hs";
             chartArea4.AxisY.LabelStyle.Format = "0.000";
-            chartArea4.AxisY.Title = "P (Lg)";
+            chartArea4.AxisY.Title = "P";
             chartArea4.Name = "ChartArea1";
-            this.chartZUC.ChartAreas.Add(chartArea4);
+            this.chartZUCLog.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
-            this.chartZUC.Legends.Add(legend4);
-            this.chartZUC.Location = new System.Drawing.Point(0, 32);
-            this.chartZUC.Name = "chartZUC";
+            this.chartZUCLog.Legends.Add(legend4);
+            this.chartZUCLog.Location = new System.Drawing.Point(-1, 0);
+            this.chartZUCLog.Name = "chartZUCLog";
             series13.BorderWidth = 2;
             series13.ChartArea = "ChartArea1";
             series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series13.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            series13.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             series13.LabelBorderWidth = 2;
             series13.Legend = "Legend1";
             series13.Name = "Experemental Probabilities";
             series14.BorderWidth = 2;
             series14.ChartArea = "ChartArea1";
             series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series14.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            series14.Color = System.Drawing.Color.Blue;
             series14.LabelBorderWidth = 2;
             series14.Legend = "Legend1";
             series14.Name = "Teoretical Probabilities";
@@ -320,13 +395,13 @@
             series16.Legend = "Legend1";
             series16.Name = "Crest Probabilities";
             series16.ShadowColor = System.Drawing.Color.White;
-            this.chartZUC.Series.Add(series13);
-            this.chartZUC.Series.Add(series14);
-            this.chartZUC.Series.Add(series15);
-            this.chartZUC.Series.Add(series16);
-            this.chartZUC.Size = new System.Drawing.Size(1244, 240);
-            this.chartZUC.TabIndex = 8;
-            this.chartZUC.Text = "chartZUC";
+            this.chartZUCLog.Series.Add(series13);
+            this.chartZUCLog.Series.Add(series14);
+            this.chartZUCLog.Series.Add(series15);
+            this.chartZUCLog.Series.Add(series16);
+            this.chartZUCLog.Size = new System.Drawing.Size(1244, 490);
+            this.chartZUCLog.TabIndex = 9;
+            this.chartZUCLog.Text = "chart1";
             // 
             // CProbabilitiesDiagram
             // 
@@ -342,11 +417,17 @@
             this.toolStrip1.PerformLayout();
             this.tabControlProb.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chartZDCLog)).EndInit();
+            this.tabControl4.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartZDC)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartZDCLog)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chartZUCLog)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartZUC)).EndInit();
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartZUCLog)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,5 +445,11 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveImagesToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabControl4;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabPage6;
     }
 }

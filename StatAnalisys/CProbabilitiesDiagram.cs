@@ -26,15 +26,19 @@ namespace StatAnalisys
 
             chartZDC.Series[0].BorderDashStyle = ChartDashStyle.Dash;
             chartZDCLog.Series[0].BorderDashStyle = ChartDashStyle.Dash;
-            chartZDC.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
-            chartZDCLog.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZDC.Series[1].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZDCLog.Series[1].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZDC.Series[2].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZDCLog.Series[2].BorderDashStyle = ChartDashStyle.DashDot;
             chartZDC.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
             chartZDCLog.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
 
             chartZUC.Series[0].BorderDashStyle = ChartDashStyle.Dash;
             chartZUCLog.Series[0].BorderDashStyle = ChartDashStyle.Dash;
-            chartZUC.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
-            chartZUCLog.Series[2].BorderDashStyle = ChartDashStyle.DashDotDot;
+            chartZUC.Series[1].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZUCLog.Series[1].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZUC.Series[2].BorderDashStyle = ChartDashStyle.DashDot;
+            chartZUCLog.Series[2].BorderDashStyle = ChartDashStyle.DashDot;
             chartZUC.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
             chartZUCLog.Series[3].BorderDashStyle = ChartDashStyle.DashDot;
 

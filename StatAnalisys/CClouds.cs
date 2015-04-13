@@ -43,7 +43,7 @@ namespace StatAnalisys
                         x = wave.totalHeight / hThrZDC;
                         y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry));
                         chartCloudsZDCVert.Series[0].Points.AddXY(x, y);
-                        y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry));
+                        y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry));
                         chartCloudsZDCHor.Series[0].Points.AddXY(x, y);
                         break;
 
@@ -51,7 +51,7 @@ namespace StatAnalisys
                         x = wave.totalHeight / hThrZUC;
                         y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry));
                         chartCloudsZUCVert.Series[0].Points.AddXY(x, y);
-                        y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry));
+                        y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry));
                         chartCloudsZUCHor.Series[0].Points.AddXY(x, y);
                         break;
                 }

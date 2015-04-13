@@ -324,22 +324,25 @@ namespace StatAnalisys
 
         private void buttonViewRougeWaves_Click(object sender, EventArgs e)
         {
-            Dictionary<int, int> rWaves = arrayWaves.rougeWaves;
-
-            if (rWaves.Count > 0)
+            if (arrayWaves != null)
             {
-                CRougeWaveForm rougeForm = new CRougeWaveForm();
-                
-                foreach (int index in rWaves.Keys)
+                Dictionary<int, int> rWaves = arrayWaves.rougeWaves;
+
+                if (rWaves.Count > 0)
                 {
-                    rougeForm.addRow("Wave num.: " + index + "\tRouge waves: " + rWaves[index]);
-                }
+                    CRougeWaveForm rougeForm = new CRougeWaveForm();
 
-                rougeForm.Show();
-            }
-            else
-            {
-                MessageBox.Show("Rouge waves wasn't found", "Rouge wave", MessageBoxButtons.OK);
+                    foreach (int index in rWaves.Keys)
+                    {
+                        rougeForm.addRow("Wave num.: " + index + "\tRogue waves: " + rWaves[index]);
+                    }
+
+                    rougeForm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Rouge waves wasn't found", "Rogue wave", MessageBoxButtons.OK);
+                }
             }
         }
 
@@ -373,27 +376,30 @@ namespace StatAnalisys
         {
             int indexWave;
 
-            if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count() || indexWave < 1)
+            if (arrayS != null)
             {
-                MessageBox.Show("Wave does't found", "Wave", MessageBoxButtons.OK);
-            }
-            else
-            {
-                indexWave -= 1;
-                changeEnabledSettingsComponents(true);
-                clearGraphics();
-                double[] heights = arrayS[indexWave];
-
-                for (int i = 1; i < arrayT.Count(); i++)
+                if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count() || indexWave < 1)
                 {
-                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i - 1], heights[i - 1]);
-                    chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i], heights[i]);
+                    MessageBox.Show("Wave does't found", "Wave", MessageBoxButtons.OK);
                 }
+                else
+                {
+                    indexWave -= 1;
+                    changeEnabledSettingsComponents(true);
+                    clearGraphics();
+                    double[] heights = arrayS[indexWave];
 
-                wave = arrayWaves[indexWave];
+                    for (int i = 1; i < arrayT.Count(); i++)
+                    {
+                        chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i - 1], heights[i - 1]);
+                        chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i], heights[i]);
+                    }
 
-                renderChartOfWavesPeriods();
-                labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
+                    wave = arrayWaves[indexWave];
+
+                    renderChartOfWavesPeriods();
+                    labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
+                }
             }
         }
 
