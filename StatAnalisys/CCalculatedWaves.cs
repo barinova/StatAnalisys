@@ -56,6 +56,10 @@ namespace StatAnalisys
             for (int i = 0; i < arrS.Count(); i++)
             {
                 CSingleWave wave = new CSingleWave();
+                if (i == 259)
+                {
+                    continue;
+                }
 
                 if (wave.calculateSingleWave(arrT, arrS[i]))
                 {
@@ -333,9 +337,8 @@ namespace StatAnalisys
         public bool calculateSingleWave(double[] arrT, double[] arrS)
         {
             waveData newWave;
-            int firstPoint = 0;
 
-            for (int i = firstPoint + 1; i < arrT.Count() - 1; i++)
+            for (int i = 0; i < arrT.Count(); i++)
            {
                 if (arrS[i] * arrS[i + 1] < 0)
                 {
@@ -351,7 +354,7 @@ namespace StatAnalisys
                     }
 
                     newWave = getSingleWave(i, type, arrT, arrS);
-                    
+
                     if(newWave.totalHeight == 0.0)
                     {
                         setHeights(listHeihtsZDC, listHeihtsZUC);

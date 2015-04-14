@@ -297,7 +297,7 @@ namespace StatAnalisys
                 chartGeneralGraphic.Series[1].Font = new Font("Arial", 7);
                 chartGeneralGraphic.Series[1].Color = System.Drawing.Color.Green;
 
-                for (int i = 0; i < listWavesDatas.Count() - 1; i++)
+                for (int i = 0; i < listWavesDatas.Count(); i++)
                 {
                     param = listWavesDatas.ElementAt(i);
                     int indS;
@@ -306,14 +306,27 @@ namespace StatAnalisys
                     {
                         indS = chartGeneralGraphic.Series[1].Points.AddXY(param.ridge, param.amplMax);
                         chartGeneralGraphic.Series[1].Points[indS].Label = Math.Round(param.amplMax, 3).ToString();
+
+                        if (listWavesDatas.Count() - 1 == i)
+                        {
+                            indS = chartGeneralGraphic.Series[1].Points.AddXY(param.trough, param.amplMin);
+                            chartGeneralGraphic.Series[1].Points[indS].Label = Math.Round(param.amplMin, 3).ToString();
+                        }
                     }
                     else
                     {
                         indS = chartGeneralGraphic.Series[1].Points.AddXY(param.trough, param.amplMin);
                         chartGeneralGraphic.Series[1].Points[indS].Label = Math.Round(param.amplMin, 3).ToString();
+
+                        if (listWavesDatas.Count() - 1 == i)
+                        {
+                            indS = chartGeneralGraphic.Series[1].Points.AddXY(param.ridge, param.amplMax);
+                            chartGeneralGraphic.Series[1].Points[indS].Label = Math.Round(param.amplMax, 3).ToString();
+                        }
                     }
 
                 }
+
             }
         }
 
