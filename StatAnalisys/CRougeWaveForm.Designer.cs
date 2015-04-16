@@ -28,21 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBoxRougeWaves = new System.Windows.Forms.ListBox();
+            this.listViewRogueWaves = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
-            // listBoxRougeWaves
+            // listViewRogueWaves
             // 
-            this.listBoxRougeWaves.FormattingEnabled = true;
-            this.listBoxRougeWaves.Location = new System.Drawing.Point(12, 12);
-            this.listBoxRougeWaves.Name = "listBoxRougeWaves";
-            this.listBoxRougeWaves.Size = new System.Drawing.Size(217, 238);
-            this.listBoxRougeWaves.TabIndex = 0;
+            this.listViewRogueWaves.Location = new System.Drawing.Point(12, 12);
+            this.listViewRogueWaves.Name = "listViewRogueWaves";
+            this.listViewRogueWaves.Size = new System.Drawing.Size(185, 427);
+            this.listViewRogueWaves.TabIndex = 4;
+            this.listViewRogueWaves.UseCompatibleStateImageBehavior = false;
+            this.listViewRogueWaves.SelectedIndexChanged += new System.EventHandler(this.listViewRogueWaves_SelectedIndexChanged);
             // 
             // CRougeWaveForm
             // 
-            this.ClientSize = new System.Drawing.Size(248, 262);
-            this.Controls.Add(this.listBoxRougeWaves);
+            this.ClientSize = new System.Drawing.Size(210, 455);
+            this.Controls.Add(this.listViewRogueWaves);
             this.Name = "CRougeWaveForm";
             this.Text = "Rouge waves";
             this.ResumeLayout(false);
@@ -52,6 +53,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBoxRougeWaves;
+        private System.Windows.Forms.ListView listViewRogueWaves;
     }
 }

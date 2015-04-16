@@ -13,9 +13,11 @@ namespace StatAnalisys
 {
     public partial class CProbabilitiesDiagram : BaseForm
     {
-        public CProbabilitiesDiagram()
+        public CProbabilitiesDiagram(string indexWave)
         {
             InitializeComponent();
+
+            labelIndexWave.Text = "Wave № " + indexWave;
 
             chartZUC.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
             chartZDC.ChartAreas[0].AxisX.ScrollBar.Enabled = true; 
@@ -113,6 +115,7 @@ namespace StatAnalisys
         {
             saveImage(new Chart[] { chartZDC, chartZDCLog, chartZUC, chartZUCLog });
         }
+
 
     }
 

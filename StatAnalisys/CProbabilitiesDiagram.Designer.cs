@@ -68,6 +68,7 @@
             this.chartZUC = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.chartZUCLog = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.labelIndexWave = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.tabControlProb.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -403,12 +404,21 @@
             this.chartZUCLog.TabIndex = 9;
             this.chartZUCLog.Text = "chart1";
             // 
+            // labelIndexWave
+            // 
+            this.labelIndexWave.AutoSize = true;
+            this.labelIndexWave.Location = new System.Drawing.Point(1159, 12);
+            this.labelIndexWave.Name = "labelIndexWave";
+            this.labelIndexWave.Size = new System.Drawing.Size(0, 13);
+            this.labelIndexWave.TabIndex = 3;
+            // 
             // CProbabilitiesDiagram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1276, 590);
+            this.Controls.Add(this.labelIndexWave);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tabControlProb);
             this.Name = "CProbabilitiesDiagram";
@@ -451,5 +461,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Label labelIndexWave;
     }
 }

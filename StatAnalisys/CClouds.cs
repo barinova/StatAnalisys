@@ -13,9 +13,11 @@ namespace StatAnalisys
 {
     public partial class CClouds : BaseForm
     {
-        public CClouds()
+        public CClouds(string indexWave)
         {
             InitializeComponent();
+
+            labelNumWave.Text = "Wave № " + indexWave;
 
             setZoomable(chartCloudsZDCHor);
             setZoomable(chartCloudsZDCVert);

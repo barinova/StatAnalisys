@@ -51,6 +51,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelNumWave = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartCloudsZUCHor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartCloudsZUCVert)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartCloudsZDCHor)).BeginInit();
@@ -223,9 +224,18 @@
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click_1);
             // 
+            // labelNumWave
+            // 
+            this.labelNumWave.AutoSize = true;
+            this.labelNumWave.Location = new System.Drawing.Point(971, 12);
+            this.labelNumWave.Name = "labelNumWave";
+            this.labelNumWave.Size = new System.Drawing.Size(0, 13);
+            this.labelNumWave.TabIndex = 10;
+            // 
             // CClouds
             // 
             this.ClientSize = new System.Drawing.Size(1096, 656);
+            this.Controls.Add(this.labelNumWave);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -260,6 +270,7 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveImagesToolStripMenuItem;
+        private System.Windows.Forms.Label labelNumWave;
 
     }
 }

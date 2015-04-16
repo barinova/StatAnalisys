@@ -15,7 +15,12 @@ using System.Drawing.Imaging;
 
 namespace StatAnalisys
 {
-    
+    public static class CallBackMy
+    {
+        public delegate void callbackEvent(string what);
+        public static callbackEvent callbackEventHandler;
+    }
+
     public partial class MainForm : BaseForm
     {
 
@@ -29,6 +34,7 @@ namespace StatAnalisys
         {
             InitializeComponent();
 
+            CallBackMy.callbackEventHandler = new CallBackMy.callbackEvent(openRogueWaveHeightsDiagram);
             setupUISettings();            
             changeEnabledSettingsComponents(false);
         }
@@ -347,7 +353,7 @@ namespace StatAnalisys
 
                     foreach (int index in rWaves.Keys)
                     {
-                        rougeForm.addRow("Wave num.: " + index + "\tRogue waves: " + rWaves[index]);
+                        rougeForm.addRow(index.ToString(), rWaves[index].ToString());
                     }
 
                     rougeForm.Show();
@@ -361,7 +367,7 @@ namespace StatAnalisys
 
         private void buttonHeightsDiagram_Click(object sender, EventArgs e)
         {
-            CHeightsDiagram diagHeights = new CHeightsDiagram();
+            CHeightsDiagram diagHeights = new CHeightsDiagram(textBoxNumWave.Text);
 
             diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
                 wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
@@ -370,7 +376,7 @@ namespace StatAnalisys
 
         private void ProbabilitiesDiagram_Click(object sender, EventArgs e)
         {
-            CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram();
+            CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram(textBoxNumWave.Text);
             diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC, wave.heightsZDC.significantHeight);
             diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC, wave.heightsZUC.significantHeight);
             diagProbabilities.Show();
@@ -420,11 +426,24 @@ namespace StatAnalisys
         {
             if (wave != null)
             {
-                CClouds cloudsForm = new CClouds();
+                CClouds cloudsForm = new CClouds(textBoxNumWave.Text);
                 cloudsForm.renderClouds(wave.heightsZDC.heightOneThird, wave.heightsZUC.heightOneThird, wave.calculatingWaves);
                 cloudsForm.Show();
             }
             
+        }
+
+        public void openRogueWaveHeightsDiagram(string index)
+        {
+            if (index != "0")
+            {
+                int i = Int32.Parse(index);
+                CHeightsDiagram diagHeights = new CHeightsDiagram(index);
+                diagHeights.renderHeights(arrayWaves[i].heightsZDC.heightOneThird, arrayWaves[i].heightsZDC.significantHeight,
+                    arrayWaves[i].heightsZUC.heightOneThird, arrayWaves[i].heightsZUC.significantHeight,
+                    arrayWaves[i].listHeihtsZDC, arrayWaves[i].listHeihtsZUC);
+                diagHeights.Show();
+            }
         }
     }
 

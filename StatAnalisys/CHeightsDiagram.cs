@@ -13,10 +13,11 @@ namespace StatAnalisys
 {
     public partial class CHeightsDiagram : BaseForm
     {
-        public CHeightsDiagram()
+        public CHeightsDiagram(string indexWave)
         {
             InitializeComponent();
 
+            labelNumWave.Text = "Wave № " + indexWave;
             chartZDCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZUCHeights.Series[0]["PixelPointWidth"] = "1";
             chartZDCHeights.ChartAreas[0].AxisX.ScrollBar.Enabled = true;

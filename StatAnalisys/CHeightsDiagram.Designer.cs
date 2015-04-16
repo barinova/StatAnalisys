@@ -52,6 +52,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelNumWave = new System.Windows.Forms.Label();
             this.ZDCHeights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZUCHeights)).BeginInit();
             this.ZUCHeights.SuspendLayout();
@@ -205,6 +206,7 @@
             this.fileToolStripMenuItem});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip1.Size = new System.Drawing.Size(1276, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
@@ -224,14 +226,23 @@
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
+            // labelNumWave
+            // 
+            this.labelNumWave.AutoSize = true;
+            this.labelNumWave.Location = new System.Drawing.Point(1209, 12);
+            this.labelNumWave.Name = "labelNumWave";
+            this.labelNumWave.Size = new System.Drawing.Size(0, 13);
+            this.labelNumWave.TabIndex = 9;
+            // 
             // CHeightsDiagram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1276, 742);
+            this.Controls.Add(this.labelNumWave);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.ZDCHeights);
             this.Controls.Add(this.ZUCHeights);
+            this.Controls.Add(this.ZDCHeights);
             this.Controls.Add(this.toolStrip1);
             this.MinimizeBox = false;
             this.Name = "CHeightsDiagram";
@@ -259,5 +270,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveImagesToolStripMenuItem;
         private System.Windows.Forms.Panel ZUCHeights;
         private System.Windows.Forms.Panel ZDCHeights;
+        private System.Windows.Forms.Label labelNumWave;
     }
 }
