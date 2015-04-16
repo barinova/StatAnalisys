@@ -249,42 +249,35 @@ namespace StatAnalisys
 
         double sigma(List<double> listHeights)
         {
-            List<double> heights = new List<double>(listHeights);
-            int N = heights.Count();
+            double mid = 0;
+            double s = 0;
 
-            if (N > 1)
+            if (listHeights.Count() > 0)
             {
-                quickSort(heights, 0, (int)N - 1);
+                foreach (double d in listHeights)
+                {
+                    mid += d;
+                    s += d * d;
+                }
+
+                mid = Math.Pow(mid / listHeights.Count(), 2);
+
+                s = s / listHeights.Count();
+
+                /*foreach (double d in listHeights)
+                {
+                    s += Math.Pow(d - mid, 2);
+                }*/
+
+                return Math.Sqrt(s - mid);
             }
-
-            heights.RemoveRange(0, 2 * (N / 3));
-
-            if (heights.Count() > 0)
-             {
-                double tmpHeight = 0;
-                double nu = 0;
-
-                foreach (double d in heights)
-                {
-                    nu += d*d;
-                }
-
-                nu = Math.Sqrt(nu / heights.Count());
-
-                foreach (double d in heights)
-                {
-                    tmpHeight += (d - nu) * (d - nu);                    
-                }
-
-                return Math.Sqrt(tmpHeight / heights.Count());
-             }
 
             return Double.NaN;
         }
 
         double significantHeights(List<double> listHeights)
         {
-            double s = 4.04 * sigma(listHeights);
+            double s = 4 * Math.Sqrt(sigma(listHeights));
             return s;
         }
 

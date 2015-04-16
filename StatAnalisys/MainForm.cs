@@ -23,7 +23,6 @@ namespace StatAnalisys
 
     public partial class MainForm : BaseForm
     {
-
         CCalculatedWaves arrayWaves;
         CSingleWave wave;
         double[] arrayT;
