@@ -257,19 +257,16 @@ namespace StatAnalisys
                 foreach (double d in listHeights)
                 {
                     mid += d;
-                    s += d * d;
                 }
 
-                mid = Math.Pow(mid / listHeights.Count(), 2);
+                mid /= listHeights.Count();
 
-                s = s / listHeights.Count();
-
-                /*foreach (double d in listHeights)
+                foreach (double d in listHeights)
                 {
-                    s += Math.Pow(d - mid, 2);
-                }*/
+                    s += Math.Sqrt(Math.Pow(d - mid, 2));
+                }
 
-                return Math.Sqrt(s - mid);
+                return s / listHeights.Count();
             }
 
             return Double.NaN;
@@ -277,8 +274,7 @@ namespace StatAnalisys
 
         double significantHeights(List<double> listHeights)
         {
-            double s = 4 * Math.Sqrt(sigma(listHeights));
-            return s;
+            return 4.04 * sigma(listHeights);
         }
 
         double heightOneThird(List<double> listHeights)
@@ -409,7 +405,7 @@ namespace StatAnalisys
                                          List<double> listTA, typeCrossing type)
         {
             probability obj;
-            double waveFrequency, signH, N;
+            double waveFrequency, N;
             heights h;
 
             List<double> listHeights = new List<double>(listH);
@@ -444,14 +440,14 @@ namespace StatAnalisys
 
             for(int i = 0; i < N; i++)
             {
-                //signH = Math.Pow(h.significantHeight,2);
                 waveFrequency = (N-i)/N;
                 obj.H = listHeights[i];
-                obj.experP = Math.Exp(-2 * Math.Pow(listHeights[i] / h.significantHeight, 2));//  /Hs
-                //obj.teorP = exp(-obj.H * obj.H/(8*h.at(type).sigma * h.at(type).sigma));
-                obj.crestP = Math.Exp(-2 * Math.Pow(2.0 * listCrestA[i]/h.significantHeight, 2));
-                obj.troughP = Math.Exp(-2 * Math.Pow(2.0 * listThroughA[i] / h.significantHeight, 2));//A/As Hs/2
-                obj.teorP = Math.Exp(-obj.H * obj.H / (8.0 * h.sigma * h.sigma));
+                double a = -2.0 * Math.Pow(listHeights[i] / h.significantHeight, 2);
+                double b = -2.0 * Math.Pow(obj.H, 2) / (Math.Pow(h.significantHeight, 2));
+                obj.experP = Math.Exp(-2.0 * Math.Pow(listHeights[i] / h.significantHeight, 2));//  /Hs
+                obj.crestP = Math.Exp(-2.0 * Math.Pow(2.0 * listCrestA[i] / h.significantHeight, 2));
+                obj.troughP = Math.Exp(-2.0 * Math.Pow(2.0 * listThroughA[i] / h.significantHeight, 2));//A/As Hs/2
+                obj.teorP = Math.Exp( - Math.Pow(obj.H, 2) / (8.0 * (Math.Pow(h.sigma, 2))));
 
                 if (type == typeCrossing.ZDC)
                 {
