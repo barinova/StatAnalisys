@@ -43,6 +43,8 @@ namespace StatAnalisys
             int indX, x = 0;
             double HHSingnZDC = 2*listHeightsZDCSign;
             double HHSingnZUC = 2*listHeightsZUCSign;
+            double maxHZUC = HHSingnZUC;
+            double maxHZDC = HHSingnZDC;
 
             foreach (var h in listHeihtsZDC)
             {
@@ -52,6 +54,7 @@ namespace StatAnalisys
 
                 if (h > HHSingnZDC)
                 {
+                    if (h > maxHZDC) maxHZDC = h;
                     highlightRougeWave(chartZDCHeights, indX, h);
                 }
             }
@@ -65,22 +68,20 @@ namespace StatAnalisys
                 x++;
                 if (h > HHSingnZUC)
                 {
+                    if (h > maxHZUC) maxHZUC = h;
                     highlightRougeWave(chartZUCHeights, indX, h);
                 }
             }
 
-            drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Green, 0.06);
-            drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.FromArgb(255, 128, 0), 0.06);
-            drawStripLine(chartZDCHeights, 2 * listHeightsZDCSign, Color.Maroon, 0.06);
-            drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Green, 0.06);
-            drawStripLine(chartZUCHeights, listHeightsZUCThird, Color.FromArgb(255, 128, 0), 0.06);
-            drawStripLine(chartZUCHeights, 2 * listHeightsZUCSign, Color.Maroon, 0.06);
+            drawStripLine(chartZDCHeights, listHeightsZDCSign, Color.Green, 0.1);
+            drawStripLine(chartZDCHeights, listHeightsZDCThird, Color.FromArgb(255, 128, 0), 0.1);
+            drawStripLine(chartZDCHeights, HHSingnZDC, Color.DodgerBlue, 0.1);
+            drawStripLine(chartZUCHeights, listHeightsZUCSign, Color.Green, 0.1);
+            drawStripLine(chartZUCHeights, listHeightsZUCThird, Color.FromArgb(255, 128, 0), 0.1);
+            drawStripLine(chartZUCHeights, HHSingnZUC, Color.DodgerBlue, 0.1);
 
-
-            if (chartZDCHeights.Height < 2 * listHeightsZDCSign)
-            {
-                chartZDCHeights.Height = 2 * (int)listHeightsZDCSign + 1;
-            }
+            chartZDCHeights.ChartAreas[0].AxisY.Maximum = Math.Floor(HHSingnZDC) + 2;
+            chartZUCHeights.ChartAreas[0].AxisY.Maximum = Math.Floor(HHSingnZUC) + 2;
 
             setAnnotation(chartZUCHeights, "Height of one third = " + Math.Round(listHeightsZUCThird, 7).ToString()
                 + "\nSignificiant height = " +  Math.Round(listHeightsZUCSign, 8).ToString()

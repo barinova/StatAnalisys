@@ -118,7 +118,7 @@
             series4.BorderWidth = 2;
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.Maroon;
+            series4.Color = System.Drawing.Color.DodgerBlue;
             series4.Legend = "Legend1";
             series4.Name = "2 * Significiant height";
             series5.BorderWidth = 2;
@@ -160,7 +160,6 @@
             series6.BorderWidth = 2;
             series6.ChartArea = "ChartArea1";
             series6.Color = System.Drawing.Color.Red;
-            series6.LabelBorderWidth = 2;
             series6.Legend = "Legend1";
             series6.Name = "Heights";
             series7.BorderWidth = 2;
@@ -180,7 +179,7 @@
             series9.BorderWidth = 2;
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Color = System.Drawing.Color.Maroon;
+            series9.Color = System.Drawing.Color.DodgerBlue;
             series9.LabelBorderWidth = 2;
             series9.Legend = "Legend1";
             series9.Name = "2 * Significiant height";
