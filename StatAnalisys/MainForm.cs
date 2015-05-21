@@ -437,6 +437,7 @@ namespace StatAnalisys
             if (index != "0")
             {
                 int i = Int32.Parse(index);
+                i--;
                 CHeightsDiagram diagHeights = new CHeightsDiagram(index);
                 diagHeights.renderHeights(arrayWaves[i].heightsZDC.heightOneThird, arrayWaves[i].heightsZDC.significantHeight,
                     arrayWaves[i].heightsZUC.heightOneThird, arrayWaves[i].heightsZUC.significantHeight,
