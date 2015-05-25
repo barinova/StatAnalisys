@@ -29,24 +29,35 @@
         private void InitializeComponent()
         {
             this.listViewRogueWaves = new System.Windows.Forms.ListView();
+            this.labelRogueWavesNumber = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listViewRogueWaves
             // 
-            this.listViewRogueWaves.Location = new System.Drawing.Point(12, 12);
+            this.listViewRogueWaves.Location = new System.Drawing.Point(12, 33);
             this.listViewRogueWaves.Name = "listViewRogueWaves";
-            this.listViewRogueWaves.Size = new System.Drawing.Size(185, 427);
+            this.listViewRogueWaves.Size = new System.Drawing.Size(185, 406);
             this.listViewRogueWaves.TabIndex = 4;
             this.listViewRogueWaves.UseCompatibleStateImageBehavior = false;
             this.listViewRogueWaves.SelectedIndexChanged += new System.EventHandler(this.listViewRogueWaves_SelectedIndexChanged);
             // 
+            // labelRogueWavesNumber
+            // 
+            this.labelRogueWavesNumber.AutoSize = true;
+            this.labelRogueWavesNumber.Location = new System.Drawing.Point(12, 9);
+            this.labelRogueWavesNumber.Name = "labelRogueWavesNumber";
+            this.labelRogueWavesNumber.Size = new System.Drawing.Size(0, 13);
+            this.labelRogueWavesNumber.TabIndex = 5;
+            // 
             // CRougeWaveForm
             // 
-            this.ClientSize = new System.Drawing.Size(210, 455);
+            this.ClientSize = new System.Drawing.Size(338, 455);
+            this.Controls.Add(this.labelRogueWavesNumber);
             this.Controls.Add(this.listViewRogueWaves);
             this.Name = "CRougeWaveForm";
             this.Text = "Rouge waves";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -54,5 +65,6 @@
 
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListView listViewRogueWaves;
+        private System.Windows.Forms.Label labelRogueWavesNumber;
     }
 }

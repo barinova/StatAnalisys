@@ -18,15 +18,23 @@ namespace StatAnalisys
 
             this.listViewRogueWaves.Columns.Add("Index", -2, HorizontalAlignment.Left);
             this.listViewRogueWaves.Columns.Add("Number of founded waves", -2, HorizontalAlignment.Left);
+            this.listViewRogueWaves.Columns.Add("Significiantheight of zero-down crossing waves", -2, HorizontalAlignment.Left);
+            this.listViewRogueWaves.Columns.Add("Significiantheight of zero-up crossing waves", -2, HorizontalAlignment.Left);
             this.listViewRogueWaves.View = View.Details;
         }
 
-        public void addRow(string index, string numberFoundWaves)
+        public void addRow(string index, string numberFoundWaves, double hZDCSign, double hZUCSign)
         {
-            ListViewItem item = new ListViewItem(new[] { index, numberFoundWaves });
+            ListViewItem item = new ListViewItem(new[] { index, numberFoundWaves});
+            item.SubItems.Add(hZDCSign.ToString());
+            item.SubItems.Add(hZUCSign.ToString());
             this.listViewRogueWaves.Items.Add(item);
         }
 
+        public void setLabelNumRogueWaves(string str)
+        {
+            this.labelRogueWavesNumber.Text = str;
+        }
         private void listViewRogueWaves_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (sender is ListView)

@@ -349,10 +349,12 @@ namespace StatAnalisys
                 if (rWaves.Count > 0)
                 {
                     CRougeWaveForm rougeForm = new CRougeWaveForm();
-
+                    rougeForm.setLabelNumRogueWaves(arrayWaves.countRogueWave.ToString());
                     foreach (int index in rWaves.Keys)
                     {
-                        rougeForm.addRow(index.ToString(), rWaves[index].ToString());
+                        CSingleWave wave = arrayWaves[index];
+                        rougeForm.addRow(index.ToString(), rWaves[index].ToString(), wave.heightsZDC.significantHeight, 
+                            wave.heightsZUC.significantHeight);
                     }
 
                     rougeForm.Show();

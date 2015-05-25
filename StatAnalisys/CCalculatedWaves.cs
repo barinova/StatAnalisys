@@ -40,7 +40,7 @@ namespace StatAnalisys
     {
         List<CSingleWave> waves = new  List<CSingleWave>();
         public Dictionary<int, int> rougeWaves = new Dictionary<int, int>();
-
+        public int countRogueWave = 0;
         public CSingleWave this[int index]
         {
             get
@@ -65,18 +65,19 @@ namespace StatAnalisys
                 {
                     waves.Add(wave);
 
-                    findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i);
-                    findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i);
+                    findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i, typeCrossing.ZDC);
+                    findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i, typeCrossing.ZUC);
                 }
             }
         }
-        void findRougeWaves(List<double> listHeights, double twiseSignH, int numberWave)
+        void findRougeWaves(List<double> listHeights, double twiseSignH, int numberWave, typeCrossing type)
         {
             foreach (double d in listHeights)
             {
 
                 if (d > twiseSignH)
                 {
+                    countRogueWave++;
                     if (rougeWaves.ContainsKey(numberWave))
                     {
                         rougeWaves[numberWave] += 1;
