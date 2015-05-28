@@ -19,3 +19,10 @@ D:\6K\StatAnalisys\CSMatIO\bin\Debug\zlib.net.dll
 D:\6K\StatAnalisys\CSMatIO\obj\Debug\csmatio.csprojResolveAssemblyReference.cache
 D:\6K\StatAnalisys\CSMatIO\obj\Debug\csmatio.dll
 D:\6K\StatAnalisys\CSMatIO\obj\Debug\csmatio.pdb
+C:\Users\A\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\bin\Debug\csmatio.dll
+C:\Users\A\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\bin\Debug\csmatio.pdb
+C:\Users\A\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\bin\Debug\csmatio.xml
+C:\Users\A\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\bin\Debug\zlib.net.dll
+C:\Users\A\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\obj\Debug\csmatio.csprojResolveAssemblyReference.cache
+C:\Users\A\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\obj\Debug\csmatio.dll
+C:\Users\A\Documents\Visual Studio 2013\Projects\StatAnalisys\CSMatIO\obj\Debug\csmatio.pdb

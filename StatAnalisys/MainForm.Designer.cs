@@ -19,6 +19,7 @@ namespace StatAnalisys
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -35,6 +36,7 @@ namespace StatAnalisys
             System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.txtOutput = new System.Windows.Forms.RichTextBox();
+            this.toolTipSelectFile = new System.Windows.Forms.ToolTip(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,22 +66,24 @@ namespace StatAnalisys
             this.buttonViewRogueWaves = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.buttonCalculate = new System.Windows.Forms.Button();
+            this.panelGraphic = new System.Windows.Forms.Panel();
+            this.buttonClouds = new System.Windows.Forms.Button();
+            this.ProbabilitiesDiagram = new System.Windows.Forms.Button();
+            this.buttonHeightsDiagram = new System.Windows.Forms.Button();
+            this.labelGraphic = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.labelNumWaves = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonNumWave = new System.Windows.Forms.Button();
             this.textBoxNumWave = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.panelGraphic = new System.Windows.Forms.Panel();
-            this.buttonClouds = new System.Windows.Forms.Button();
-            this.ProbabilitiesDiagram = new System.Windows.Forms.Button();
-            this.buttonHeightsDiagram = new System.Windows.Forms.Button();
-            this.labelGraphic = new System.Windows.Forms.Label();
             this.chartGeneralGraphic = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveXLSFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).BeginInit();
@@ -88,8 +92,8 @@ namespace StatAnalisys
             this.panel7.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panelGraphic.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -108,6 +112,10 @@ namespace StatAnalisys
             this.txtOutput.Size = new System.Drawing.Size(451, 247);
             this.txtOutput.TabIndex = 5;
             this.txtOutput.Text = "";
+            // 
+            // toolTipSelectFile
+            // 
+            this.toolTipSelectFile.ToolTipTitle = "Click to load for opening list of loaded files and select file ";
             // 
             // label7
             // 
@@ -309,9 +317,9 @@ namespace StatAnalisys
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.panelGraphic);
             this.panel1.Controls.Add(this.panel3);
-            this.panel1.Location = new System.Drawing.Point(1057, 12);
+            this.panel1.Location = new System.Drawing.Point(1057, 48);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(201, 383);
+            this.panel1.Size = new System.Drawing.Size(201, 347);
             this.panel1.TabIndex = 2;
             // 
             // panel7
@@ -328,13 +336,12 @@ namespace StatAnalisys
             // textBoxLoadFile
             // 
             this.textBoxLoadFile.AutoSize = true;
-            this.textBoxLoadFile.Location = new System.Drawing.Point(3, 25);
+            this.textBoxLoadFile.Location = new System.Drawing.Point(7, 28);
             this.textBoxLoadFile.Name = "textBoxLoadFile";
             this.textBoxLoadFile.Size = new System.Drawing.Size(94, 13);
             this.textBoxLoadFile.TabIndex = 20;
             this.textBoxLoadFile.Text = "                             ";
             this.textBoxLoadFile.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.textBoxLoadFile.Click += new System.EventHandler(this.textBoxLoadFile_Click);
             // 
             // label11
             // 
@@ -420,6 +427,56 @@ namespace StatAnalisys
             this.buttonCalculate.UseVisualStyleBackColor = true;
             this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
             // 
+            // panelGraphic
+            // 
+            this.panelGraphic.Controls.Add(this.buttonClouds);
+            this.panelGraphic.Controls.Add(this.ProbabilitiesDiagram);
+            this.panelGraphic.Controls.Add(this.buttonHeightsDiagram);
+            this.panelGraphic.Controls.Add(this.labelGraphic);
+            this.panelGraphic.Location = new System.Drawing.Point(3, 145);
+            this.panelGraphic.Name = "panelGraphic";
+            this.panelGraphic.Size = new System.Drawing.Size(193, 115);
+            this.panelGraphic.TabIndex = 2;
+            // 
+            // buttonClouds
+            // 
+            this.buttonClouds.Location = new System.Drawing.Point(12, 80);
+            this.buttonClouds.Name = "buttonClouds";
+            this.buttonClouds.Size = new System.Drawing.Size(129, 23);
+            this.buttonClouds.TabIndex = 9;
+            this.buttonClouds.Text = "Clouds";
+            this.buttonClouds.UseVisualStyleBackColor = true;
+            this.buttonClouds.Click += new System.EventHandler(this.buttonClouds_Click);
+            // 
+            // ProbabilitiesDiagram
+            // 
+            this.ProbabilitiesDiagram.Location = new System.Drawing.Point(12, 45);
+            this.ProbabilitiesDiagram.Name = "ProbabilitiesDiagram";
+            this.ProbabilitiesDiagram.Size = new System.Drawing.Size(129, 29);
+            this.ProbabilitiesDiagram.TabIndex = 8;
+            this.ProbabilitiesDiagram.Text = "Probabilities Diagram";
+            this.ProbabilitiesDiagram.UseVisualStyleBackColor = true;
+            this.ProbabilitiesDiagram.Click += new System.EventHandler(this.ProbabilitiesDiagram_Click);
+            // 
+            // buttonHeightsDiagram
+            // 
+            this.buttonHeightsDiagram.Location = new System.Drawing.Point(12, 16);
+            this.buttonHeightsDiagram.Name = "buttonHeightsDiagram";
+            this.buttonHeightsDiagram.Size = new System.Drawing.Size(129, 23);
+            this.buttonHeightsDiagram.TabIndex = 7;
+            this.buttonHeightsDiagram.Text = "Heights Diagram";
+            this.buttonHeightsDiagram.UseVisualStyleBackColor = true;
+            this.buttonHeightsDiagram.Click += new System.EventHandler(this.buttonHeightsDiagram_Click);
+            // 
+            // labelGraphic
+            // 
+            this.labelGraphic.AutoSize = true;
+            this.labelGraphic.Location = new System.Drawing.Point(14, 0);
+            this.labelGraphic.Name = "labelGraphic";
+            this.labelGraphic.Size = new System.Drawing.Size(98, 13);
+            this.labelGraphic.TabIndex = 4;
+            this.labelGraphic.Text = "Additional Graphics";
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.labelNumWaves);
@@ -475,56 +532,6 @@ namespace StatAnalisys
             this.label6.TabIndex = 16;
             this.label6.Text = "Select wave";
             // 
-            // panelGraphic
-            // 
-            this.panelGraphic.Controls.Add(this.buttonClouds);
-            this.panelGraphic.Controls.Add(this.ProbabilitiesDiagram);
-            this.panelGraphic.Controls.Add(this.buttonHeightsDiagram);
-            this.panelGraphic.Controls.Add(this.labelGraphic);
-            this.panelGraphic.Location = new System.Drawing.Point(3, 145);
-            this.panelGraphic.Name = "panelGraphic";
-            this.panelGraphic.Size = new System.Drawing.Size(193, 115);
-            this.panelGraphic.TabIndex = 2;
-            // 
-            // buttonClouds
-            // 
-            this.buttonClouds.Location = new System.Drawing.Point(12, 80);
-            this.buttonClouds.Name = "buttonClouds";
-            this.buttonClouds.Size = new System.Drawing.Size(129, 23);
-            this.buttonClouds.TabIndex = 9;
-            this.buttonClouds.Text = "Clouds";
-            this.buttonClouds.UseVisualStyleBackColor = true;
-            this.buttonClouds.Click += new System.EventHandler(this.buttonClouds_Click);
-            // 
-            // ProbabilitiesDiagram
-            // 
-            this.ProbabilitiesDiagram.Location = new System.Drawing.Point(12, 45);
-            this.ProbabilitiesDiagram.Name = "ProbabilitiesDiagram";
-            this.ProbabilitiesDiagram.Size = new System.Drawing.Size(129, 29);
-            this.ProbabilitiesDiagram.TabIndex = 8;
-            this.ProbabilitiesDiagram.Text = "Probabilities Diagram";
-            this.ProbabilitiesDiagram.UseVisualStyleBackColor = true;
-            this.ProbabilitiesDiagram.Click += new System.EventHandler(this.ProbabilitiesDiagram_Click);
-            // 
-            // buttonHeightsDiagram
-            // 
-            this.buttonHeightsDiagram.Location = new System.Drawing.Point(12, 16);
-            this.buttonHeightsDiagram.Name = "buttonHeightsDiagram";
-            this.buttonHeightsDiagram.Size = new System.Drawing.Size(129, 23);
-            this.buttonHeightsDiagram.TabIndex = 7;
-            this.buttonHeightsDiagram.Text = "Heights Diagram";
-            this.buttonHeightsDiagram.UseVisualStyleBackColor = true;
-            this.buttonHeightsDiagram.Click += new System.EventHandler(this.buttonHeightsDiagram_Click);
-            // 
-            // labelGraphic
-            // 
-            this.labelGraphic.AutoSize = true;
-            this.labelGraphic.Location = new System.Drawing.Point(14, 0);
-            this.labelGraphic.Name = "labelGraphic";
-            this.labelGraphic.Size = new System.Drawing.Size(98, 13);
-            this.labelGraphic.TabIndex = 4;
-            this.labelGraphic.Text = "Additional Graphics";
-            // 
             // chartGeneralGraphic
             // 
             this.chartGeneralGraphic.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -575,7 +582,8 @@ namespace StatAnalisys
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
-            this.saveImagesToolStripMenuItem});
+            this.saveImagesToolStripMenuItem,
+            this.saveXLSFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -593,6 +601,13 @@ namespace StatAnalisys
             this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
+            // 
+            // saveXLSFileToolStripMenuItem
+            // 
+            this.saveXLSFileToolStripMenuItem.Name = "saveXLSFileToolStripMenuItem";
+            this.saveXLSFileToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveXLSFileToolStripMenuItem.Text = "Save XLS file";
+            this.saveXLSFileToolStripMenuItem.Click += new System.EventHandler(this.saveXLSFileToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -622,10 +637,10 @@ namespace StatAnalisys
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panelGraphic.ResumeLayout(false);
             this.panelGraphic.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartGeneralGraphic)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -683,6 +698,9 @@ namespace StatAnalisys
         private System.Windows.Forms.Button buttonLoadFile;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label textBoxLoadFile;
+        private System.Windows.Forms.ToolTip toolTipSelectFile;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripMenuItem saveXLSFileToolStripMenuItem;
     }
 }
 

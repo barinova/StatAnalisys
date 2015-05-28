@@ -466,11 +466,6 @@ namespace StatAnalisys
         public void openFile(string fileName)
         {
             textBoxLoadFile.Text = fileName;
-        }
-
-        private void buttonLoadFile_Click(object sender, EventArgs e)
-        {
-            string fileName = textBoxLoadFile.Text;
 
             if (dictionaryFiles.ContainsKey(fileName))
             {
@@ -486,9 +481,21 @@ namespace StatAnalisys
             }
         }
 
-        private void textBoxLoadFile_Click(object sender, EventArgs e)
+        private void buttonLoadFile_Click(object sender, EventArgs e)
         {
             CLoadedFilesForm loadedFilesForm = new CLoadedFilesForm(fileNames);
+        }
+
+        private void saveXLSFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fileNames != null)
+            {
+                CExcelFile xlsFile = new CExcelFile();
+                if (!xlsFile.saveXLS(dictionaryFiles))
+                {
+                    MessageBox.Show("Error to save file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
         }
     }
 

@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExcelLibrary">
+      <HintPath>..\ExcelLibrary\ExcelLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -55,6 +58,7 @@
     <Compile Include="CClouds.Designer.cs">
       <DependentUpon>CClouds.cs</DependentUpon>
     </Compile>
+    <Compile Include="CExcelFile.cs" />
     <Compile Include="CHeightsDiagram.cs">
       <SubType>Form</SubType>
     </Compile>
