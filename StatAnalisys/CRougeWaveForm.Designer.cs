@@ -63,7 +63,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListView listViewRogueWaves;
         private System.Windows.Forms.Label labelRogueWavesNumber;
     }

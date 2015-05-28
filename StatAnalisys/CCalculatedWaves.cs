@@ -39,6 +39,8 @@ namespace StatAnalisys
     class CCalculatedWaves
     {
         List<CSingleWave> waves = new  List<CSingleWave>();
+        public double[] arrayT;
+        public double[][] arrayS;
         public Dictionary<int, int> rougeWaves = new Dictionary<int, int>();
         public int countRogueWave = 0;
         public CSingleWave this[int index]

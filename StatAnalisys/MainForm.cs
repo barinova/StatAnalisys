@@ -11,29 +11,28 @@ using csmatio.io;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Input;
 using System.IO;
-using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 
 namespace StatAnalisys
 {
-    public static class CallBackMy
-    {
-        public delegate void callbackEvent(string what);
-        public static callbackEvent callbackEventHandler;
-    }
 
     public partial class MainForm : BaseForm
     {
-        CCalculatedWaves arrayWaves;
-        CSingleWave wave;
-        double[] arrayT;
-        double[][] arrayS;
-        double selectedX = 0; 
+        Dictionary<string, CCalculatedWaves> dictionaryFiles = new Dictionary<string, CCalculatedWaves>();
+        CCalculatedWaves currentArrayWaves;
+        CSingleWave currentWave;
+        double[] currentArrayT;
+        double[][] currentArrayS;
+        double selectedX = 0;
+        List<string> fileNames = new List<string>();
         
         public MainForm()
         {
             InitializeComponent();
 
-            CallBackMy.callbackEventHandler = new CallBackMy.callbackEvent(openRogueWaveHeightsDiagram);
+            CallBackRogueWaveSelected.callbackRogueWaveSelectedEventHandler = new CallBackRogueWaveSelected.callbackRogueWaveSelectedEvent(openRogueWaveHeightsDiagram);
+            CallBackFileSelected.callbackFileSelectedEventHandler = new CallBackFileSelected.callbackFileSelectedEvent(openFile);
+            
             setupUISettings();            
             changeEnabledSettingsComponents(false);
         }
@@ -57,6 +56,8 @@ namespace StatAnalisys
             chartGeneralGraphic.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserEnabled = true;
             chartWavesPeriods.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+
+            openFileDialog.Multiselect = true;
         }
         
         void changeEnabledSettingsComponents(bool value)
@@ -91,42 +92,53 @@ namespace StatAnalisys
 
             if (dRes == DialogResult.OK)
             {
-                string fileName = openFileDialog.FileName;
+                Regex regex = new Regex(@"[^\\]*$",RegexOptions.IgnoreCase| RegexOptions.CultureInvariant
+                    | RegexOptions.IgnorePatternWhitespace| RegexOptions.Compiled);
+                string name;
 
-                txtOutput.Text = txtOutput.Text + "Attempting to read the file '" + fileName + "'...";
-                try
+                foreach (String file in openFileDialog.FileNames)
                 {
-                    this.Cursor = Cursors.WaitCursor;
-                    MatFileReader mfr = new MatFileReader(fileName);
-                    txtOutput.Text += "Done!\nMAT-file contains the following:\n";
-                    txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
-                    foreach (MLArray mla in mfr.Data)
+                    currentArrayWaves = null;
+                    currentWave = null;
+
+                    txtOutput.Text = txtOutput.Text + "Attempting to read the file '" + file + "'...";
+
+                    try
                     {
-                        if (String.Equals(mla.Name, "t"))
+                        this.Cursor = Cursors.WaitCursor;
+                        MatFileReader mfr = new MatFileReader(file);
+                        txtOutput.Text += "Done!\nMAT-file contains the following:\n";
+                        txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
+                        foreach (MLArray mla in mfr.Data)
                         {
-                            MLDouble mlT = (mla as MLDouble);
-                            arrayT = mlT.GetArray()[0];
-                        }
+                            if (String.Equals(mla.Name, "t"))
+                            {
+                                MLDouble mlT = (mla as MLDouble);
+                                currentArrayT = mlT.GetArray()[0];
+                            }
 
-                        if (String.Equals(mla.Name, "s"))
-                        {
-                            MLDouble mlS = (mla as MLDouble);
-                            arrayS = mlS.GetArray();
+                            if (String.Equals(mla.Name, "s"))
+                            {
+                                MLDouble mlS = (mla as MLDouble);
+                                currentArrayS = mlS.GetArray();
+                            }
                         }
+                        calculateWavesDatas();
+
+                        name = regex.Match(file).Value;
+                        dictionaryFiles.Add(name, currentArrayWaves);
+                        fileNames.Add(name);
                     }
-
-                    updateComboBoxNumberWaveValues(arrayS.Count());
-                    calculateWavesDatas();
-
-                    this.Cursor = Cursors.Default;
+                    catch (System.IO.IOException)
+                    {
+                        this.Cursor = Cursors.Default;
+                        txtOutput.Text = txtOutput.Text + "Invalid MAT-file!\n";
+                        MessageBox.Show("Invalid binary MAT-file! Please select a valid binary MAT-file.",
+                            "Invalid MAT-file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
-                catch (System.IO.IOException)
-                {
-                    this.Cursor = Cursors.Default;
-                    txtOutput.Text = txtOutput.Text + "Invalid MAT-file!\n";
-                    MessageBox.Show("Invalid binary MAT-file! Please select a valid binary MAT-file.",
-                        "Invalid MAT-file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+
+                this.Cursor = Cursors.Default;
             }
         }
 
@@ -140,7 +152,7 @@ namespace StatAnalisys
                 
             }
 
-            if (indexWave > -1 && wave != null)
+            if (indexWave > -1 && currentWave != null)
             {
                 int start = (int)e.Axis.ScaleView.ViewMinimum;
                 int end = (int)e.Axis.ScaleView.ViewMaximum;
@@ -152,7 +164,7 @@ namespace StatAnalisys
                     double x1, x2, x3, x4, x5, y1, y2, y3, y4, y5;
                     waveData selectedWave;
                     selectedX = currentPoint;
-                    selectedWave = wave.calculatingWaves.FirstOrDefault(c => c.nullPoint[0] < selectedX && c.nullPoint[2] > selectedX);
+                    selectedWave = currentWave.calculatingWaves.FirstOrDefault(c => c.nullPoint[0] < selectedX && c.nullPoint[2] > selectedX);
 
                     if (selectedWave.nullPoint != null)
                     {
@@ -235,11 +247,11 @@ namespace StatAnalisys
 
         private void renderChartOfWavesPeriods()
         {
-            int interval = wave.interval;
+            int interval = currentWave.interval;
             int t = interval;
             int i = 0;
 
-            foreach (double p in wave.listSighificiantPeriods)
+            foreach (double p in currentWave.listSighificiantPeriods)
             {
                 chartWavesPeriods.Series[0].Points.AddXY(t, p);
                 chartWavesPeriods.Series[0].Points[i].Label = Math.Round(p, 3).ToString();
@@ -271,10 +283,13 @@ namespace StatAnalisys
             }
         } 
         //calculate waves datas
-        private void calculateWavesDatas()
+        private CCalculatedWaves calculateWavesDatas()
         {
-            arrayWaves = new CCalculatedWaves();
-            arrayWaves.calculateDatas(arrayT, arrayS);
+            currentArrayWaves = new CCalculatedWaves();
+            currentArrayWaves.calculateDatas(currentArrayT, currentArrayS);
+            currentArrayWaves.arrayT = currentArrayT;
+            currentArrayWaves.arrayS = currentArrayS;
+            return currentArrayWaves;
         }
 
         private void buttonCalculate_Click(object sender, EventArgs e)
@@ -283,10 +298,10 @@ namespace StatAnalisys
 
             if (Int32.TryParse(textBoxNumWave.Text, out indexWave))
             {
-                if (indexWave > -1 && wave != null)
+                if (indexWave > -1 && currentWave != null)
                 {
                     chartGeneralGraphic.Series[1].Points.Clear();
-                    renderingTroughsAndRidges(wave);
+                    renderingTroughsAndRidges(currentWave);
                     panelGraphic.Enabled = true;
                 }
             }
@@ -342,17 +357,17 @@ namespace StatAnalisys
 
         private void buttonViewRougeWaves_Click(object sender, EventArgs e)
         {
-            if (arrayWaves != null)
+            if (currentArrayWaves != null)
             {
-                Dictionary<int, int> rWaves = arrayWaves.rougeWaves;
+                Dictionary<int, int> rWaves = currentArrayWaves.rougeWaves;
 
                 if (rWaves.Count > 0)
                 {
                     CRougeWaveForm rougeForm = new CRougeWaveForm();
-                    rougeForm.setLabelNumRogueWaves(arrayWaves.countRogueWave.ToString());
+                    rougeForm.setLabelNumRogueWaves(currentArrayWaves.countRogueWave.ToString());
                     foreach (int index in rWaves.Keys)
                     {
-                        CSingleWave wave = arrayWaves[index];
+                        CSingleWave wave = currentArrayWaves[index];
                         rougeForm.addRow(index.ToString(), rWaves[index].ToString(), wave.heightsZDC.significantHeight, 
                             wave.heightsZUC.significantHeight);
                     }
@@ -370,16 +385,16 @@ namespace StatAnalisys
         {
             CHeightsDiagram diagHeights = new CHeightsDiagram(textBoxNumWave.Text);
 
-            diagHeights.renderHeights(wave.heightsZDC.heightOneThird, wave.heightsZDC.significantHeight,
-                wave.heightsZUC.heightOneThird, wave.heightsZUC.significantHeight, wave.listHeihtsZDC, wave.listHeihtsZUC);
+            diagHeights.renderHeights(currentWave.heightsZDC.heightOneThird, currentWave.heightsZDC.significantHeight,
+                currentWave.heightsZUC.heightOneThird, currentWave.heightsZUC.significantHeight, currentWave.listHeihtsZDC, currentWave.listHeihtsZUC);
             diagHeights.Show();
         }
 
         private void ProbabilitiesDiagram_Click(object sender, EventArgs e)
         {
             CProbabilitiesDiagram diagProbabilities = new CProbabilitiesDiagram(textBoxNumWave.Text);
-            diagProbabilities.renderProbabilities(typeCrossing.ZDC, wave.probabilitiesZDC, wave.heightsZDC.significantHeight);
-            diagProbabilities.renderProbabilities(typeCrossing.ZUC, wave.probabilitiesZUC, wave.heightsZUC.significantHeight);
+            diagProbabilities.renderProbabilities(typeCrossing.ZDC, currentWave.probabilitiesZDC, currentWave.heightsZDC.significantHeight);
+            diagProbabilities.renderProbabilities(typeCrossing.ZUC, currentWave.probabilitiesZUC, currentWave.heightsZUC.significantHeight);
             diagProbabilities.Show();
         }
         public static void buttonOpenRougeWave_Click(int num)
@@ -396,9 +411,9 @@ namespace StatAnalisys
         {
             int indexWave;
 
-            if (arrayS != null)
+            if (currentArrayS != null)
             {
-                if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > arrayS.Count() || indexWave < 1)
+                if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > currentArrayS.Count() || indexWave < 1)
                 {
                     MessageBox.Show("Wave does't found", "Wave", MessageBoxButtons.OK);
                 }
@@ -407,28 +422,28 @@ namespace StatAnalisys
                     indexWave -= 1;
                     changeEnabledSettingsComponents(true);
                     clearGraphics();
-                    double[] heights = arrayS[indexWave];
+                    double[] heights = currentArrayS[indexWave];
 
-                    for (int i = 1; i < arrayT.Count(); i++)
+                    for (int i = 1; i < currentArrayT.Count(); i++)
                     {
-                        chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i - 1], heights[i - 1]);
-                        chartGeneralGraphic.Series[0].Points.AddXY(arrayT[i], heights[i]);
+                        chartGeneralGraphic.Series[0].Points.AddXY(currentArrayT[i - 1], heights[i - 1]);
+                        chartGeneralGraphic.Series[0].Points.AddXY(currentArrayT[i], heights[i]);
                     }
 
-                    wave = arrayWaves[indexWave];
+                    currentWave = currentArrayWaves[indexWave];
 
                     renderChartOfWavesPeriods();
-                    labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + wave.interval + ")";
+                    labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + currentWave.interval + ")";
                 }
             }
         }
 
         private void buttonClouds_Click(object sender, EventArgs e)
         {
-            if (wave != null)
+            if (currentWave != null)
             {
                 CClouds cloudsForm = new CClouds(textBoxNumWave.Text);
-                cloudsForm.renderClouds(wave.heightsZDC.heightOneThird, wave.heightsZUC.heightOneThird, wave.calculatingWaves);
+                cloudsForm.renderClouds(currentWave.heightsZDC.heightOneThird, currentWave.heightsZUC.heightOneThird, currentWave.calculatingWaves);
                 cloudsForm.Show();
             }
             
@@ -441,196 +456,42 @@ namespace StatAnalisys
                 int i = Int32.Parse(index);
                 i--;
                 CHeightsDiagram diagHeights = new CHeightsDiagram(index);
-                diagHeights.renderHeights(arrayWaves[i].heightsZDC.heightOneThird, arrayWaves[i].heightsZDC.significantHeight,
-                    arrayWaves[i].heightsZUC.heightOneThird, arrayWaves[i].heightsZUC.significantHeight,
-                    arrayWaves[i].listHeihtsZDC, arrayWaves[i].listHeihtsZUC);
+                diagHeights.renderHeights(currentArrayWaves[i].heightsZDC.heightOneThird, currentArrayWaves[i].heightsZDC.significantHeight,
+                    currentArrayWaves[i].heightsZUC.heightOneThird, currentArrayWaves[i].heightsZUC.significantHeight,
+                    currentArrayWaves[i].listHeihtsZDC, currentArrayWaves[i].listHeihtsZUC);
                 diagHeights.Show();
             }
         }
-    }
 
-    public class BaseForm : Form
-    {
-        protected void zoom(MouseEventArgs e, System.Windows.Forms.DataVisualization.Charting.ChartArea area, int delta)
+        public void openFile(string fileName)
         {
-            double xMin = area.AxisX.ScaleView.ViewMinimum;
-            double xMax = area.AxisX.ScaleView.ViewMaximum;
-            double yMin = area.AxisY.ScaleView.ViewMinimum;
-            double yMax = area.AxisY.ScaleView.ViewMaximum;
+            textBoxLoadFile.Text = fileName;
+        }
 
-            double posXStart = area.AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin);
-            double posXFinish = area.AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin);
-            double posYStart = area.AxisY.PixelPositionToValue(e.Location.Y) - (yMax - yMin);
-            double posYFinish = area.AxisY.PixelPositionToValue(e.Location.Y) + (yMax - yMin);
+        private void buttonLoadFile_Click(object sender, EventArgs e)
+        {
+            string fileName = textBoxLoadFile.Text;
 
-            if (e.Delta < 0)
+            if (dictionaryFiles.ContainsKey(fileName))
             {
-                area.AxisX.ScaleView.Zoom(posXStart * delta, posXFinish * delta);
-                area.AxisY.ScaleView.Zoom(posYStart * delta, posYFinish * delta);
+                currentArrayWaves = dictionaryFiles[fileName];
+                currentArrayT = currentArrayWaves.arrayT;
+                currentArrayS = currentArrayWaves.arrayS;
+                updateComboBoxNumberWaveValues(currentArrayT.Count());
             }
-
-            if (e.Delta > 0)
+            else
             {
-                area.AxisX.ScaleView.Zoom(posXStart / delta, posXFinish / delta);
-                area.AxisY.ScaleView.Zoom(posYStart / delta, posYFinish / delta);
+                MessageBox.Show("Please try to reload file " + fileName, "File " + fileName + " " + "was not loaded",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
-        protected void zoomReset(Chart chart)
+        private void textBoxLoadFile_Click(object sender, EventArgs e)
         {
-            chart.ChartAreas[0].AxisX.ScaleView.ZoomReset();
-            chart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
-        }
-
-        public void chart_MouseWheel(object sender, MouseEventArgs e)
-        {
-            Chart chart = (Chart)sender;
-
-            try
-            {
-                zoom(e, chart.ChartAreas[0], 2);
-            }
-            catch { }
-
-        }
-        protected void chart_MouseLeave(object sender, EventArgs e)
-        {
-            Chart chart = (Chart)sender;
-            if (chart.Focused)
-                chart.Parent.Focus();
-        }
-
-        protected void chart_MouseEnter(object sender, EventArgs e)
-        {
-            Chart chart = (Chart)sender;
-            if (!chart.Focused)
-                chart.Focus();
-        }
-        private ImageCodecInfo GetEncoder(ImageFormat format)
-        {
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
-            foreach (ImageCodecInfo codec in codecs)
-                if (codec.FormatID == format.Guid)
-                    return codec;
-            return null;
-        }
-        private Chart Copy(Chart chart)
-        {
-            Chart newChart = new Chart();
-
-            foreach (var ca in chart.ChartAreas)
-                newChart.ChartAreas.Add(ca);
-
-            foreach (var s in chart.Series)
-                newChart.Series.Add(s);
-
-            foreach (var l in chart.Legends)
-                newChart.Legends.Add(l);
-
-            foreach (var a in chart.Annotations)
-                newChart.Annotations.Add(a);
-
-            return newChart;
-        }
-
-        protected void saveImage(Chart[] charts)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PNG file|*.png";
-            saveFileDialog.Title = "Save Charts As Image File";
-            DialogResult result = saveFileDialog.ShowDialog();
-            saveFileDialog.RestoreDirectory = true;
-
-            if (result == DialogResult.OK)
-            {
-                if (saveFileDialog.FileName != "")
-                {
-                    try
-                    {
-                        if (saveFileDialog.CheckPathExists)
-                        {
-                            foreach (Chart chart in charts)
-                            {
-                                Chart newChart = Copy(chart);
-
-                                zoomReset(newChart);
-
-                                newChart.Size = new Size(chart.Width * 4, chart.Height * 5);
-
-                                String name = saveFileDialog.FileName.Insert(saveFileDialog.FileName.Count() - 4, chart.Text);
-
-                                EncoderParameters myEncoderParameters = new EncoderParameters(1);
-                                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
-
-                                myEncoderParameters.Param[0] = new EncoderParameter(myEncoder, 100L);
-                                System.IO.MemoryStream mS = new System.IO.MemoryStream();
-                                newChart.SaveImage(mS, ChartImageFormat.Png);
-
-                                Image imgImage = Image.FromStream(mS);
-
-                                imgImage.Save(name, GetEncoder(ImageFormat.Png), myEncoderParameters);
-
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Given Path does not exist");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-            }
-        }
-
-        protected void drawStripLine(Chart chart, double y, Color color, double width)
-        {
-            StripLine stripLine = new StripLine();
-            stripLine.IntervalOffset = y;
-            stripLine.BackColor = color;
-            stripLine.StripWidth = width;
-            chart.ChartAreas[0].AxisY.StripLines.Add(stripLine);
+            CLoadedFilesForm loadedFilesForm = new CLoadedFilesForm(fileNames);
         }
     }
 
-    public static class CheckboxDialog
-    {
-        public static bool[] ShowDialog(string text, string[] caption)
-        {
-            Form prompt = new Form();
-            FlowLayoutPanel panel = new FlowLayoutPanel();
-
-            CheckBox cbGraphic = new CheckBox();
-            cbGraphic.Text = caption[0];
-            panel.SetFlowBreak(cbGraphic, true);
-            CheckBox cbHeights = new CheckBox();
-            cbHeights.Text = caption[1];
-            panel.SetFlowBreak(cbHeights, true);
-            CheckBox cbProb = new CheckBox();
-            cbProb.Text = caption[2];
-            panel.SetFlowBreak(cbProb, true);
-
-            panel.Controls.Add(cbGraphic);
-            panel.Controls.Add(cbHeights);
-            panel.Controls.Add(cbProb);
-
-            Button ok = new Button() { Text = "Yes" };
-            ok.Click += (sender, e) => { prompt.Close();};
-            Button no = new Button() { Text = "No" };
-            no.Click += (sender, e) => { 
-                cbGraphic.Checked = false;
-                cbHeights.Checked = false;
-                cbProb.Checked = false;
-                prompt.Close();};
-            
-            panel.Controls.Add(ok);
-            panel.Controls.Add(no);
-            prompt.Controls.Add(panel);
-            prompt.ShowDialog();
-
-            return new bool[] { cbGraphic.Checked, cbHeights.Checked, cbProb.Checked};
-        }
-    }
+    
+    
 }

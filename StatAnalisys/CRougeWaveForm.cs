@@ -43,7 +43,7 @@ namespace StatAnalisys
 
                 if (item.Count > 0)
                 {
-                    CallBackMy.callbackEventHandler(item[0].Text);
+                    CallBackRogueWaveSelected.callbackRogueWaveSelectedEventHandler(item[0].Text);
                 }
             }
         }

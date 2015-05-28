@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CCalculatedWaves.cs" />
     <Compile Include="CClouds.cs">
       <SubType>Form</SubType>
@@ -57,6 +60,12 @@
     </Compile>
     <Compile Include="CHeightsDiagram.Designer.cs">
       <DependentUpon>CHeightsDiagram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CLoadedFilesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CLoadedFilesForm.Designer.cs">
+      <DependentUpon>CLoadedFilesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CProbabilitiesDiagram.cs">
       <SubType>Form</SubType>
@@ -83,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CHeightsDiagram.resx">
       <DependentUpon>CHeightsDiagram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CLoadedFilesForm.resx">
+      <DependentUpon>CLoadedFilesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CProbabilitiesDiagram.resx">
       <DependentUpon>CProbabilitiesDiagram.cs</DependentUpon>
