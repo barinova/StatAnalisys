@@ -443,7 +443,8 @@ namespace StatAnalisys
             if (currentWave != null)
             {
                 CClouds cloudsForm = new CClouds(textBoxNumWave.Text);
-                cloudsForm.renderClouds(currentWave.heightsZDC.heightOneThird, currentWave.heightsZUC.heightOneThird, currentWave.calculatingWaves);
+                cloudsForm.renderClouds(currentWave.cloudsVertZDC, currentWave.cloudsVertZUC, currentWave.cloudsHorZDC,
+                    currentWave.cloudsHorZUC);
                 cloudsForm.Show();
             }
             

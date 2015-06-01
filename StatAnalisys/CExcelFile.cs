@@ -44,22 +44,30 @@ namespace StatAnalisys
 
                                 worksheet.Cells[row + 2, 0] = new Cell("Significiant Height of zero-up-crossing wave");
                                 worksheet.Cells[row + 3, 0] = new Cell("Height of one third of zero-up-crossing wave");
-
                                 worksheet.Cells[row + 4, 0] = new Cell("Significiant Height of zero-down-crossing wave");
                                 worksheet.Cells[row + 5, 0] = new Cell("Height of one third of zero-down-crossing wave");
 
+                                worksheet.Cells[row + 7, 0] = new Cell("Clouds for Vertical - zero-up-crossing wave");
+                                worksheet.Cells[row + 8, 0] = new Cell("Clouds for Horizontal - zero-up-crossing wave");
+                                worksheet.Cells[row + 9, 0] = new Cell("Clouds for Vertical - zero-down-crossing wave");
+                                worksheet.Cells[row + 10, 0] = new Cell("Clouds for Horizontal - zero-down-crossing wave");
+
                                 for (int i = 0; i < p.Value.waves.Count(); i++)
                                 {
-                                    worksheet.Cells[row, i+2] = new Cell((short)i);
+                                    worksheet.Cells[row, i + 2] = new Cell((short)i);
 
-                                    worksheet.Cells[row + 2, i+2] = new Cell((decimal)p.Value.waves[i].heightsZUC.significantHeight);
-                                    worksheet.Cells[row + 3, i+2] = new Cell((decimal)p.Value.waves[i].heightsZUC.heightOneThird);
+                                    worksheet.Cells[row + 2, i + 2] = new Cell((decimal)p.Value.waves[i].heightsZUC.significantHeight);
+                                    worksheet.Cells[row + 3, i + 2] = new Cell((decimal)p.Value.waves[i].heightsZUC.heightOneThird);
+                                    worksheet.Cells[row + 4, i + 2] = new Cell((decimal)p.Value.waves[i].heightsZDC.significantHeight);
+                                    worksheet.Cells[row + 5, i + 2] = new Cell((decimal)p.Value.waves[i].heightsZDC.heightOneThird);
 
-                                    worksheet.Cells[row + 4, i+2] = new Cell((decimal)p.Value.waves[i].heightsZDC.significantHeight);
-                                    worksheet.Cells[row + 5, i+2] = new Cell((decimal)p.Value.waves[i].heightsZDC.heightOneThird);
+                                    worksheet.Cells[row + 7, i + 2] = new Cell((decimal)p.Value.waves[i].cloudsVertZUC[i][1]);
+                                    worksheet.Cells[row + 8, i + 2] = new Cell((decimal)p.Value.waves[i].cloudsHorZUC[i][1]);
+                                    worksheet.Cells[row + 9, i + 2] = new Cell((decimal)p.Value.waves[i].cloudsVertZDC[i][1]);
+                                    worksheet.Cells[row + 10, i + 2] = new Cell((decimal)p.Value.waves[i].cloudsHorZDC[i][1]); 
                                 }
 
-                                row += 7;
+                                row += 15;
                             }
 
                             workbook.Worksheets.Add(worksheet);

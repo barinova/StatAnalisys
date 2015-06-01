@@ -33,30 +33,16 @@ namespace StatAnalisys
         }
 
 
-        public void renderClouds(double hThrZDC, double hThrZUC, List<waveData> waves)
+        public void renderClouds(double[][] zdcVert, double[][] zucVert, double[][] zdcHor, double[][] zucHor)
         {
-            double x, y;
+            int count = zdcVert.Count();
 
-            foreach (waveData wave in waves)
-            { 
-                switch (wave.type)
-                {
-                    case typeCrossing.ZDC:
-                        x = wave.totalHeight / hThrZDC;
-                        y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry));
-                        chartCloudsZDCVert.Series[0].Points.AddXY(x, y);
-                        y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry));
-                        chartCloudsZDCHor.Series[0].Points.AddXY(x, y);
-                        break;
-
-                    case typeCrossing.ZUC:
-                        x = wave.totalHeight / hThrZUC;
-                        y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry));
-                        chartCloudsZUCVert.Series[0].Points.AddXY(x, y);
-                        y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry));
-                        chartCloudsZUCHor.Series[0].Points.AddXY(x, y);
-                        break;
-                }
+            for (int i = 0; i < count; i++)
+            {
+                chartCloudsZDCVert.Series[0].Points.AddXY(zdcVert[i][0], zdcVert[i][1]);
+                chartCloudsZDCHor.Series[0].Points.AddXY(zdcHor[i][0], zdcHor[i][1]);
+                chartCloudsZUCVert.Series[0].Points.AddXY(zucVert[i][0], zucVert[i][1]);
+                chartCloudsZUCHor.Series[0].Points.AddXY(zucHor[i][0], zucHor[i][1]);
             }
         }
 

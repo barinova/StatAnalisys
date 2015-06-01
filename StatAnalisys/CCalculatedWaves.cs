@@ -99,6 +99,8 @@ namespace StatAnalisys
         List<waveData> listCalculatedDatas = new List<waveData>();
         heights listHeightsZDC;
         heights listHeightsZUC;
+        public double[][] cloudsVertZDC, cloudsVertZUC, cloudsHorZDC, cloudsHorZUC;
+        public double shiftCloudsVertZDC, shiftCloudsVertZUC, shiftCloudsHorZDC, shiftCloudsHorZUC;
         public List<probability> listProbabilitiesZDC = new List<probability>();
         public List<probability> listProbabilitiesZUC = new List<probability>();
         public List<double> listSighificiantPeriods = new List<double>();
@@ -327,12 +329,68 @@ namespace StatAnalisys
 
         }
 
+        void calculateClouds()
+        {
+            cloudsVertZDC = new double[calculatingWaves.Count()][];
+            cloudsHorZDC = new double[calculatingWaves.Count()][];
+            cloudsVertZUC = new double[calculatingWaves.Count()][];
+            cloudsHorZUC = new double[calculatingWaves.Count()][];
+
+            shiftCloudsHorZUC = 0;
+            shiftCloudsHorZDC = 0;
+            shiftCloudsVertZUC = 0;
+            shiftCloudsVertZDC = 0;
+            double x, y;
+            int i = 0;
+
+            foreach (waveData wave in calculatingWaves)
+            {
+                cloudsVertZDC[i] = new double[2];
+                cloudsHorZDC[i] = new double[2];
+                cloudsVertZUC[i] = new double[2];
+                cloudsHorZUC[i] = new double[2];
+
+                switch (wave.type)
+                {
+                    case typeCrossing.ZDC:
+                        x = wave.totalHeight / listHeightsZDC.heightOneThird;
+                        y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry));
+                        cloudsVertZDC[i][0] = x;
+                        cloudsVertZDC[i][1] = y;
+                        shiftCloudsVertZDC += y;
+                        y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry));
+                        cloudsHorZDC[i][0] = x;
+                        cloudsHorZDC[i][1] = y;
+                        shiftCloudsHorZDC += y;
+                        break;
+
+                    case typeCrossing.ZUC:
+                        x = wave.totalHeight / listHeightsZUC.heightOneThird;
+                        y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry));
+                        cloudsVertZUC[i][0] = x;
+                        cloudsVertZUC[i][1] = y;
+                        shiftCloudsVertZUC += y;
+                        y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry));
+                        cloudsHorZUC[i][0] = x;
+                        cloudsHorZUC[i][1] = y;
+                        shiftCloudsHorZUC += y;
+                        break;
+                }
+                i++;
+            }
+
+            shiftCloudsHorZUC /= i;
+            shiftCloudsHorZDC /= i;
+            shiftCloudsVertZUC /= i;
+            shiftCloudsVertZDC /= i;
+        }
+
         public bool calculateSingleWave(double[] arrT, double[] arrS)
         {
             waveData newWave;
-
+            
             for (int i = 0; i < arrT.Count(); i++)
-           {
+            {
                 if (arrS[i] * arrS[i + 1] < 0)
                 {
                     typeCrossing type;
@@ -353,6 +411,7 @@ namespace StatAnalisys
                         setHeights(listHeihtsZDC, listHeihtsZUC);
                         calculateProbabilities();
                         calculateSighificiantPeriods();
+                        calculateClouds();
                         return true;
                     }
 
