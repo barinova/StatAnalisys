@@ -39,12 +39,14 @@ namespace StatAnalisys
     class CCalculatedWaves
     {
         public List<CSingleWave> waves = new  List<CSingleWave>();
+        public double generalSighHZUC, generalSighHZDC;
+        public int generalCountRogueWavesZDC, generalCountRogueWavesZUC;
         public double[] arrayT;
         public double[][] arrayS;
         public Dictionary<int, int> rougeWaves = new Dictionary<int, int>();
-        public double midSignificiantHeightsZDC, midSignificiantHeightsZUC;
         public int countRogueWavesZDC, countRogueWavesZUC;
         public int countRogueWaves = 0;
+
         public CSingleWave this[int index]
         {
             get
@@ -58,32 +60,48 @@ namespace StatAnalisys
         public void calculateDatas(double[] arrT, double[][] arrS)
         {
             int i;
-            midSignificiantHeightsZDC = midSignificiantHeightsZUC = 0;
+
+            CSingleWave wave = new CSingleWave();
+
+            generalSighHZUC = generalSighHZDC = 0;
+            generalCountRogueWavesZDC = generalCountRogueWavesZUC = 0;
             countRogueWavesZDC = countRogueWavesZUC = 0;
+
+            List<double> listZDCH = new List<double>();
+            List<double> listZUCH = new List<double>();
 
             for (i = 0; i < arrS.Count(); i++)
             {
-                CSingleWave wave = new CSingleWave();
+                wave = new CSingleWave();
 
                 if (wave.calculateSingleWave(arrT, arrS[i]))
                 {
                     waves.Add(wave);
 
-                    midSignificiantHeightsZDC += wave.heightsZDC.significantHeight;
-                    midSignificiantHeightsZUC += wave.heightsZUC.significantHeight;
+                    listZDCH.AddRange(wave.listHeihtsZDC);
+                    listZUCH.AddRange(wave.listHeihtsZUC);
 
                     countRogueWavesZDC += findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i, typeCrossing.ZDC);
                     countRogueWavesZUC += findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i, typeCrossing.ZUC);
                 }
             }
+
             countRogueWaves = countRogueWavesZDC + countRogueWavesZUC;
-            midSignificiantHeightsZDC = midSignificiantHeightsZDC/i;
-            midSignificiantHeightsZUC = midSignificiantHeightsZUC/i;
+
+            //We should calculate sighificiant heights and rogue waves from all waves together in the whole file
+            if (wave != null && listZUCH.Count() != 0 && listZDCH.Count() != 0)
+            {
+                generalSighHZUC = wave.significantHeights(listZUCH);
+                generalSighHZDC = wave.significantHeights(listZDCH);
+                generalCountRogueWavesZUC = findRougeWaves(listZUCH, 2 * generalSighHZUC, -1, typeCrossing.ZUC);
+                generalCountRogueWavesZDC = findRougeWaves(listZDCH, 2 * generalSighHZDC, -1, typeCrossing.ZDC);
+            }
         }
         int findRougeWaves(List<double> listHeights, double twiseSignH, int numberWave, typeCrossing type)
         {
-            int countRogueWave = 0;
+            //numberWave = -1 is a specified index for calculating number of rogue waves from all file
 
+            int countRogueWave = 0;
             foreach (double d in listHeights)
             {
                 if (d > twiseSignH)
@@ -262,7 +280,7 @@ namespace StatAnalisys
             return wave;
         }
 
-        double sigma(List<double> listHeights)
+        public double sigma(List<double> listHeights)
         {
             double mid = 0;
             double s = 0;
@@ -287,7 +305,7 @@ namespace StatAnalisys
             return Double.NaN;
         }
 
-        double significantHeights(List<double> listHeights)
+        public double significantHeights(List<double> listHeights)
         {
             double s = 4 * sigma(listHeights);
             return s;

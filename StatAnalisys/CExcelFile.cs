@@ -46,52 +46,66 @@ namespace StatAnalisys
                             {
                                 worksheet.Cells[row, 1] = new Cell("File");
                                 worksheet.Cells[row, 2] = new Cell(p.Key);
-                                worksheet.Cells[row + 1, 1] = new Cell("Count Rogue Waves ZUC");
-                                worksheet.Cells[row + 2, 1] = new Cell("Count Rogue Waves ZUC");
-                                worksheet.Cells[row + 1, 2] = new Cell((short)p.Value.countRogueWavesZUC);
-                                worksheet.Cells[row + 2, 2] = new Cell((short)p.Value.countRogueWavesZDC);
-                                worksheet.Cells[row + 3, 1] = new Cell("Count Rogue Waves");
-                                worksheet.Cells[row + 3, 2] = new Cell((short)p.Value.countRogueWavesZDC);
-                                worksheet.Cells[row + 4, 1] = new Cell("Significiant HeightsZUC");
-                                worksheet.Cells[row + 4, 2] = new Cell((decimal)p.Value.midSignificiantHeightsZUC);
-                                worksheet.Cells[row + 5, 1] = new Cell("Significiant Heights ZDC");
-                                worksheet.Cells[row + 5, 2] = new Cell((decimal)p.Value.midSignificiantHeightsZDC);
 
+                                worksheet.Cells[row + 2, 1] = new Cell("In the all records in file");
 
-                                worksheet.Cells[row + 7, 0] = new Cell("Wave number");
+                                worksheet.Cells[row + 4, 1] = new Cell("Significiant Heights");
+                                worksheet.Cells[row + 4, 2] = new Cell("zero-up-crossing wave");
+                                worksheet.Cells[row + 5, 2] = new Cell("zero-down-crossing wave");
+                                worksheet.Cells[row + 4, 3] = new Cell((decimal)p.Value.generalSighHZUC);
+                                worksheet.Cells[row + 5, 3] = new Cell((decimal)p.Value.generalSighHZDC);
 
-                                worksheet.Cells[row + 9, 0] = new Cell("Significiant Height of zero-up-crossing wave");
-                                worksheet.Cells[row + 10, 0] = new Cell("Height of one third of zero-up-crossing wave");
-                                worksheet.Cells[row + 11, 0] = new Cell("Significiant Height of zero-down-crossing wave");
-                                worksheet.Cells[row + 12, 0] = new Cell("Height of one third of zero-down-crossing wave");
+                                worksheet.Cells[row + 7, 1] = new Cell("Count Rogue Waves");
+                                worksheet.Cells[row + 7, 2] = new Cell("zero-up-crossing wave");
+                                worksheet.Cells[row + 8, 2] = new Cell("zero-down-crossing wave");
+                                worksheet.Cells[row + 9, 2] = new Cell("Generally");
+                                worksheet.Cells[row + 7, 3] = new Cell((short)p.Value.generalCountRogueWavesZUC);
+                                worksheet.Cells[row + 8, 3] = new Cell((short)p.Value.generalCountRogueWavesZDC);
+                                worksheet.Cells[row + 9, 3] = new Cell((short)(p.Value.generalCountRogueWavesZUC + p.Value.generalCountRogueWavesZDC));
 
-                                worksheet.Cells[row + 14, 0] = new Cell("Clouds for Vertical - zero-up-crossing wave");
-                                worksheet.Cells[row + 15, 0] = new Cell("Clouds for Horizontal - zero-up-crossing wave");
-                                worksheet.Cells[row + 16, 0] = new Cell("Clouds for Vertical - zero-down-crossing wave");
-                                worksheet.Cells[row + 17, 0] = new Cell("Clouds for Horizontal - zero-down-crossing wave");
+                                worksheet.Cells[row + 11, 1] = new Cell("In the each record of file");
+
+                                worksheet.Cells[row + 14, 1] = new Cell("Count Rogue Waves");
+                                worksheet.Cells[row + 14, 2] = new Cell("zero-up-crossing wave");
+                                worksheet.Cells[row + 15, 2] = new Cell("zero-down-crossing wave");
+                                worksheet.Cells[row + 16, 2] = new Cell("Generally");
+                                worksheet.Cells[row + 14, 3] = new Cell((short)p.Value.countRogueWavesZUC);
+                                worksheet.Cells[row + 15, 3] = new Cell((short)p.Value.countRogueWavesZDC);
+                                worksheet.Cells[row + 16, 3] = new Cell((short)(p.Value.countRogueWavesZDC + p.Value.countRogueWavesZUC));
+
+                                worksheet.Cells[row + 18, 0] = new Cell("Wave number");
+
+                                worksheet.Cells[row + 20, 1] = new Cell("Significiant Height");
+                                worksheet.Cells[row + 20, 2] = new Cell("zero-up-crossing wave");
+                                worksheet.Cells[row + 21, 2] = new Cell("zero-down-crossing wave");
+
+                                worksheet.Cells[row + 23, 1] = new Cell("Height one third of highest waves");
+                                worksheet.Cells[row + 23, 2] = new Cell("zero-up-crossing wave");
+                                worksheet.Cells[row + 24, 2] = new Cell("zero-down-crossing wave");
+
+                                worksheet.Cells[row + 26, 1] = new Cell("Clouds for Vertical Asymmetry");
+                                worksheet.Cells[row + 26, 2] = new Cell("zero-up-crossing wave");
+                                worksheet.Cells[row + 27, 2] = new Cell("zero-down-crossing wave");
+                                worksheet.Cells[row + 28, 1] = new Cell("Clouds for Horizontal Asymmetry");
+                                worksheet.Cells[row + 28, 2] = new Cell("zero-up-crossing wave");
+                                worksheet.Cells[row + 29, 2] = new Cell("zero-down-crossing wave");
+
 
                                 for (int i = 0; i < p.Value.waves.Count(); i++)
                                 {
-                                    worksheet.Cells[row, i + 2] = new Cell((short)i);
+                                    worksheet.Cells[row + 18, i + 3] = new Cell((short)i);
 
-                                    worksheet.Cells[row + 9, i + 2] = new Cell((decimal)p.Value.waves[i].heightsZUC.significantHeight);
-                                    worksheet.Cells[row + 10, i + 2] = new Cell((decimal)p.Value.waves[i].heightsZUC.heightOneThird);
-                                    worksheet.Cells[row + 11, i + 2] = new Cell((decimal)p.Value.waves[i].heightsZDC.significantHeight);
-                                    worksheet.Cells[row + 12, i + 2] = new Cell((decimal)p.Value.waves[i].heightsZDC.heightOneThird);
+                                    worksheet.Cells[row + 20, i + 3] = new Cell((decimal)p.Value.waves[i].heightsZUC.significantHeight);
+                                    worksheet.Cells[row + 23, i + 3] = new Cell((decimal)p.Value.waves[i].heightsZUC.heightOneThird);
+                                    worksheet.Cells[row + 21, i + 3] = new Cell((decimal)p.Value.waves[i].heightsZDC.significantHeight);
+                                    worksheet.Cells[row + 24, i + 3] = new Cell((decimal)p.Value.waves[i].heightsZDC.heightOneThird);
 
-                                    worksheet.Cells[row + 14, i + 2] = new Cell((p.Value.waves[i].shiftCloudsVertZDC > 0) ? "+" : "-");
-                                    worksheet.Cells[row + 15, i + 2] = new Cell((p.Value.waves[i].shiftCloudsHorZUC > 0) ? "+" : "-");
-                                    worksheet.Cells[row + 16, i + 2] = new Cell((p.Value.waves[i].shiftCloudsVertZDC > 0) ? "+" : "-");
-                                    worksheet.Cells[row + 17, i + 2] = new Cell((p.Value.waves[i].shiftCloudsHorZDC > 0) ? "+" : "-"); 
+                                    worksheet.Cells[row + 26, i + 3] = new Cell((p.Value.waves[i].shiftCloudsVertZUC > 0) ? "+" : "-");
+                                    worksheet.Cells[row + 28, i + 3] = new Cell((p.Value.waves[i].shiftCloudsHorZUC > 0) ? "+" : "-");
+                                    worksheet.Cells[row + 27, i + 3] = new Cell((p.Value.waves[i].shiftCloudsVertZDC > 0) ? "+" : "-");
+                                    worksheet.Cells[row + 29, i + 3] = new Cell((p.Value.waves[i].shiftCloudsHorZDC > 0) ? "+" : "-"); 
                                 }
-
-                                fillCellBackround(new List<Cell>() { worksheet.Cells[row, 1], worksheet.Cells[row, 2] }, System.Drawing.Color.OrangeRed);
-                                fillCellBackround(new List<Cell>() { worksheet.Cells[row + 1, 1], worksheet.Cells[row + 2, 1], worksheet.Cells[row + 3, 1] ,
-                                    worksheet.Cells[row + 4, 1], worksheet.Cells[row + 5, 1], worksheet.Cells[row + 7, 0], worksheet.Cells[row + 9, 0], 
-                                    worksheet.Cells[row + 10, 0], worksheet.Cells[row + 11, 0], worksheet.Cells[row + 12, 0],worksheet.Cells[row + 14, 0], 
-                                    worksheet.Cells[row + 15, 0], worksheet.Cells[row + 16, 0], worksheet.Cells[row + 17, 0]}, System.Drawing.Color.Yellow);
-                                
-                                row += 20;
+                                row += 32;
                             }
 
                             workbook.Worksheets.Add(worksheet);
