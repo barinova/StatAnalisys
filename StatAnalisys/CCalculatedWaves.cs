@@ -42,7 +42,9 @@ namespace StatAnalisys
         public double[] arrayT;
         public double[][] arrayS;
         public Dictionary<int, int> rougeWaves = new Dictionary<int, int>();
-        public int countRogueWave = 0;
+        public double midSignificiantHeightsZDC, midSignificiantHeightsZUC;
+        public int countRogueWavesZDC, countRogueWavesZUC;
+        public int countRogueWaves = 0;
         public CSingleWave this[int index]
         {
             get
@@ -55,28 +57,35 @@ namespace StatAnalisys
 
         public void calculateDatas(double[] arrT, double[][] arrS)
         {
-            for (int i = 0; i < arrS.Count(); i++)
+            int i;
+            midSignificiantHeightsZDC = midSignificiantHeightsZUC = 0;
+            countRogueWavesZDC = countRogueWavesZUC = 0;
+
+            for (i = 0; i < arrS.Count(); i++)
             {
                 CSingleWave wave = new CSingleWave();
-                if (i == 259)
-                {
-                    continue;
-                }
 
                 if (wave.calculateSingleWave(arrT, arrS[i]))
                 {
                     waves.Add(wave);
 
-                    findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i, typeCrossing.ZDC);
-                    findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i, typeCrossing.ZUC);
+                    midSignificiantHeightsZDC += wave.heightsZDC.significantHeight;
+                    midSignificiantHeightsZUC += wave.heightsZUC.significantHeight;
+
+                    countRogueWavesZDC += findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i, typeCrossing.ZDC);
+                    countRogueWavesZUC += findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i, typeCrossing.ZUC);
                 }
             }
+            countRogueWaves = countRogueWavesZDC + countRogueWavesZUC;
+            midSignificiantHeightsZDC = midSignificiantHeightsZDC/i;
+            midSignificiantHeightsZUC = midSignificiantHeightsZUC/i;
         }
-        void findRougeWaves(List<double> listHeights, double twiseSignH, int numberWave, typeCrossing type)
+        int findRougeWaves(List<double> listHeights, double twiseSignH, int numberWave, typeCrossing type)
         {
+            int countRogueWave = 0;
+
             foreach (double d in listHeights)
             {
-
                 if (d > twiseSignH)
                 {
                     countRogueWave++;
@@ -90,6 +99,7 @@ namespace StatAnalisys
                     }
                 }
             }
+            return countRogueWave;
         }
     }
 

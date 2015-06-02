@@ -103,38 +103,47 @@ namespace StatAnalisys
 
                     txtOutput.Text = txtOutput.Text + "Attempting to read the file '" + file + "'...";
 
-                    try
+
+                    name = regex.Match(file).Value;
+
+                    if (!dictionaryFiles.ContainsKey(name))
                     {
-                        this.Cursor = Cursors.WaitCursor;
-                        MatFileReader mfr = new MatFileReader(file);
-                        txtOutput.Text += "Done!\nMAT-file contains the following:\n";
-                        txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
-                        foreach (MLArray mla in mfr.Data)
+                        try
                         {
-                            if (String.Equals(mla.Name, "t"))
+                            this.Cursor = Cursors.WaitCursor;
+                            MatFileReader mfr = new MatFileReader(file);
+                            txtOutput.Text += "Done!\nMAT-file contains the following:\n";
+                            txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
+                            foreach (MLArray mla in mfr.Data)
                             {
-                                MLDouble mlT = (mla as MLDouble);
-                                currentArrayT = mlT.GetArray()[0];
-                            }
+                                if (String.Equals(mla.Name, "t"))
+                                {
+                                    MLDouble mlT = (mla as MLDouble);
+                                    currentArrayT = mlT.GetArray()[0];
+                                }
 
-                            if (String.Equals(mla.Name, "s"))
-                            {
-                                MLDouble mlS = (mla as MLDouble);
-                                currentArrayS = mlS.GetArray();
+                                if (String.Equals(mla.Name, "s"))
+                                {
+                                    MLDouble mlS = (mla as MLDouble);
+                                    currentArrayS = mlS.GetArray();
+                                }
                             }
+                            calculateWavesDatas();
+                            dictionaryFiles.Add(name, currentArrayWaves);
+                            fileNames.Add(name);
                         }
-                        calculateWavesDatas();
-
-                        name = regex.Match(file).Value;
-                        dictionaryFiles.Add(name, currentArrayWaves);
-                        fileNames.Add(name);
+                        catch (System.IO.IOException)
+                        {
+                            this.Cursor = Cursors.Default;
+                            txtOutput.Text = txtOutput.Text + "Invalid MAT-file!\n";
+                            MessageBox.Show("Invalid binary MAT-file! Please select a valid binary MAT-file.",
+                                "Invalid MAT-file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
                     }
-                    catch (System.IO.IOException)
+                    else
                     {
-                        this.Cursor = Cursors.Default;
-                        txtOutput.Text = txtOutput.Text + "Invalid MAT-file!\n";
-                        MessageBox.Show("Invalid binary MAT-file! Please select a valid binary MAT-file.",
-                            "Invalid MAT-file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("The file " + name + " is already opened.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
 
@@ -364,7 +373,7 @@ namespace StatAnalisys
                 if (rWaves.Count > 0)
                 {
                     CRougeWaveForm rougeForm = new CRougeWaveForm();
-                    rougeForm.setLabelNumRogueWaves(currentArrayWaves.countRogueWave.ToString());
+                    rougeForm.setLabelNumRogueWaves(currentArrayWaves.countRogueWaves.ToString());
                     foreach (int index in rWaves.Keys)
                     {
                         CSingleWave wave = currentArrayWaves[index];
