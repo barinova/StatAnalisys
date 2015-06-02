@@ -46,6 +46,7 @@ namespace StatAnalisys
         public Dictionary<int, int> rougeWaves = new Dictionary<int, int>();
         public int countRogueWavesZDC, countRogueWavesZUC;
         public int countRogueWaves = 0;
+        public double generallShiftCloudsVertZDC, generallShiftCloudsVertZUC, generallShiftCloudsHorZDC, generallShiftCloudsHorZUC;
 
         public CSingleWave this[int index]
         {
@@ -66,7 +67,7 @@ namespace StatAnalisys
             generalSighHZUC = generalSighHZDC = 0;
             generalCountRogueWavesZDC = generalCountRogueWavesZUC = 0;
             countRogueWavesZDC = countRogueWavesZUC = 0;
-
+            generallShiftCloudsVertZDC = generallShiftCloudsVertZUC = generallShiftCloudsHorZDC = generallShiftCloudsHorZUC = 0;
             List<double> listZDCH = new List<double>();
             List<double> listZUCH = new List<double>();
 
@@ -83,6 +84,11 @@ namespace StatAnalisys
 
                     countRogueWavesZDC += findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i, typeCrossing.ZDC);
                     countRogueWavesZUC += findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i, typeCrossing.ZUC);
+
+                    generallShiftCloudsVertZDC += wave.shiftCloudsVertZDC;
+                    generallShiftCloudsVertZUC += wave.shiftCloudsVertZUC;
+                    generallShiftCloudsHorZDC += wave.shiftCloudsHorZDC;
+                    generallShiftCloudsHorZUC += wave.shiftCloudsHorZUC;
                 }
             }
 
@@ -95,6 +101,10 @@ namespace StatAnalisys
                 generalSighHZDC = wave.significantHeights(listZDCH);
                 generalCountRogueWavesZUC = findRougeWaves(listZUCH, 2 * generalSighHZUC, -1, typeCrossing.ZUC);
                 generalCountRogueWavesZDC = findRougeWaves(listZDCH, 2 * generalSighHZDC, -1, typeCrossing.ZDC);
+                generallShiftCloudsVertZDC /= waves.Count();
+                generallShiftCloudsVertZUC /= waves.Count();
+                generallShiftCloudsHorZDC /= waves.Count();
+                generallShiftCloudsHorZUC /= waves.Count();
             }
         }
         int findRougeWaves(List<double> listHeights, double twiseSignH, int numberWave, typeCrossing type)
@@ -357,7 +367,7 @@ namespace StatAnalisys
 
         }
 
-        void calculateClouds()
+        List<double> calculateClouds()
         {
             cloudsVertZDC = new double[calculatingWaves.Count()][];
             cloudsHorZDC = new double[calculatingWaves.Count()][];
@@ -411,6 +421,8 @@ namespace StatAnalisys
             shiftCloudsHorZDC /= i;
             shiftCloudsVertZUC /= i;
             shiftCloudsVertZDC /= i;
+
+            return new List<double>() { shiftCloudsHorZUC, shiftCloudsHorZDC, shiftCloudsVertZUC, shiftCloudsVertZDC };
         }
 
         public bool calculateSingleWave(double[] arrT, double[] arrS)
