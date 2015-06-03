@@ -25,7 +25,8 @@ namespace StatAnalisys
         double[][] currentArrayS;
         double selectedX = 0;
         List<string> fileNames = new List<string>();
-        
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -59,7 +60,17 @@ namespace StatAnalisys
 
             openFileDialog.Multiselect = true;
         }
-        
+
+        void ClearAll()
+        {
+            dictionaryFiles.Clear();
+            currentArrayWaves = null;
+            currentWave = null;
+            currentArrayT = null;
+            currentArrayS = null;
+            fileNames.Clear();
+        }
+
         void changeEnabledSettingsComponents(bool value)
         {
             buttonHeightsDiagram.Enabled = value;
@@ -96,55 +107,70 @@ namespace StatAnalisys
                     | RegexOptions.IgnorePatternWhitespace| RegexOptions.Compiled);
                 string name;
 
-                foreach (String file in openFileDialog.FileNames)
+                if (!(openFileDialog.FileNames.Count() > 10))
                 {
-                    currentArrayWaves = null;
-                    currentWave = null;
-
-                    txtOutput.Text = txtOutput.Text + "Attempting to read the file '" + file + "'...";
-
-
-                    name = regex.Match(file).Value;
-
-                    if (!dictionaryFiles.ContainsKey(name))
+                    foreach (String file in openFileDialog.FileNames)
                     {
-                        try
+                        currentArrayWaves = null;
+                        currentWave = null;
+
+                        txtOutput.Text = txtOutput.Text + "Attempting to read the file '" + file + "'...";
+
+
+                        name = regex.Match(file).Value;
+                        Console.WriteLine(name);
+
+                        if (!dictionaryFiles.ContainsKey(name))
                         {
-                            this.Cursor = Cursors.WaitCursor;
-                            MatFileReader mfr = new MatFileReader(file);
-                            txtOutput.Text += "Done!\nMAT-file contains the following:\n";
-                            txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
-                            foreach (MLArray mla in mfr.Data)
+                            try
                             {
-                                if (String.Equals(mla.Name, "t"))
+                                this.Cursor = Cursors.WaitCursor;
+
+                                CCalculatedWaves arrayWaves = new CCalculatedWaves();
+
+                                MatFileReader mfr = new MatFileReader(file);
+                                txtOutput.Text += "Done!\nMAT-file contains the following:\n";
+                                txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
+                                foreach (MLArray mla in mfr.Data)
                                 {
-                                    MLDouble mlT = (mla as MLDouble);
-                                    currentArrayT = mlT.GetArray()[0];
+                                    if (String.Equals(mla.Name, "t"))
+                                    {
+                                        MLDouble mlT = (mla as MLDouble);
+                                        currentArrayT = mlT.GetArray()[0];
+                                    }
+
+                                    if (String.Equals(mla.Name, "s"))
+                                    {
+                                        MLDouble mlS = (mla as MLDouble);
+                                        currentArrayS = mlS.GetArray();
+                                    }
                                 }
 
-                                if (String.Equals(mla.Name, "s"))
-                                {
-                                    MLDouble mlS = (mla as MLDouble);
-                                    currentArrayS = mlS.GetArray();
-                                }
+                                arrayWaves = calculateWavesDatas();
+                                dictionaryFiles.Add(name, arrayWaves);
+                                fileNames.Add(name);
                             }
-                            calculateWavesDatas();
-                            dictionaryFiles.Add(name, currentArrayWaves);
-                            fileNames.Add(name);
+                            catch (System.IO.IOException)
+                            {
+                                this.Cursor = Cursors.Default;
+                                txtOutput.Text = txtOutput.Text + "Invalid MAT-file!\n";
+                                MessageBox.Show("Invalid binary MAT-file! Please select a valid binary MAT-file.",
+                                    "Invalid MAT-file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
                         }
-                        catch (System.IO.IOException)
+                        else
                         {
-                            this.Cursor = Cursors.Default;
-                            txtOutput.Text = txtOutput.Text + "Invalid MAT-file!\n";
-                            MessageBox.Show("Invalid binary MAT-file! Please select a valid binary MAT-file.",
-                                "Invalid MAT-file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            MessageBox.Show("The file " + name + " is already opened.",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("The file " + name + " is already opened.",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
+
+                    saveXLSFileToolStripMenuItem.PerformClick();
+                }
+                else
+                {
+                    MessageBox.Show("Cann't read more than 10 files. Please reselect files.",
+                                   "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 this.Cursor = Cursors.Default;
@@ -294,7 +320,7 @@ namespace StatAnalisys
         //calculate waves datas
         private CCalculatedWaves calculateWavesDatas()
         {
-            currentArrayWaves = new CCalculatedWaves();
+            CCalculatedWaves currentArrayWaves = new CCalculatedWaves();
             currentArrayWaves.calculateDatas(currentArrayT, currentArrayS);
             currentArrayWaves.arrayT = currentArrayT;
             currentArrayWaves.arrayS = currentArrayS;
@@ -506,6 +532,11 @@ namespace StatAnalisys
                     MessageBox.Show("Error to save file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
+        }
+
+        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClearAll();
         }
     }
 

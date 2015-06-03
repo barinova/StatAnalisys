@@ -71,16 +71,16 @@ namespace StatAnalisys
                                 worksheetGeneral.Cells[rowGeneral + 9, 3] = new Cell((short)(p.Value.generalCountRogueWavesZUC + p.Value.generalCountRogueWavesZDC));
 
 
-                                worksheetGeneral.Cells[rowForeach + 11, 1] = new Cell("Clouds for Vertical Asymmetry");
-                                worksheetGeneral.Cells[rowForeach + 11, 2] = new Cell("zero-up-crossing wave");
-                                worksheetGeneral.Cells[rowForeach + 12, 2] = new Cell("zero-down-crossing wave");
-                                worksheetGeneral.Cells[rowForeach + 14, 1] = new Cell("Clouds for Horizontal Asymmetry");
-                                worksheetGeneral.Cells[rowForeach + 14, 2] = new Cell("zero-up-crossing wave");
-                                worksheetGeneral.Cells[rowForeach + 15, 2] = new Cell("zero-down-crossing wave");
-                                worksheetGeneral.Cells[rowForeach + 11, 3] = new Cell((p.Value.generallShiftCloudsVertZUC > 0) ? "+" : "-");
-                                worksheetGeneral.Cells[rowForeach + 12, 3] = new Cell((p.Value.generallShiftCloudsVertZDC > 0) ? "+" : "-");
-                                worksheetGeneral.Cells[rowForeach + 14, 3] = new Cell((p.Value.generallShiftCloudsHorZUC > 0) ? "+" : "-");
-                                worksheetGeneral.Cells[rowForeach + 15, 3] = new Cell((p.Value.generallShiftCloudsHorZDC > 0) ? "+" : "-");
+                                worksheetGeneral.Cells[rowGeneral + 11, 1] = new Cell("Clouds for Vertical Asymmetry");
+                                worksheetGeneral.Cells[rowGeneral + 11, 2] = new Cell("zero-up-crossing wave");
+                                worksheetGeneral.Cells[rowGeneral + 12, 2] = new Cell("zero-down-crossing wave");
+                                worksheetGeneral.Cells[rowGeneral + 14, 1] = new Cell("Clouds for Horizontal Asymmetry");
+                                worksheetGeneral.Cells[rowGeneral + 14, 2] = new Cell("zero-up-crossing wave");
+                                worksheetGeneral.Cells[rowGeneral + 15, 2] = new Cell("zero-down-crossing wave");
+                                worksheetGeneral.Cells[rowGeneral + 11, 3] = new Cell((p.Value.generallShiftCloudsVertZUC > 0) ? "+" : "-");
+                                worksheetGeneral.Cells[rowGeneral + 12, 3] = new Cell((p.Value.generallShiftCloudsVertZDC > 0) ? "+" : "-");
+                                worksheetGeneral.Cells[rowGeneral + 14, 3] = new Cell((p.Value.generallShiftCloudsHorZUC > 0) ? "+" : "-");
+                                worksheetGeneral.Cells[rowGeneral + 15, 3] = new Cell((p.Value.generallShiftCloudsHorZDC > 0) ? "+" : "-");
 
                                 //worksheetForeach
                                 worksheetForeach.Cells[rowForeach, 1] = new Cell("File");

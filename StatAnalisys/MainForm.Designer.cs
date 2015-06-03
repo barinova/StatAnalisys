@@ -84,6 +84,7 @@ namespace StatAnalisys
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveXLSFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).BeginInit();
@@ -583,7 +584,8 @@ namespace StatAnalisys
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.saveImagesToolStripMenuItem,
-            this.saveXLSFileToolStripMenuItem});
+            this.saveXLSFileToolStripMenuItem,
+            this.clearAllToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -591,23 +593,30 @@ namespace StatAnalisys
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveImagesToolStripMenuItem
             // 
             this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
-            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
             // saveXLSFileToolStripMenuItem
             // 
             this.saveXLSFileToolStripMenuItem.Name = "saveXLSFileToolStripMenuItem";
-            this.saveXLSFileToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveXLSFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveXLSFileToolStripMenuItem.Text = "Save XLS file";
             this.saveXLSFileToolStripMenuItem.Click += new System.EventHandler(this.saveXLSFileToolStripMenuItem_Click);
+            // 
+            // clearAllToolStripMenuItem
+            // 
+            this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
+            this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearAllToolStripMenuItem.Text = "Clear All";
+            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -701,6 +710,7 @@ namespace StatAnalisys
         private System.Windows.Forms.ToolTip toolTipSelectFile;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem saveXLSFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
     }
 }
 

@@ -36,7 +36,7 @@
             // 
             this.listViewRogueWaves.Location = new System.Drawing.Point(12, 33);
             this.listViewRogueWaves.Name = "listViewRogueWaves";
-            this.listViewRogueWaves.Size = new System.Drawing.Size(185, 406);
+            this.listViewRogueWaves.Size = new System.Drawing.Size(314, 406);
             this.listViewRogueWaves.TabIndex = 4;
             this.listViewRogueWaves.UseCompatibleStateImageBehavior = false;
             this.listViewRogueWaves.SelectedIndexChanged += new System.EventHandler(this.listViewRogueWaves_SelectedIndexChanged);
