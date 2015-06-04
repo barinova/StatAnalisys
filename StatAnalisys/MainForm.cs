@@ -484,8 +484,8 @@ namespace StatAnalisys
             if (index != "0")
             {
                 int i = Int32.Parse(index);
-                i--;
-                CHeightsDiagram diagHeights = new CHeightsDiagram(index);
+
+                CHeightsDiagram diagHeights = new CHeightsDiagram(i.ToString());
                 diagHeights.renderHeights(currentArrayWaves[i].heightsZDC.heightOneThird, currentArrayWaves[i].heightsZDC.significantHeight,
                     currentArrayWaves[i].heightsZUC.heightOneThird, currentArrayWaves[i].heightsZUC.significantHeight,
                     currentArrayWaves[i].listHeihtsZDC, currentArrayWaves[i].listHeihtsZUC);
@@ -530,7 +530,8 @@ namespace StatAnalisys
                 saveFileDialog.Title = "Save XLS file";
                 DialogResult result = saveFileDialog.ShowDialog();
                 saveFileDialog.RestoreDirectory = true;
-                int count = 0;
+                int rogueWavesZUC, rogueWavesZDC, count = 0;
+                rogueWavesZUC = rogueWavesZDC = 0;
 
                 if (result == DialogResult.OK)
                 {
@@ -550,20 +551,24 @@ namespace StatAnalisys
                                     generalWavesInfo info;
                                     info.zucHSign = listWaves.waves[i].heightsZUC.significantHeight;
                                     info.zdcHSign = listWaves.waves[i].heightsZDC.significantHeight;
-                                    info.rogueWaves = listWaves.waves[i].rogueWave;
+
                                     tmp.Add(info);
                                 }
 
+                                rogueWavesZUC = listWaves.countRogueWavesZUC;
+                                rogueWavesZDC = listWaves.countRogueWavesZDC;
                                 countRogueWaves.Add(listWaves.countRogueWaves);
                                 generalWavesInfoForeach.Add(tmp);
                                 listFileName.Add(file);
                                 zucHSign.Add(listWaves.generalSighHZUC);
                                 zdcHSign.Add(listWaves.generalSighHZDC);
                                 generalCountRogueWaves.Add(listWaves.generalCountRogueWavesZUC + listWaves.generalCountRogueWavesZDC);
+                                rogueWavesZUC = listWaves.generalCountRogueWavesZUC;
+                                rogueWavesZDC = listWaves.generalCountRogueWavesZDC;
                                 count++;
                             }
 
-                            if (!xlsFile.saveXLS(saveFileDialog.FileName, listFileName, zucHSign, zdcHSign, generalCountRogueWaves, countRogueWaves, generalWavesInfoForeach))
+                            if (!xlsFile.saveXLS(saveFileDialog.FileName, listFileName, zucHSign, zdcHSign, generalCountRogueWaves, countRogueWaves, generalWavesInfoForeach, rogueWavesZUC, rogueWavesZDC))
                             {
                                 MessageBox.Show("Error to save file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             }

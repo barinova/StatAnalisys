@@ -134,9 +134,9 @@ namespace StatAnalisys
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.panel2);
             this.panel4.Controls.Add(this.chartZommedWave);
-            this.panel4.Location = new System.Drawing.Point(849, 412);
+            this.panel4.Location = new System.Drawing.Point(849, 432);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(403, 230);
+            this.panel4.Size = new System.Drawing.Size(403, 210);
             this.panel4.TabIndex = 7;
             // 
             // label5
@@ -161,7 +161,7 @@ namespace StatAnalisys
             this.panel2.Controls.Add(this.labelAmplitude);
             this.panel2.Controls.Add(this.textBoxAmplitudePlus);
             this.panel2.Controls.Add(this.labelCurrentWave);
-            this.panel2.Location = new System.Drawing.Point(241, 107);
+            this.panel2.Location = new System.Drawing.Point(241, 97);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(138, 118);
             this.panel2.TabIndex = 4;
@@ -256,7 +256,7 @@ namespace StatAnalisys
             this.chartZommedWave.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartZommedWave.Legends.Add(legend1);
-            this.chartZommedWave.Location = new System.Drawing.Point(12, 33);
+            this.chartZommedWave.Location = new System.Drawing.Point(12, 23);
             this.chartZommedWave.Name = "chartZommedWave";
             series1.ChartArea = "ChartAreaSelectedWave";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
@@ -317,9 +317,10 @@ namespace StatAnalisys
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.panelGraphic);
             this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Location = new System.Drawing.Point(1060, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(201, 379);
+            this.panel1.Size = new System.Drawing.Size(201, 399);
             this.panel1.TabIndex = 2;
             // 
             // panel7
@@ -375,9 +376,9 @@ namespace StatAnalisys
             this.panel5.Controls.Add(this.label3);
             this.panel5.Controls.Add(this.panel6);
             this.panel5.Controls.Add(this.buttonCalculate);
-            this.panel5.Location = new System.Drawing.Point(5, 266);
+            this.panel5.Location = new System.Drawing.Point(5, 300);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(191, 108);
+            this.panel5.Size = new System.Drawing.Size(191, 94);
             this.panel5.TabIndex = 18;
             // 
             // label3
@@ -433,9 +434,9 @@ namespace StatAnalisys
             this.panelGraphic.Controls.Add(this.ProbabilitiesDiagram);
             this.panelGraphic.Controls.Add(this.buttonHeightsDiagram);
             this.panelGraphic.Controls.Add(this.labelGraphic);
-            this.panelGraphic.Location = new System.Drawing.Point(3, 145);
+            this.panelGraphic.Location = new System.Drawing.Point(3, 189);
             this.panelGraphic.Name = "panelGraphic";
-            this.panelGraphic.Size = new System.Drawing.Size(193, 115);
+            this.panelGraphic.Size = new System.Drawing.Size(193, 105);
             this.panelGraphic.TabIndex = 2;
             // 
             // buttonClouds
@@ -483,10 +484,9 @@ namespace StatAnalisys
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.buttonNumWave);
             this.panel3.Controls.Add(this.textBoxNumWave);
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Location = new System.Drawing.Point(3, 75);
+            this.panel3.Location = new System.Drawing.Point(3, 95);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(191, 64);
+            this.panel3.Size = new System.Drawing.Size(195, 91);
             this.panel3.TabIndex = 17;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
@@ -508,7 +508,7 @@ namespace StatAnalisys
             // 
             // buttonNumWave
             // 
-            this.buttonNumWave.Location = new System.Drawing.Point(20, 40);
+            this.buttonNumWave.Location = new System.Drawing.Point(15, 63);
             this.buttonNumWave.Name = "buttonNumWave";
             this.buttonNumWave.Size = new System.Drawing.Size(62, 21);
             this.buttonNumWave.TabIndex = 18;
@@ -518,7 +518,7 @@ namespace StatAnalisys
             // 
             // textBoxNumWave
             // 
-            this.textBoxNumWave.Location = new System.Drawing.Point(17, 14);
+            this.textBoxNumWave.Location = new System.Drawing.Point(12, 37);
             this.textBoxNumWave.Name = "textBoxNumWave";
             this.textBoxNumWave.Size = new System.Drawing.Size(75, 20);
             this.textBoxNumWave.TabIndex = 17;
@@ -526,7 +526,7 @@ namespace StatAnalisys
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 0);
+            this.label6.Location = new System.Drawing.Point(8, 79);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(111, 13);
             this.label6.TabIndex = 16;
@@ -639,6 +639,7 @@ namespace StatAnalisys
             ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartWavesPeriods)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.panel5.ResumeLayout(false);

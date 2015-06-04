@@ -14,7 +14,6 @@ namespace StatAnalisys
     {
         public double zucHSign;
         public double zdcHSign;
-        public int rogueWaves;
     }
 
     public class BaseForm : Form

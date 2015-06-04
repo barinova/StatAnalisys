@@ -20,6 +20,7 @@ namespace StatAnalisys
         public double[] nullPoint;
         public double trough;
         public double ridge;
+        public double rms;
     }
     public struct probability
     {
@@ -73,10 +74,6 @@ namespace StatAnalisys
 
                 if (wave.calculateSingleWave(arrT, arrS[i]))
                 {
-                    if (i == 1100)
-                    {
-                        Console.WriteLine();
-                    }
                     countRogueWavesZUC += findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i, typeCrossing.ZDC);
                     countRogueWavesZDC += findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i, typeCrossing.ZUC);
 
@@ -152,7 +149,8 @@ namespace StatAnalisys
         public List<double> listCrestAZUC = new List<double>();
         public List<double> listThroughAZDC = new List<double>();
         public List<double> listThroughAZUC = new List<double>();
-
+        public List<double> listRmsZDC = new List<double>();
+        public List<double> listRmsZUC = new List<double>();
         public int rogueWave = 0;
         public List<waveData> calculatedDatas
         {
@@ -256,6 +254,8 @@ namespace StatAnalisys
         waveData getSingleWave(int i, typeCrossing type, double[] arrT, double[] arrS)
         {
             int k = 0;
+            double rms = 0;
+            double countRMS = 0;
             int sizeT = arrT.Count();
             double currentPointSec, currentPointShift;
             waveData wave = new waveData();
@@ -273,7 +273,6 @@ namespace StatAnalisys
             {
                 amplMax(currentPointSec, currentPointShift, ref wave, wave.amplMax);
                 amplMin(currentPointSec, currentPointShift, ref wave, wave.amplMin);
-
                 if (i < sizeT - 1 && (currentPointShift * arrS[i + 1] < 0))
                 {
                     wave.nullPoint[k++] = getNullPoint(currentPointSec, currentPointShift, arrT[i + 1], arrS[i + 1]);
@@ -281,7 +280,9 @@ namespace StatAnalisys
 
                 if (++i >= sizeT && k != 3)
                     return new waveData();
-
+                
+                rms += Math.Pow(Math.Abs(arrS[i]), 2);
+                countRMS ++;
                 currentPointSec = arrT[i];
                 currentPointShift = arrS[i];
             }
@@ -290,37 +291,32 @@ namespace StatAnalisys
             wave.horizontalAsymmetry = (wave.nullPoint[1] - wave.nullPoint[0]) / (wave.nullPoint[2] - wave.nullPoint[1]);
             wave.totalHeight = Math.Abs(wave.amplMax) + Math.Abs(wave.amplMin);
 
+            wave.rms = Math.Sqrt(rms/countRMS);
+
             return wave;
         }
 
-        public double sigma(List<double> listHeights)
+        public double sigma(List<double> listRMS)
         {
             double mid = 0;
             double s = 0;
 
-            if (listHeights.Count() > 0)
+            if (listRMS.Count() > 0)
             {
-                foreach (double d in listHeights)
+                foreach (double d in listRMS)
                 {
-                    mid += d;
+                    mid += d*d;
                 }
 
-                mid /= listHeights.Count();
-
-                foreach (double d in listHeights)
-                {
-                    s += Math.Sqrt(Math.Pow(d - mid, 2));
-                }
-
-                return s / listHeights.Count();
+                return Math.Sqrt(mid / listRMS.Count());
             }
 
             return Double.NaN;
         }
 
-        public double significantHeights(List<double> listHeights)
+        public double significantHeights(List<double> listRMS)
         {
-            double s = 4 * sigma(listHeights);
+            double s = 4.04 * sigma(listRMS);
             return s;
         }
 
@@ -353,17 +349,17 @@ namespace StatAnalisys
             return sigma(listHeights);
         }
 
-        void setHeights(List<double> listHeihtsZDC, List<double> listHeihtsZUC)
+        void setHeights(List<double> listHeihtsZDC, List<double> listHeihtsZUC, List<double> listRmsZDC, List<double> listRmsZUC)
         {
             heights zuc = new heights();
             heights zdc = new heights();
 
-            zdc.significantHeight = significantHeights(listHeihtsZDC);
+            zdc.significantHeight = significantHeights(listRmsZDC);
             zdc.heightOneThird = heightOneThird(listHeihtsZDC);
             zdc.sigma = setSigma(listHeihtsZDC);
             listHeightsZDC = zdc;
 
-            zuc.significantHeight = significantHeights(listHeihtsZUC);
+            zuc.significantHeight = significantHeights(listRmsZUC);
             zuc.heightOneThird = heightOneThird(listHeihtsZUC);
             zuc.sigma = setSigma(listHeihtsZUC);
             listHeightsZUC = zuc;
@@ -431,7 +427,7 @@ namespace StatAnalisys
         public bool calculateSingleWave(double[] arrT, double[] arrS)
         {
             waveData newWave;
-            
+
             for (int i = 0; i < arrT.Count(); i++)
             {
                 if (arrS[i] * arrS[i + 1] < 0)
@@ -451,7 +447,7 @@ namespace StatAnalisys
 
                     if(newWave.totalHeight == 0.0)
                     {
-                        setHeights(listHeihtsZDC, listHeihtsZUC);
+                        setHeights(listHeihtsZDC, listHeihtsZUC, listRmsZDC, listRmsZUC);
                         calculateProbabilities();
                         calculateSighificiantPeriods();
                         calculateClouds();
@@ -463,12 +459,14 @@ namespace StatAnalisys
                         listHeihtsZDC.Add(newWave.totalHeight);
                         listCrestAZDC.Add(newWave.amplMax);
                         listThroughAZDC.Add(-newWave.amplMin);
+                        listRmsZDC.Add(newWave.rms);
                     }
                     else
                     {
                         listHeihtsZUC.Add(newWave.totalHeight);
                         listCrestAZUC.Add(newWave.amplMax);
                         listThroughAZUC.Add(-newWave.amplMin);
+                        listRmsZUC.Add(newWave.rms);
                     }
 
                     calculatingWaves.Add(newWave);
