@@ -41,7 +41,7 @@
             this.dataGridViewLoadedFiles.Location = new System.Drawing.Point(12, 12);
             this.dataGridViewLoadedFiles.Name = "dataGridViewLoadedFiles";
             this.dataGridViewLoadedFiles.ReadOnly = true;
-            this.dataGridViewLoadedFiles.Size = new System.Drawing.Size(116, 231);
+            this.dataGridViewLoadedFiles.Size = new System.Drawing.Size(432, 231);
             this.dataGridViewLoadedFiles.TabIndex = 0;
             this.dataGridViewLoadedFiles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLoadedFiles_CellContentClick);
             // 
@@ -49,7 +49,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(140, 262);
+            this.ClientSize = new System.Drawing.Size(456, 262);
             this.Controls.Add(this.dataGridViewLoadedFiles);
             this.Name = "CLoadedFilesForm";
             this.Text = "CLoadedFilesForm";

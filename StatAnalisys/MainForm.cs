@@ -18,7 +18,6 @@ namespace StatAnalisys
 
     public partial class MainForm : BaseForm
     {
-        Dictionary<string, CCalculatedWaves> dictionaryFiles = new Dictionary<string, CCalculatedWaves>();
         CCalculatedWaves currentArrayWaves;
         CSingleWave currentWave;
         double[] currentArrayT;
@@ -63,7 +62,6 @@ namespace StatAnalisys
 
         void ClearAll()
         {
-            dictionaryFiles.Clear();
             currentArrayWaves = null;
             currentWave = null;
             currentArrayT = null;
@@ -105,10 +103,7 @@ namespace StatAnalisys
             {
                 Regex regex = new Regex(@"[^\\]*$",RegexOptions.IgnoreCase| RegexOptions.CultureInvariant
                     | RegexOptions.IgnorePatternWhitespace| RegexOptions.Compiled);
-                string name;
 
-                if (!(openFileDialog.FileNames.Count() > 10))
-                {
                     foreach (String file in openFileDialog.FileNames)
                     {
                         currentArrayWaves = null;
@@ -116,39 +111,14 @@ namespace StatAnalisys
 
                         txtOutput.Text = txtOutput.Text + "Attempting to read the file '" + file + "'...";
 
+                        Console.WriteLine(file);
 
-                        name = regex.Match(file).Value;
-                        Console.WriteLine(name);
-
-                        if (!dictionaryFiles.ContainsKey(name))
+                        if (!fileNames.Contains(file))
                         {
                             try
                             {
                                 this.Cursor = Cursors.WaitCursor;
-
-                                CCalculatedWaves arrayWaves = new CCalculatedWaves();
-
-                                MatFileReader mfr = new MatFileReader(file);
-                                txtOutput.Text += "Done!\nMAT-file contains the following:\n";
-                                txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
-                                foreach (MLArray mla in mfr.Data)
-                                {
-                                    if (String.Equals(mla.Name, "t"))
-                                    {
-                                        MLDouble mlT = (mla as MLDouble);
-                                        currentArrayT = mlT.GetArray()[0];
-                                    }
-
-                                    if (String.Equals(mla.Name, "s"))
-                                    {
-                                        MLDouble mlS = (mla as MLDouble);
-                                        currentArrayS = mlS.GetArray();
-                                    }
-                                }
-
-                                arrayWaves = calculateWavesDatas();
-                                dictionaryFiles.Add(name, arrayWaves);
-                                fileNames.Add(name);
+                                fileNames.Add(file);
                             }
                             catch (System.IO.IOException)
                             {
@@ -160,26 +130,49 @@ namespace StatAnalisys
                         }
                         else
                         {
-                            MessageBox.Show("The file " + name + " is already opened.",
+                            MessageBox.Show("The file " + file + " is already opened.",
                                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                     }
 
-                    saveXLSFileToolStripMenuItem.PerformClick();
-                }
-                else
-                {
-                    MessageBox.Show("Cann't read more than 10 files. Please reselect files.",
-                                   "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                   // saveXLSFileToolStripMenuItem.PerformClick();
 
                 this.Cursor = Cursors.Default;
             }
         }
 
+        private CCalculatedWaves loadAndCalculateFromMatFile(string file)
+        {
+            readMatFile(file);
+
+            CCalculatedWaves arrayWaves = new CCalculatedWaves();                 
+            arrayWaves = calculateWavesDatas(file);
+
+            return arrayWaves;
+        }
+
+        private void readMatFile(string file)
+        {
+            MatFileReader mfr = new MatFileReader(file);
+            txtOutput.Text += "Done!\nMAT-file contains the following:\n";
+            txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
+            foreach (MLArray mla in mfr.Data)
+            {
+                if (String.Equals(mla.Name, "t"))
+                {
+                    MLDouble mlT = (mla as MLDouble);
+                    currentArrayT = mlT.GetArray()[0];
+                }
+
+                if (String.Equals(mla.Name, "s"))
+                {
+                    MLDouble mlS = (mla as MLDouble);
+                    currentArrayS = mlS.GetArray();
+                }
+            }
+        }
         private void chartGeneralGraphic_SelectionRangeChanged(object sender, ViewEventArgs e)
         {
-
             int indexWave = -1;
 
             if (textBoxNumWave.Text != string.Empty && Int32.TryParse(textBoxNumWave.Text, out indexWave))
@@ -318,12 +311,10 @@ namespace StatAnalisys
             }
         } 
         //calculate waves datas
-        private CCalculatedWaves calculateWavesDatas()
+        private CCalculatedWaves calculateWavesDatas(string name)
         {
             CCalculatedWaves currentArrayWaves = new CCalculatedWaves();
             currentArrayWaves.calculateDatas(currentArrayT, currentArrayS);
-            currentArrayWaves.arrayT = currentArrayT;
-            currentArrayWaves.arrayS = currentArrayS;
             return currentArrayWaves;
         }
 
@@ -402,9 +393,12 @@ namespace StatAnalisys
                     rougeForm.setLabelNumRogueWaves(currentArrayWaves.countRogueWaves.ToString());
                     foreach (int index in rWaves.Keys)
                     {
-                        CSingleWave wave = currentArrayWaves[index];
-                        rougeForm.addRow(index.ToString(), rWaves[index].ToString(), wave.heightsZDC.significantHeight, 
-                            wave.heightsZUC.significantHeight);
+                        if (index > -1)
+                        {
+                            CSingleWave wave = currentArrayWaves[index];
+                            rougeForm.addRow(index.ToString(), rWaves[index].ToString(), wave.heightsZDC.significantHeight,
+                                wave.heightsZUC.significantHeight);
+                        }
                     }
 
                     rougeForm.Show();
@@ -503,11 +497,9 @@ namespace StatAnalisys
         {
             textBoxLoadFile.Text = fileName;
 
-            if (dictionaryFiles.ContainsKey(fileName))
+            if (fileNames.Contains(fileName))
             {
-                currentArrayWaves = dictionaryFiles[fileName];
-                currentArrayT = currentArrayWaves.arrayT;
-                currentArrayS = currentArrayWaves.arrayS;
+                currentArrayWaves = loadAndCalculateFromMatFile(fileName);
                 updateComboBoxNumberWaveValues(currentArrayT.Count());
             }
             else
@@ -527,9 +519,58 @@ namespace StatAnalisys
             if (fileNames != null)
             {
                 CExcelFile xlsFile = new CExcelFile();
-                if (!xlsFile.saveXLS(dictionaryFiles))
+                List<string> listFileName = new List<string>();
+                List<double> zucHSign = new List<double>();
+                List<double> zdcHSign = new List<double>();
+                List<int> generalCountRogueWaves = new List<int>();
+                List<int> countRogueWaves = new List<int>();
+                List<List<generalWavesInfo>> generalWavesInfoForeach = new List<List<generalWavesInfo>>();
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "XLS file|*.xls";
+                saveFileDialog.Title = "Save XLS file";
+                DialogResult result = saveFileDialog.ShowDialog();
+                saveFileDialog.RestoreDirectory = true;
+                int count = 0;
+
+                if (result == DialogResult.OK)
                 {
-                    MessageBox.Show("Error to save file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    if (saveFileDialog.FileName != "")
+                    {
+                        if (saveFileDialog.CheckPathExists)
+                        {
+                            this.Cursor = Cursors.WaitCursor;
+
+                            foreach (string file in fileNames)
+                            {
+                                CCalculatedWaves listWaves = loadAndCalculateFromMatFile(file);
+                                List<generalWavesInfo> tmp = new List<generalWavesInfo>();
+
+                                for (int i = 0; i < listWaves.waves.Count(); i++ )
+                                {
+                                    generalWavesInfo info;
+                                    info.zucHSign = listWaves.waves[i].heightsZUC.significantHeight;
+                                    info.zdcHSign = listWaves.waves[i].heightsZDC.significantHeight;
+                                    info.rogueWaves = listWaves.waves[i].rogueWave;
+                                    tmp.Add(info);
+                                }
+
+                                countRogueWaves.Add(listWaves.countRogueWaves);
+                                generalWavesInfoForeach.Add(tmp);
+                                listFileName.Add(file);
+                                zucHSign.Add(listWaves.generalSighHZUC);
+                                zdcHSign.Add(listWaves.generalSighHZDC);
+                                generalCountRogueWaves.Add(listWaves.generalCountRogueWavesZUC + listWaves.generalCountRogueWavesZDC);
+                                count++;
+                            }
+
+                            if (!xlsFile.saveXLS(saveFileDialog.FileName, listFileName, zucHSign, zdcHSign, generalCountRogueWaves, countRogueWaves, generalWavesInfoForeach))
+                            {
+                                MessageBox.Show("Error to save file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+
+                            this.Cursor = Cursors.Default;
+                        }
+                    }
                 }
             }
         }

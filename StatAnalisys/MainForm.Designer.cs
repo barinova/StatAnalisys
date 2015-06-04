@@ -83,8 +83,8 @@ namespace StatAnalisys
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveXLSFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartZommedWave)).BeginInit();
@@ -129,13 +129,12 @@ namespace StatAnalisys
             // 
             // panel4
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.panel2);
             this.panel4.Controls.Add(this.chartZommedWave);
-            this.panel4.Location = new System.Drawing.Point(855, 398);
+            this.panel4.Location = new System.Drawing.Point(849, 412);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(403, 230);
             this.panel4.TabIndex = 7;
@@ -151,7 +150,7 @@ namespace StatAnalisys
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel2.Controls.Add(this.textBoxType);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.textBoxT);
@@ -318,9 +317,9 @@ namespace StatAnalisys
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.panelGraphic);
             this.panel1.Controls.Add(this.panel3);
-            this.panel1.Location = new System.Drawing.Point(1057, 48);
+            this.panel1.Location = new System.Drawing.Point(1060, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(201, 347);
+            this.panel1.Size = new System.Drawing.Size(201, 379);
             this.panel1.TabIndex = 2;
             // 
             // panel7
@@ -337,7 +336,7 @@ namespace StatAnalisys
             // textBoxLoadFile
             // 
             this.textBoxLoadFile.AutoSize = true;
-            this.textBoxLoadFile.Location = new System.Drawing.Point(7, 28);
+            this.textBoxLoadFile.Location = new System.Drawing.Point(15, 16);
             this.textBoxLoadFile.Name = "textBoxLoadFile";
             this.textBoxLoadFile.Size = new System.Drawing.Size(94, 13);
             this.textBoxLoadFile.TabIndex = 20;
@@ -354,7 +353,7 @@ namespace StatAnalisys
             // 
             // buttonLoadFile
             // 
-            this.buttonLoadFile.Location = new System.Drawing.Point(124, 21);
+            this.buttonLoadFile.Location = new System.Drawing.Point(15, 32);
             this.buttonLoadFile.Name = "buttonLoadFile";
             this.buttonLoadFile.Size = new System.Drawing.Size(62, 20);
             this.buttonLoadFile.TabIndex = 18;
@@ -378,7 +377,7 @@ namespace StatAnalisys
             this.panel5.Controls.Add(this.buttonCalculate);
             this.panel5.Location = new System.Drawing.Point(5, 266);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(191, 112);
+            this.panel5.Size = new System.Drawing.Size(191, 108);
             this.panel5.TabIndex = 18;
             // 
             // label3
@@ -509,7 +508,7 @@ namespace StatAnalisys
             // 
             // buttonNumWave
             // 
-            this.buttonNumWave.Location = new System.Drawing.Point(114, 36);
+            this.buttonNumWave.Location = new System.Drawing.Point(20, 40);
             this.buttonNumWave.Name = "buttonNumWave";
             this.buttonNumWave.Size = new System.Drawing.Size(62, 21);
             this.buttonNumWave.TabIndex = 18;
@@ -519,7 +518,7 @@ namespace StatAnalisys
             // 
             // textBoxNumWave
             // 
-            this.textBoxNumWave.Location = new System.Drawing.Point(14, 37);
+            this.textBoxNumWave.Location = new System.Drawing.Point(17, 14);
             this.textBoxNumWave.Name = "textBoxNumWave";
             this.textBoxNumWave.Size = new System.Drawing.Size(75, 20);
             this.textBoxNumWave.TabIndex = 17;
@@ -529,9 +528,9 @@ namespace StatAnalisys
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(14, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.Size = new System.Drawing.Size(111, 13);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Select wave";
+            this.label6.Text = "Enter number of wave";
             // 
             // chartGeneralGraphic
             // 
@@ -548,7 +547,7 @@ namespace StatAnalisys
             this.chartGeneralGraphic.Cursor = System.Windows.Forms.Cursors.Default;
             legend3.Name = "Legend1";
             this.chartGeneralGraphic.Legends.Add(legend3);
-            this.chartGeneralGraphic.Location = new System.Drawing.Point(12, 48);
+            this.chartGeneralGraphic.Location = new System.Drawing.Point(15, 27);
             this.chartGeneralGraphic.Name = "chartGeneralGraphic";
             series6.ChartArea = "ChartArea1";
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
@@ -564,7 +563,7 @@ namespace StatAnalisys
             this.chartGeneralGraphic.Series.Add(series6);
             this.chartGeneralGraphic.Series.Add(series7);
             this.chartGeneralGraphic.Series.Add(series8);
-            this.chartGeneralGraphic.Size = new System.Drawing.Size(1039, 318);
+            this.chartGeneralGraphic.Size = new System.Drawing.Size(1039, 379);
             this.chartGeneralGraphic.TabIndex = 1;
             this.chartGeneralGraphic.Text = "Chart Wave";
             this.chartGeneralGraphic.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chartGeneralGraphic_SelectionRangeChanged);
@@ -593,28 +592,28 @@ namespace StatAnalisys
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveImagesToolStripMenuItem
             // 
             this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
-            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
             // saveXLSFileToolStripMenuItem
             // 
             this.saveXLSFileToolStripMenuItem.Name = "saveXLSFileToolStripMenuItem";
-            this.saveXLSFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveXLSFileToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveXLSFileToolStripMenuItem.Text = "Save XLS file";
             this.saveXLSFileToolStripMenuItem.Click += new System.EventHandler(this.saveXLSFileToolStripMenuItem_Click);
             // 
             // clearAllToolStripMenuItem
             // 
             this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
-            this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.clearAllToolStripMenuItem.Text = "Clear All";
             this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 

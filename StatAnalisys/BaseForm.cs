@@ -10,6 +10,13 @@ using System.Drawing;
 
 namespace StatAnalisys
 {
+    struct generalWavesInfo
+    {
+        public double zucHSign;
+        public double zdcHSign;
+        public int rogueWaves;
+    }
+
     public class BaseForm : Form
     {
         protected void zoom(MouseEventArgs e, System.Windows.Forms.DataVisualization.Charting.ChartArea area, int delta)

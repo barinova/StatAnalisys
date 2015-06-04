@@ -41,8 +41,6 @@ namespace StatAnalisys
         public List<CSingleWave> waves = new  List<CSingleWave>();
         public double generalSighHZUC, generalSighHZDC;
         public int generalCountRogueWavesZDC, generalCountRogueWavesZUC;
-        public double[] arrayT;
-        public double[][] arrayS;
         public Dictionary<int, int> rougeWaves = new Dictionary<int, int>();
         public int countRogueWavesZDC, countRogueWavesZUC;
         public int countRogueWaves = 0;
@@ -61,9 +59,6 @@ namespace StatAnalisys
         public void calculateDatas(double[] arrT, double[][] arrS)
         {
             int i;
-
-            CSingleWave wave = new CSingleWave();
-
             generalSighHZUC = generalSighHZDC = 0;
             generalCountRogueWavesZDC = generalCountRogueWavesZUC = 0;
             countRogueWavesZDC = countRogueWavesZUC = 0;
@@ -73,18 +68,23 @@ namespace StatAnalisys
 
             for (i = 0; i < arrS.Count(); i++)
             {
-                wave = new CSingleWave();
+
+                CSingleWave wave = new CSingleWave();
 
                 if (wave.calculateSingleWave(arrT, arrS[i]))
                 {
+                    if (i == 1100)
+                    {
+                        Console.WriteLine();
+                    }
+                    countRogueWavesZUC += findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i, typeCrossing.ZDC);
+                    countRogueWavesZDC += findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i, typeCrossing.ZUC);
+
+                    wave.rogueWave = countRogueWavesZUC + countRogueWavesZDC;
                     waves.Add(wave);
 
                     listZDCH.AddRange(wave.listHeihtsZDC);
                     listZUCH.AddRange(wave.listHeihtsZUC);
-
-                    countRogueWavesZDC += findRougeWaves(wave.listHeihtsZDC, 2 * wave.heightsZDC.significantHeight, i, typeCrossing.ZDC);
-                    countRogueWavesZUC += findRougeWaves(wave.listHeihtsZUC, 2 * wave.heightsZUC.significantHeight, i, typeCrossing.ZUC);
-
                     generallShiftCloudsVertZDC += wave.shiftCloudsVertZDC;
                     generallShiftCloudsVertZUC += wave.shiftCloudsVertZUC;
                     generallShiftCloudsHorZDC += wave.shiftCloudsHorZDC;
@@ -94,9 +94,11 @@ namespace StatAnalisys
 
             countRogueWaves = countRogueWavesZDC + countRogueWavesZUC;
 
+            
             //We should calculate sighificiant heights and rogue waves from all waves together in the whole file
-            if (wave != null && listZUCH.Count() != 0 && listZDCH.Count() != 0)
+            if (listZUCH.Count() != 0 && listZDCH.Count() != 0)
             {
+                CSingleWave wave = new CSingleWave();
                 generalSighHZUC = wave.significantHeights(listZUCH);
                 generalSighHZDC = wave.significantHeights(listZDCH);
                 generalCountRogueWavesZUC = findRougeWaves(listZUCH, 2 * generalSighHZUC, -1, typeCrossing.ZUC);
@@ -151,6 +153,7 @@ namespace StatAnalisys
         public List<double> listThroughAZDC = new List<double>();
         public List<double> listThroughAZUC = new List<double>();
 
+        public int rogueWave = 0;
         public List<waveData> calculatedDatas
         {
             get
