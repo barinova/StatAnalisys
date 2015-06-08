@@ -32,7 +32,6 @@ namespace StatAnalisys
 
             CallBackRogueWaveSelected.callbackRogueWaveSelectedEventHandler = new CallBackRogueWaveSelected.callbackRogueWaveSelectedEvent(openRogueWaveHeightsDiagram);
             CallBackFileSelected.callbackFileSelectedEventHandler = new CallBackFileSelected.callbackFileSelectedEvent(openFile);
-            
             setupUISettings();            
             changeEnabledSettingsComponents(false);
         }
@@ -251,7 +250,7 @@ namespace StatAnalisys
         //update possible number of wave
         private void updateComboBoxNumberWaveValues(int size)
         {
-            labelNumWaves.Text = "Enter number of wave (1 - " + (size) + ")";
+            labelNumWaves.Text = "Enter number of wave (0 - " + (size - 1) + ")";
         }
 
         private void hightliteWaveOnChart(double x1, double x2, double x3, double x4, double x5, double y1, double y2, double y3, 
@@ -385,18 +384,19 @@ namespace StatAnalisys
         {
             if (currentArrayWaves != null)
             {
-                Dictionary<int, int> rWaves = currentArrayWaves.rougeWaves;
+                List<rogueWave> rWaves = currentArrayWaves.rougeWaves;
 
                 if (rWaves.Count > 0)
                 {
                     CRougeWaveForm rougeForm = new CRougeWaveForm();
                     rougeForm.setLabelNumRogueWaves(currentArrayWaves.countRogueWaves.ToString());
-                    foreach (int index in rWaves.Keys)
+
+                    foreach (rogueWave rWave in rWaves)
                     {
-                        if (index > -1)
+                        if (rWave.num > -1)
                         {
-                            CSingleWave wave = currentArrayWaves[index];
-                            rougeForm.addRow(index.ToString(), rWaves[index].ToString(), wave.heightsZDC.significantHeight,
+                            CSingleWave wave = currentArrayWaves[rWave.num];
+                            rougeForm.addRow(rWave.num.ToString(), rWaves.Find(x => x.num == rWave.num).count.ToString(), wave.heightsZDC.significantHeight,
                                 wave.heightsZUC.significantHeight);
                         }
                     }
@@ -442,13 +442,12 @@ namespace StatAnalisys
 
             if (currentArrayS != null)
             {
-                if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > currentArrayS.Count() || indexWave < 1)
+                if (!Int32.TryParse(textBoxNumWave.Text, out indexWave) || indexWave > currentArrayS.Count() || indexWave < 0)
                 {
-                    MessageBox.Show("Wave does't found", "Wave", MessageBoxButtons.OK);
+                    MessageBox.Show("Wave doesn't found", "Wave", MessageBoxButtons.OK);
                 }
                 else
                 {
-                    indexWave -= 1;
                     changeEnabledSettingsComponents(true);
                     clearGraphics();
                     double[] heights = currentArrayS[indexWave];
@@ -460,9 +459,36 @@ namespace StatAnalisys
                     }
 
                     currentWave = currentArrayWaves[indexWave];
-
+                    rendeRogueWavesInGeneralGraphic(currentWave, indexWave);
                     renderChartOfWavesPeriods();
                     labelIntervalsPeriod.Text = "Chart of Waves Periods( Interval = " + currentWave.interval + ")";
+                }
+            }
+        }
+
+        private void rendeRogueWavesInGeneralGraphic(CSingleWave currentWave, int indexWave)
+        {
+            if (currentArrayWaves.rougeWaves.Exists(x => x.num == indexWave))
+            { 
+                rogueWave rWave = currentArrayWaves.rougeWaves.Find(x => x.num == indexWave);
+                int k = 0;
+
+                for (int i = 0; i < rWave.points.Count(); i+=5)
+                {
+                    Series s = new Series();
+                    s.IsVisibleInLegend = false;
+                    s.Color = Color.Orange;
+                    s.ChartType = SeriesChartType.Spline;
+                    s.BorderWidth = 2;
+
+                    chartGeneralGraphic.Series.Add(s);
+
+                    s.Points.AddXY(rWave.points[i], 0);
+                    s.Points.AddXY(rWave.points[i + 1], rWave.h[k]);
+                    s.Points.AddXY(rWave.points[i + 2], 0);
+                    s.Points.AddXY(rWave.points[i + 3], rWave.h[k + 1]);
+                    s.Points.AddXY(rWave.points[i + 4], 0);
+                    k += 2;
                 }
             }
         }
@@ -481,15 +507,20 @@ namespace StatAnalisys
 
         public void openRogueWaveHeightsDiagram(string index)
         {
-            if (index != "0")
+            if (index != "-1")
             {
                 int i = Int32.Parse(index);
 
-                CHeightsDiagram diagHeights = new CHeightsDiagram(i.ToString());
+                //open heights diagram
+                /*CHeightsDiagram diagHeights = new CHeightsDiagram(i.ToString());
                 diagHeights.renderHeights(currentArrayWaves[i].heightsZDC.heightOneThird, currentArrayWaves[i].heightsZDC.significantHeight,
                     currentArrayWaves[i].heightsZUC.heightOneThird, currentArrayWaves[i].heightsZUC.significantHeight,
                     currentArrayWaves[i].listHeihtsZDC, currentArrayWaves[i].listHeihtsZUC);
-                diagHeights.Show();
+                diagHeights.Show();*/
+
+                //main
+                this.textBoxNumWave.Text = index;
+                buttonNumWave.PerformClick();
             }
         }
 
@@ -530,8 +561,9 @@ namespace StatAnalisys
                 saveFileDialog.Title = "Save XLS file";
                 DialogResult result = saveFileDialog.ShowDialog();
                 saveFileDialog.RestoreDirectory = true;
-                int rogueWavesZUC, rogueWavesZDC, count = 0;
-                rogueWavesZUC = rogueWavesZDC = 0;
+                List<int> rogueWavesZUC = new List<int>();
+                List<int> rogueWavesZDC = new List<int>();
+                int count = 0;
 
                 if (result == DialogResult.OK)
                 {
@@ -551,20 +583,17 @@ namespace StatAnalisys
                                     generalWavesInfo info;
                                     info.zucHSign = listWaves.waves[i].heightsZUC.significantHeight;
                                     info.zdcHSign = listWaves.waves[i].heightsZDC.significantHeight;
-
                                     tmp.Add(info);
                                 }
 
-                                rogueWavesZUC = listWaves.countRogueWavesZUC;
-                                rogueWavesZDC = listWaves.countRogueWavesZDC;
                                 countRogueWaves.Add(listWaves.countRogueWaves);
                                 generalWavesInfoForeach.Add(tmp);
                                 listFileName.Add(file);
                                 zucHSign.Add(listWaves.generalSighHZUC);
                                 zdcHSign.Add(listWaves.generalSighHZDC);
                                 generalCountRogueWaves.Add(listWaves.generalCountRogueWavesZUC + listWaves.generalCountRogueWavesZDC);
-                                rogueWavesZUC = listWaves.generalCountRogueWavesZUC;
-                                rogueWavesZDC = listWaves.generalCountRogueWavesZDC;
+                                rogueWavesZUC.Add(listWaves.countRogueWavesZUC);
+                                rogueWavesZDC.Add(listWaves.countRogueWavesZUC);
                                 count++;
                             }
 
@@ -584,6 +613,7 @@ namespace StatAnalisys
         {
             ClearAll();
         }
+
     }
 
     

@@ -19,13 +19,14 @@ namespace StatAnalisys
             }
         }
 
-        public bool saveXLS(string saveFileDialogFileName, List<string> fileName, List<double> zucH, List<double> zdcH, List<int> generalRogueWaves, List<int> rogueWaves, List<List<generalWavesInfo>> listInfoForeachWaves, int rogueWavesZUC, int rogueWavesZDC)
+        public bool saveXLS(string saveFileDialogFileName, List<string> fileName, List<double> zucH, List<double> zdcH, List<int> generalRogueWaves, List<int> rogueWaves, List<List<generalWavesInfo>> listInfoForeachWaves, List<int> rogueWavesZUC, List<int> rogueWavesZDC)
         {
             try
             {
                 //create new xls file
                 string file = saveFileDialogFileName;
                 int indEach = 0;
+                double generalSignHZDC, generalSignHZUC;
                 Workbook workbook = new Workbook();
                // Worksheet worksheetGeneral = new Worksheet("In the all records in file");
                 Worksheet worksheetForeach = new Worksheet("In foreach records in file");
@@ -40,6 +41,7 @@ namespace StatAnalisys
                 
                 for (int i = 0; i < fileName.Count(); i++)                
                 {
+                    generalSignHZDC = generalSignHZUC = 0;
                     /*worksheetGeneral.Cells[indGen + 2, 1] = new Cell(fileName[i]);
                     worksheetGeneral.Cells[indGen + 2, 2] = new Cell((double)zucH[i]);
                     worksheetGeneral.Cells[indGen + 2, 3] = new Cell((double)zdcH[i]);
@@ -50,28 +52,37 @@ namespace StatAnalisys
                     worksheetForeach.Cells[indEach + 2, 1] = new Cell("Count rogue waves");
                     worksheetForeach.Cells[indEach + 2, 2] = new Cell("zero-up-crossing waves");
                     worksheetForeach.Cells[indEach + 3, 2] = new Cell("zero-down-crossing waves");
+                    worksheetForeach.Cells[indEach + 4, 2] = new Cell("generally");
 
-                    worksheetForeach.Cells[indEach + 5, 1] = new Cell("Wave number");
+                    worksheetForeach.Cells[indEach + 6, 1] = new Cell("Sighificiant height");
+                    worksheetForeach.Cells[indEach + 6, 2] = new Cell("zero-up-crossing waves");
+                    worksheetForeach.Cells[indEach + 7, 2] = new Cell("zero-down-crossing waves");
 
-                    worksheetForeach.Cells[indEach + 7, 1] = new Cell("Sighificiant height");
-                    worksheetForeach.Cells[indEach + 7, 2] = new Cell("zero-up-crossing waves");
-                    worksheetForeach.Cells[indEach + 8, 2] = new Cell("zero-down-crossing waves");
-                    worksheetForeach.Cells[indEach + 8, 2] = new Cell("generally");
+                    worksheetForeach.Cells[indEach + 9, 1] = new Cell("Wave number");
 
-                    worksheetForeach.Cells[indEach + 2, 3] = new Cell(rogueWavesZUC);
-                    worksheetForeach.Cells[indEach + 3, 3] = new Cell(rogueWavesZDC);
-                    worksheetForeach.Cells[indEach + 3, 3] = new Cell(rogueWaves);
-                    worksheetForeach.Cells[indEach + 1, 3] = new Cell(fileName[i]);
-                    worksheetForeach.Cells[indEach + 2, 3] = new Cell((int)rogueWaves[i]);
+                    worksheetForeach.Cells[indEach + 10, 1] = new Cell("Sighificiant height");
+                    worksheetForeach.Cells[indEach + 10, 2] = new Cell("zero-up-crossing waves");
+                    worksheetForeach.Cells[indEach + 11, 2] = new Cell("zero-down-crossing waves");
+
+                    worksheetForeach.Cells[indEach + 1, 2] = new Cell(fileName[i]);
+                    worksheetForeach.Cells[indEach + 2, 3] = new Cell((int)rogueWavesZUC[i]);
+                    worksheetForeach.Cells[indEach + 3, 3] = new Cell((int)rogueWavesZDC[i]);
+                    worksheetForeach.Cells[indEach + 4, 3] = new Cell((int)rogueWaves[i]);
+
 
                     for (int c = 0; c < listInfoForeachWaves[i].Count(); c++)
                     {
-                        worksheetForeach.Cells[indEach + 5, c + 4] = new Cell((int)(c + 1));
-                        worksheetForeach.Cells[indEach + 7, c + 4] = new Cell((double)listInfoForeachWaves[i][c].zucHSign);
-                        worksheetForeach.Cells[indEach + 8, c + 4] = new Cell((double)listInfoForeachWaves[i][c].zdcHSign);
+                        worksheetForeach.Cells[indEach + 9, c + 4] = new Cell((int)(c + 1));
+                        worksheetForeach.Cells[indEach + 10, c + 4] = new Cell((double)listInfoForeachWaves[i][c].zucHSign);
+                        worksheetForeach.Cells[indEach + 11, c + 4] = new Cell((double)listInfoForeachWaves[i][c].zdcHSign);
+                        generalSignHZUC += listInfoForeachWaves[i][c].zucHSign;
+                        generalSignHZDC += listInfoForeachWaves[i][c].zdcHSign;
                     }
 
-                    indEach += 10;
+                    worksheetForeach.Cells[indEach + 6, 3] = new Cell((double)(generalSignHZUC/listInfoForeachWaves[i].Count()));
+                    worksheetForeach.Cells[indEach + 7, 3] = new Cell((double)(generalSignHZDC/listInfoForeachWaves[i].Count()));
+
+                    indEach += 13;
                 }
                         
                // workbook.Worksheets.Add(worksheetGeneral);

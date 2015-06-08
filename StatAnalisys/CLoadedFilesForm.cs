@@ -16,6 +16,7 @@ namespace StatAnalisys
         {
             InitializeComponent();
             dataGridViewLoadedFiles.ColumnCount = 1;
+            dataGridViewLoadedFiles.Columns[0].Width = 230;
             dataGridViewLoadedFiles.Columns[0].Name = "File";
 
             foreach (string str in strs)
@@ -32,7 +33,10 @@ namespace StatAnalisys
 
             if (!String.IsNullOrEmpty(fileName))
             {
+                this.Cursor = Cursors.WaitCursor;
                 CallBackFileSelected.callbackFileSelectedEventHandler(fileName);
+
+                this.Cursor = Cursors.Default;
             }
 
             this.Close();
