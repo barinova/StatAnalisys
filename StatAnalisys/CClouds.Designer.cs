@@ -62,7 +62,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 334);
+            this.label4.Location = new System.Drawing.Point(9, 350);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(285, 13);
             this.label4.TabIndex = 8;
@@ -71,7 +71,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(569, 334);
+            this.label3.Location = new System.Drawing.Point(569, 348);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(271, 13);
             this.label3.TabIndex = 7;
@@ -80,7 +80,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(569, 25);
+            this.label2.Location = new System.Drawing.Point(569, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(260, 13);
             this.label2.TabIndex = 6;
@@ -89,7 +89,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 22);
+            this.label1.Location = new System.Drawing.Point(12, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(274, 13);
             this.label1.TabIndex = 5;
@@ -99,12 +99,12 @@
             // 
             chartArea1.AxisX.LabelStyle.Format = "0.00";
             chartArea1.AxisX.Title = "H / Hthird";
-            chartArea1.AxisY.Title = "sign(Xcr/Xtr - 1) * Xcr/Xtr";
+            chartArea1.AxisY.Title = "2 * (Xcr - Xtr) / (Xcr + Xtr)";
             chartArea1.Name = "ChartArea1";
             this.chartCloudsZUCHor.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartCloudsZUCHor.Legends.Add(legend1);
-            this.chartCloudsZUCHor.Location = new System.Drawing.Point(572, 357);
+            this.chartCloudsZUCHor.Location = new System.Drawing.Point(572, 366);
             this.chartCloudsZUCHor.Name = "chartCloudsZUCHor";
             series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
             series1.ChartArea = "ChartArea1";
@@ -117,7 +117,7 @@
             series1.Name = "Clouds";
             series1.YValuesPerPoint = 2;
             this.chartCloudsZUCHor.Series.Add(series1);
-            this.chartCloudsZUCHor.Size = new System.Drawing.Size(529, 287);
+            this.chartCloudsZUCHor.Size = new System.Drawing.Size(529, 312);
             this.chartCloudsZUCHor.TabIndex = 4;
             this.chartCloudsZUCHor.Text = "Clouds (horisontal assymerty) for up-zero-crossing waves";
             // 
@@ -125,12 +125,12 @@
             // 
             chartArea2.AxisX.LabelStyle.Format = "0.00";
             chartArea2.AxisX.Title = "H / Hthird";
-            chartArea2.AxisY.Title = "sign(Ycr/Ytr - 1)  * Ycr/Ytr";
+            chartArea2.AxisY.Title = "2 * (Ycr - Ytr) / (Ycr + Ytr)";
             chartArea2.Name = "ChartArea1";
             this.chartCloudsZUCVert.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartCloudsZUCVert.Legends.Add(legend2);
-            this.chartCloudsZUCVert.Location = new System.Drawing.Point(572, 41);
+            this.chartCloudsZUCVert.Location = new System.Drawing.Point(572, 54);
             this.chartCloudsZUCVert.Name = "chartCloudsZUCVert";
             series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
             series2.ChartArea = "ChartArea1";
@@ -143,7 +143,7 @@
             series2.Name = "Clouds";
             series2.YValuesPerPoint = 2;
             this.chartCloudsZUCVert.Series.Add(series2);
-            this.chartCloudsZUCVert.Size = new System.Drawing.Size(529, 288);
+            this.chartCloudsZUCVert.Size = new System.Drawing.Size(529, 291);
             this.chartCloudsZUCVert.TabIndex = 3;
             this.chartCloudsZUCVert.Text = "Clouds (vertical assymerty) for up-zero-crossing waves";
             // 
@@ -151,12 +151,12 @@
             // 
             chartArea3.AxisX.LabelStyle.Format = "0.00";
             chartArea3.AxisX.Title = "H / Hthird";
-            chartArea3.AxisY.Title = "sign(Xcr/Xtr - 1) * Xcr/Xtr";
+            chartArea3.AxisY.Title = "2 * (Xcr - Xtr) / (Xcr + Xtr)";
             chartArea3.Name = "ChartArea1";
             this.chartCloudsZDCHor.ChartAreas.Add(chartArea3);
             legend3.Name = "Legend1";
             this.chartCloudsZDCHor.Legends.Add(legend3);
-            this.chartCloudsZDCHor.Location = new System.Drawing.Point(12, 357);
+            this.chartCloudsZDCHor.Location = new System.Drawing.Point(11, 366);
             this.chartCloudsZDCHor.Name = "chartCloudsZDCHor";
             series3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
             series3.ChartArea = "ChartArea1";
@@ -169,7 +169,7 @@
             series3.Name = "Clouds";
             series3.YValuesPerPoint = 2;
             this.chartCloudsZDCHor.Series.Add(series3);
-            this.chartCloudsZDCHor.Size = new System.Drawing.Size(529, 287);
+            this.chartCloudsZDCHor.Size = new System.Drawing.Size(529, 312);
             this.chartCloudsZDCHor.TabIndex = 2;
             this.chartCloudsZDCHor.Text = "Clouds (horisontal assymerty) for down-zero-crossing waves";
             // 
@@ -177,12 +177,12 @@
             // 
             chartArea4.AxisX.LabelStyle.Format = "0.00";
             chartArea4.AxisX.Title = "H / Hthird";
-            chartArea4.AxisY.Title = "sign(Ycr/Ytr - 1)  * Ycr/Ytr";
+            chartArea4.AxisY.Title = "2 * (Ycr - Ytr) / (Ycr + Ytr)";
             chartArea4.Name = "ChartArea1";
             this.chartCloudsZDCVert.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
             this.chartCloudsZDCVert.Legends.Add(legend4);
-            this.chartCloudsZDCVert.Location = new System.Drawing.Point(12, 38);
+            this.chartCloudsZDCVert.Location = new System.Drawing.Point(11, 54);
             this.chartCloudsZDCVert.Name = "chartCloudsZDCVert";
             series4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
             series4.ChartArea = "ChartArea1";
@@ -234,7 +234,7 @@
             // 
             // CClouds
             // 
-            this.ClientSize = new System.Drawing.Size(1096, 656);
+            this.ClientSize = new System.Drawing.Size(1096, 690);
             this.Controls.Add(this.labelNumWave);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label4);

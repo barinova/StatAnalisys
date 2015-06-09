@@ -79,13 +79,13 @@ namespace StatAnalisys
 
             if (type == typeCrossing.ZDC)
             {
-                chart = chartZDCLog;
-                chartLog = chartZDC;
+                chart = chartZDC;
+                chartLog = chartZDCLog;
             }
             else
             {
-                chart = chartZUCLog;
-                chartLog = chartZUC;
+                chart = chartZUC;
+                chartLog = chartZUCLog;
             }
 
             drawPChart(listProb, chart, chartLog, signH);

@@ -16,7 +16,7 @@ namespace StatAnalisys
         public double totalHeight;
         public double sec;
         public double verticalAsummetry;
-        public double horizontalAsymmetry;
+        public double[] horizontalAsymmetry;
         public double[] nullPoint;
         public double trough;
         public double ridge;
@@ -234,6 +234,9 @@ namespace StatAnalisys
         public List<double> listRmsZDC = new List<double>();
         public List<double> listRmsZUC = new List<double>();
         public int rogueWave = 0;
+        double midCrestHorZDC, midThroughHorZDC, midCrestHorZUC, midThroughHorZUC;
+
+        //double midCloudsZDCVertAsum, midCloudsZUCVertAsum, midCloudsZDCHorAsum, midCloudsZUCHorAsum;
         public List<waveData> calculatedDatas
         {
             get
@@ -336,12 +339,13 @@ namespace StatAnalisys
         waveData getSingleWave(int i, typeCrossing type, double[] arrT, double[] arrS)
         {
             int k = 0;
-            double rms = 0;
+            double tmp, rms = 0;
             double countRMS = 0;
             int sizeT = arrT.Count();
             double currentPointSec, currentPointShift;
             waveData wave = new waveData();
             wave.nullPoint = new double[3];
+            wave.horizontalAsymmetry = new double[2];
             wave.type = type;
 
             double nullPoint = getNullPoint(arrT[i], arrS[i], arrT[i + 1], arrS[i + 1]);
@@ -370,7 +374,14 @@ namespace StatAnalisys
             }
 
             wave.verticalAsummetry = Math.Abs(wave.amplMax / wave.amplMin);
-            wave.horizontalAsymmetry = (wave.nullPoint[1] - wave.nullPoint[0]) / (wave.nullPoint[2] - wave.nullPoint[1]);
+
+            if (wave.verticalAsummetry > 100)
+            {
+                Console.WriteLine();
+            }
+            wave.horizontalAsymmetry[0] = wave.nullPoint[1] - wave.nullPoint[0];
+            wave.horizontalAsymmetry[1] = wave.nullPoint[2] - wave.nullPoint[1];
+            //wave.horizontalAsymmetry = (wave.nullPoint[1] - wave.nullPoint[0]) / (wave.nullPoint[2] - wave.nullPoint[1]);
             wave.totalHeight = Math.Abs(wave.amplMax) + Math.Abs(wave.amplMin);
 
             wave.rms = Math.Sqrt(rms/countRMS);
@@ -448,6 +459,14 @@ namespace StatAnalisys
 
         }
 
+        /*void calculateMiddleAsummetry()
+        {
+            midCloudsZDCVertAsum /= listRmsZDC.Count();
+            midCloudsZUCVertAsum /= listRmsZUC.Count();
+            midCloudsZDCHorAsum /= listRmsZDC.Count();
+            midCloudsZUCHorAsum /= listRmsZUC.Count();
+        }*/
+
         List<double> calculateClouds()
         {
             cloudsVertZDC = new double[calculatingWaves.Count()][];
@@ -461,6 +480,26 @@ namespace StatAnalisys
             shiftCloudsVertZDC = 0;
             double x, y;
             int i = 0;
+            double midCrestAZDC, midThroughAZDC, midCrestAZUC, midThroughAZUC;
+            midCrestAZDC = midThroughAZDC = midCrestAZUC = midThroughAZUC = 0;
+
+            for (int k = 0; k < listCrestAZDC.Count(); k++)
+            {
+                midCrestAZDC += listCrestAZDC[k];
+                midThroughAZDC += listThroughAZDC[k];
+            }
+
+            midCrestAZUC /= listCrestAZDC.Count();
+            midThroughAZDC /= listCrestAZDC.Count();
+
+            for (int k = 0; k < listCrestAZUC.Count(); k++)
+            {
+                midCrestAZUC += listCrestAZUC[k];
+                midThroughAZUC += listThroughAZUC[k];
+            }
+
+            midCrestAZUC /= listCrestAZUC.Count();
+            midThroughAZUC /= listCrestAZUC.Count();
 
             foreach (waveData wave in calculatingWaves)
             {
@@ -473,11 +512,19 @@ namespace StatAnalisys
                 {
                     case typeCrossing.ZDC:
                         x = wave.totalHeight / listHeightsZDC.heightOneThird;
-                        y = Math.Sign(wave.verticalAsummetry - 1) * wave.verticalAsummetry;
+                        y = 2 * (Math.Abs(wave.amplMax / midCrestAZDC) - Math.Abs(wave.amplMin / midThroughAZDC)) / (Math.Abs(wave.amplMax / midCrestAZDC) + Math.Abs(wave.amplMin / midThroughAZDC));
+                        //y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry - 1));
+                        if (y > 100)
+                        {
+                            Console.WriteLine();
+                        }
+                        //y = Math.Sign(wave.verticalAsummetry - 1) * wave.verticalAsummetry;
+                        y = 2 * (Math.Abs(wave.horizontalAsymmetry[1] / midCrestHorZDC) - Math.Abs(wave.horizontalAsymmetry[0] / midThroughHorZDC)) / (Math.Abs(wave.horizontalAsymmetry[1] / midCrestHorZDC) + Math.Abs(wave.horizontalAsymmetry[0] / midThroughHorZDC));
                         cloudsVertZDC[i][0] = x;
                         cloudsVertZDC[i][1] = y;
                         shiftCloudsVertZDC += y;
-                        y = Math.Sign(wave.horizontalAsymmetry - 1) * wave.horizontalAsymmetry;
+                        //y = Math.Sign(wave.horizontalAsymmetry - 1) * wave.horizontalAsymmetry;
+                        //y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry - 1));
                         cloudsHorZDC[i][0] = x;
                         cloudsHorZDC[i][1] = y;
                         shiftCloudsHorZDC += y;
@@ -485,11 +532,16 @@ namespace StatAnalisys
 
                     case typeCrossing.ZUC:
                         x = wave.totalHeight / listHeightsZUC.heightOneThird;
-                        y = Math.Sign(wave.verticalAsummetry - 1) * wave.verticalAsummetry;
+
+                        y = 2 * (Math.Abs(wave.amplMax / midCrestAZUC) - Math.Abs(wave.amplMin / midCrestAZUC)) / (Math.Abs(wave.amplMax / midCrestAZUC) + Math.Abs(wave.amplMin / midCrestAZUC));
+                        //y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry - 1));
+                        //y = Math.Sign(wave.verticalAsummetry - 1) * wave.verticalAsummetry;
                         cloudsVertZUC[i][0] = x;
                         cloudsVertZUC[i][1] = y;
                         shiftCloudsVertZUC += y;
-                        y = Math.Sign(wave.horizontalAsymmetry - 1) * wave.horizontalAsymmetry;
+                        //y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry - 1));
+                        //y = Math.Sign(wave.horizontalAsymmetry - 1) * wave.horizontalAsymmetry;
+                        y = 2 * (Math.Abs(wave.horizontalAsymmetry[0] / midCrestHorZDC) - Math.Abs(wave.horizontalAsymmetry[1] / midThroughHorZDC)) / (Math.Abs(wave.horizontalAsymmetry[0] / midCrestHorZDC) + Math.Abs(wave.horizontalAsymmetry[1] / midThroughHorZDC));
                         cloudsHorZUC[i][0] = x;
                         cloudsHorZUC[i][1] = y;
                         shiftCloudsHorZUC += y;
@@ -510,6 +562,9 @@ namespace StatAnalisys
         public bool calculateSingleWave(double[] arrT, double[] arrS)
         {
             waveData newWave;
+            //midCloudsZDCVertAsum = midCloudsZUCVertAsum = midCloudsZDCHorAsum = midCloudsZUCHorAsum = 0;
+
+            midCrestHorZDC = midThroughHorZDC = midCrestHorZUC = midThroughHorZUC = 0;
 
             for (int i = 0; i < arrT.Count(); i++)
             {
@@ -531,9 +586,11 @@ namespace StatAnalisys
                     if(newWave.totalHeight == 0.0)
                     {
                         setHeights(listHeihtsZDC, listHeihtsZUC, listRmsZDC, listRmsZUC);
+                        calculateMiddleHorAsummetry();
                         calculateProbabilities();
                         calculateSighificiantPeriods();
                         calculateClouds();
+
                         return true;
                     }
 
@@ -543,6 +600,10 @@ namespace StatAnalisys
                         listCrestAZDC.Add(newWave.amplMax);
                         listThroughAZDC.Add(-newWave.amplMin);
                         listRmsZDC.Add(newWave.rms);
+                        midCrestHorZDC += newWave.horizontalAsymmetry[0];
+                        midThroughHorZDC += newWave.horizontalAsymmetry[1];
+                        //midCloudsZDCVertAsum += newWave.verticalAsummetry;
+                        //midCloudsZDCHorAsum += newWave.horizontalAsymmetry;
                     }
                     else
                     {
@@ -550,6 +611,10 @@ namespace StatAnalisys
                         listCrestAZUC.Add(newWave.amplMax);
                         listThroughAZUC.Add(-newWave.amplMin);
                         listRmsZUC.Add(newWave.rms);
+                        midCrestHorZUC += newWave.horizontalAsymmetry[0];
+                        midThroughHorZUC += newWave.horizontalAsymmetry[1];
+                        //midCloudsZUCVertAsum += newWave.verticalAsummetry;
+                        //midCloudsZUCHorAsum += newWave.horizontalAsymmetry;
                     }
 
                     calculatingWaves.Add(newWave);
@@ -559,6 +624,14 @@ namespace StatAnalisys
             //calculateProbabilities();
             //calculateSighificiantPeriods();
             return true;
+        }
+
+        void calculateMiddleHorAsummetry()
+        {
+            midCrestHorZDC /= listRmsZDC.Count();
+            midThroughHorZDC /= listRmsZDC.Count();
+            midCrestHorZUC /= listRmsZUC.Count();
+            midThroughHorZUC /= listRmsZUC.Count();
         }
 
         void calculateSighificiantPeriods()

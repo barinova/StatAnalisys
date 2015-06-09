@@ -402,7 +402,7 @@
             this.chartZUC.Series.Add(series16);
             this.chartZUC.Size = new System.Drawing.Size(1244, 490);
             this.chartZUC.TabIndex = 9;
-            this.chartZUC.Text = "chart1";
+            this.chartZUC.Text = "chartZDC";
             // 
             // labelIndexWave
             // 
