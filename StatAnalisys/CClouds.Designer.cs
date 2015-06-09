@@ -99,7 +99,7 @@
             // 
             chartArea1.AxisX.LabelStyle.Format = "0.00";
             chartArea1.AxisX.Title = "H / Hthird";
-            chartArea1.AxisY.Title = "2 * (Xcr - Xtr) / (Xcr + Xtr)";
+            chartArea1.AxisY.Title = "(Xcr - Xtr) / (Xcr + Xtr)";
             chartArea1.Name = "ChartArea1";
             this.chartCloudsZUCHor.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -125,7 +125,7 @@
             // 
             chartArea2.AxisX.LabelStyle.Format = "0.00";
             chartArea2.AxisX.Title = "H / Hthird";
-            chartArea2.AxisY.Title = "2 * (Ycr - Ytr) / (Ycr + Ytr)";
+            chartArea2.AxisY.Title = "(Ycr - Ytr) / (Ycr + Ytr)";
             chartArea2.Name = "ChartArea1";
             this.chartCloudsZUCVert.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
@@ -151,7 +151,7 @@
             // 
             chartArea3.AxisX.LabelStyle.Format = "0.00";
             chartArea3.AxisX.Title = "H / Hthird";
-            chartArea3.AxisY.Title = "2 * (Xcr - Xtr) / (Xcr + Xtr)";
+            chartArea3.AxisY.Title = "(Xcr - Xtr) / (Xcr + Xtr)";
             chartArea3.Name = "ChartArea1";
             this.chartCloudsZDCHor.ChartAreas.Add(chartArea3);
             legend3.Name = "Legend1";
@@ -177,7 +177,7 @@
             // 
             chartArea4.AxisX.LabelStyle.Format = "0.00";
             chartArea4.AxisX.Title = "H / Hthird";
-            chartArea4.AxisY.Title = "2 * (Ycr - Ytr) / (Ycr + Ytr)";
+            chartArea4.AxisY.Title = "(Ycr - Ytr) / (Ycr + Ytr)";
             chartArea4.Name = "ChartArea1";
             this.chartCloudsZDCVert.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";

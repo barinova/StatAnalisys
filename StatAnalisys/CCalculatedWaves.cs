@@ -512,19 +512,14 @@ namespace StatAnalisys
                 {
                     case typeCrossing.ZDC:
                         x = wave.totalHeight / listHeightsZDC.heightOneThird;
-                        y = 2 * (Math.Abs(wave.amplMax / midCrestAZDC) - Math.Abs(wave.amplMin / midThroughAZDC)) / (Math.Abs(wave.amplMax / midCrestAZDC) + Math.Abs(wave.amplMin / midThroughAZDC));
-                        //y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry - 1));
-                        if (y > 100)
-                        {
-                            Console.WriteLine();
-                        }
-                        //y = Math.Sign(wave.verticalAsummetry - 1) * wave.verticalAsummetry;
-                        y = 2 * (Math.Abs(wave.horizontalAsymmetry[1] / midCrestHorZDC) - Math.Abs(wave.horizontalAsymmetry[0] / midThroughHorZDC)) / (Math.Abs(wave.horizontalAsymmetry[1] / midCrestHorZDC) + Math.Abs(wave.horizontalAsymmetry[0] / midThroughHorZDC));
+                        //y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry - 1));//y = Math.Sign(wave.verticalAsummetry - 1) * wave.verticalAsummetry;
+                        y = (Math.Abs(wave.amplMax / midCrestAZDC) - Math.Abs(wave.amplMin / midCrestAZDC)) / (Math.Abs(wave.amplMax / midCrestAZDC) + Math.Abs(wave.amplMin / midCrestAZDC));
                         cloudsVertZDC[i][0] = x;
                         cloudsVertZDC[i][1] = y;
                         shiftCloudsVertZDC += y;
                         //y = Math.Sign(wave.horizontalAsymmetry - 1) * wave.horizontalAsymmetry;
                         //y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry - 1));
+                        y = (Math.Abs(wave.horizontalAsymmetry[1] / midCrestHorZDC) - Math.Abs(wave.horizontalAsymmetry[0] / midThroughHorZDC)) / (Math.Abs(wave.horizontalAsymmetry[1] / midCrestHorZDC) + Math.Abs(wave.horizontalAsymmetry[0] / midThroughHorZDC));
                         cloudsHorZDC[i][0] = x;
                         cloudsHorZDC[i][1] = y;
                         shiftCloudsHorZDC += y;
@@ -533,7 +528,7 @@ namespace StatAnalisys
                     case typeCrossing.ZUC:
                         x = wave.totalHeight / listHeightsZUC.heightOneThird;
 
-                        y = 2 * (Math.Abs(wave.amplMax / midCrestAZUC) - Math.Abs(wave.amplMin / midCrestAZUC)) / (Math.Abs(wave.amplMax / midCrestAZUC) + Math.Abs(wave.amplMin / midCrestAZUC));
+                        y = (Math.Abs(wave.amplMax / midCrestAZUC) - Math.Abs(wave.amplMin / midCrestAZUC)) / (Math.Abs(wave.amplMax / midCrestAZUC) + Math.Abs(wave.amplMin / midCrestAZUC));
                         //y = Math.Sign(wave.verticalAsummetry - 1) * Math.Pow(wave.verticalAsummetry, Math.Sign(wave.verticalAsummetry - 1));
                         //y = Math.Sign(wave.verticalAsummetry - 1) * wave.verticalAsummetry;
                         cloudsVertZUC[i][0] = x;
@@ -541,7 +536,7 @@ namespace StatAnalisys
                         shiftCloudsVertZUC += y;
                         //y = Math.Sign(wave.horizontalAsymmetry - 1) * Math.Pow(wave.horizontalAsymmetry, Math.Sign(wave.horizontalAsymmetry - 1));
                         //y = Math.Sign(wave.horizontalAsymmetry - 1) * wave.horizontalAsymmetry;
-                        y = 2 * (Math.Abs(wave.horizontalAsymmetry[0] / midCrestHorZDC) - Math.Abs(wave.horizontalAsymmetry[1] / midThroughHorZDC)) / (Math.Abs(wave.horizontalAsymmetry[0] / midCrestHorZDC) + Math.Abs(wave.horizontalAsymmetry[1] / midThroughHorZDC));
+                        y = (Math.Abs(wave.horizontalAsymmetry[0] / midCrestHorZUC) - Math.Abs(wave.horizontalAsymmetry[1] / midThroughHorZUC)) / (Math.Abs(wave.horizontalAsymmetry[0] / midCrestHorZUC) + Math.Abs(wave.horizontalAsymmetry[1] / midThroughHorZUC));
                         cloudsHorZUC[i][0] = x;
                         cloudsHorZUC[i][1] = y;
                         shiftCloudsHorZUC += y;
